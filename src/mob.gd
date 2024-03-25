@@ -23,7 +23,6 @@ func take_damage(damage: float) -> float:
 	if !invincible:
 		damage *= damage_factor
 		health -= damage
-		print_debug("Mob %s took %f damage! health now %f" % [name, damage, health])
 		if health <= 0:
 			mob_destroyed.emit(self)
 		else:

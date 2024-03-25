@@ -8,6 +8,6 @@ func _ready():
 	if parent: connect("area_entered", _on_area_entered)
 
 
-func _on_area_entered(hitbox: Area2D):
-	if hitbox is HitBox:
-		parent.take_damage(hitbox.damage_dealt)
+func _on_area_entered(area: Area2D):
+	if area is HitBox:
+		parent.take_damage(area.damage_dealt)
