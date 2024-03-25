@@ -12,7 +12,16 @@ config_version=5
 
 config/name="Crossfire"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://gfx/logo.png"
+boot_splash/fullsize=false
+config/icon="res://gfx/logo.png"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/initial_screen=1
+window/stretch/mode="canvas_items"
 
 [rendering]
 
