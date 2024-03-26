@@ -25,5 +25,6 @@ func enter_state(name: String) -> bool:
 func can_enter_state(state: State) -> bool:
 	return true
 
-# TODO: Handle current state processing switches
+# TODO: Handle current state processing switches (test)
 # TODO: Handle enter and exit tree signals
+# TODO: Allow pass params to enter state?
