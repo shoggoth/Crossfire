@@ -6,16 +6,26 @@ class_name StateMachine extends Node
 
 func _ready():
 	for child in get_children():
-		(child as State).sm = self
-		child.process_mode = Node.PROCESS_MODE_DISABLED
-	if current_state: current_state.enter_from(null)
+		if child is State:
+			child.sm = self
+			if child == current_state:
+				child.enter_from(null)
+			else:
+				child.process_mode = Node.PROCESS_MODE_DISABLED
+	connect("child_entered_tree", _on_child_entered_tree)
 
 
-func enter_state(name: String) -> bool:
-	var state = get_node(name) as State
+func _on_child_entered_tree(node: Node):
+	print_debug(node, " entered tree")
+
+
+func enter_state(node_name: String, params := {}) -> bool:
+	var state = get_node(node_name) as State
 	if !state || !can_enter_state(state): return false
-	if current_state: current_state.exit_to(state)
-	if state.enter_from(current_state):
+	if current_state:
+		current_state.process_mode = Node.PROCESS_MODE_DISABLED
+		current_state.exit_to(state)
+	if state.enter_from(current_state, params):
 		state.process_mode = Node.PROCESS_MODE_INHERIT
 		current_state = state
 		return true
@@ -23,8 +33,4 @@ func enter_state(name: String) -> bool:
 
 
 func can_enter_state(state: State) -> bool:
-	return true
-
-# TODO: Handle current state processing switches (test)
-# TODO: Handle enter and exit tree signals
-# TODO: Allow pass params to enter state?
+	return state != null

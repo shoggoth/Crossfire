@@ -4,17 +4,17 @@ class_name State extends Node
 var sm: StateMachine = null
 
 
-func _process(delta):
-	print_debug(name, " _process ", delta)
+func _process(_delta):
+	pass
 
 
-func _physics_process(delta):
-	print_debug(name, " _physics_process ", delta)
+func _physics_process(_delta):
+	pass
 
 
-func enter_from(from: State, params := {}) -> bool:
+func enter_from(_from: State, _params := {}) -> bool:
 	return true
 
 
-func exit_to(to: State) -> bool:
+func exit_to(_to: State) -> bool:
 	return true
