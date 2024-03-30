@@ -21,7 +21,7 @@ func _on_child_entered_tree(node: Node):
 
 func enter_state(node_name: String, params := {}) -> bool:
 	var state = get_node(node_name) as State
-	if !state || !can_enter_state(state): return false
+	if !can_enter_state(state): return false
 	if current_state:
 		current_state.process_mode = Node.PROCESS_MODE_DISABLED
 		current_state.exit_to(state)
