@@ -2,21 +2,24 @@ class_name Mob extends CharacterBody2D
 
 
 signal mob_destroyed(Mob)
+signal mob_changed_invincibility_state(Mob)
 
 @export_group("Health")
 @export var health: float = 1.0
 @export var damage_factor: float = 1.0
-@export var invincibility_time: float = 0
+@export var invincibility_time: float = -1
+@export_group("Movement")
+@export var speed: float = 120.0
 
 var invincible := false: set = _set_invincible
-var _timer := Timer.new()
+var _invincibility_timer := Timer.new()
 
 
 func _ready():
-	_timer.one_shot = true
-	_timer.name = "Invincibility Timer"
-	_timer.timeout.connect(func(): invincible = false)
-	add_child(_timer)
+	_invincibility_timer.one_shot = true
+	_invincibility_timer.name = "Invincibility Timer"
+	_invincibility_timer.timeout.connect(func(): invincible = false)
+	add_child(_invincibility_timer)
 
 
 func take_damage(damage: float) -> float:
@@ -31,9 +34,7 @@ func take_damage(damage: float) -> float:
 
 
 func _set_invincible(value: bool):
-	if value != invincible:
-		invincible = value
-		if value:
-			_timer.start(invincibility_time)
-		else:
-			_timer.stop()
+	if value == invincible: return
+	invincible = value
+	mob_changed_invincibility_state.emit(self)
+	_invincibility_timer.start(invincibility_time) if value else _invincibility_timer.stop()
