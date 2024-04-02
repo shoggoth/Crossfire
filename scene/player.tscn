@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7usp7o48ccjh"]
+
+[ext_resource type="Script" path="res://scene/player.gd" id="1_tjouh"]
+[ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="2_3346a"]
+[ext_resource type="Script" path="res://src/component/state_machine.gd" id="3_mq2sw"]
+[ext_resource type="Script" path="res://src/mob_state.gd" id="4_nkdaq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
+size = Vector2(16, 16)
+
+[sub_resource type="GDScript" id="GDScript_5g488"]
+script/source = "extends MobState
+
+
+func enter_from(state: State, params: Dictionary = {}) -> bool:
+	change_state(\"Fire\", {\"player\" : self })
+	change_state(\"Move\", {\"player\" : self })
+	print(\"Idle params = \", params)
+	play(\"idle\")
+	return true
+"
+
+[sub_resource type="GDScript" id="GDScript_w0fxf"]
+script/source = "extends MobState
+
+
+func enter_from(state: State, params: Dictionary = {}) -> bool:
+	print(state.name if state else \"No State\", \" -> \", self, \" params = \", params)
+	return true
+"
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 8
+script = ExtResource("1_tjouh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3346a")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_tvqwh")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_mq2sw")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = SubResource("GDScript_5g488")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = SubResource("GDScript_w0fxf")
+
+[node name="Fire" type="Node" parent="StateMachine"]
+script = ExtResource("4_nkdaq")
+
+[node name="Explode" type="Node" parent="StateMachine"]
+script = ExtResource("4_nkdaq")

@@ -12,8 +12,9 @@ func _physics_process(_delta):
 	pass
 
 
-func change_state(state_name: String):
-	if sm: sm.enter_state(sm.get_node(state_name))
+func change_state(state_name: String, params := {}):
+	# In case state change is called from somewhere like the entry, defer it
+	(func(): sm.enter_state_named(state_name, params)).call_deferred()
 
 
 func enter_from(_from: State, _params := {}) -> bool:

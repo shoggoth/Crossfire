@@ -8,11 +8,11 @@ func _ready():
 	connect("child_entered_tree", _on_child_entered_tree)
 	for child in get_children():
 		if child is State:
-			child.sm = self
 			if child == current_state:
 				child.enter_from(null)
 			else:
 				child.process_mode = Node.PROCESS_MODE_DISABLED
+			child.sm = self
 
 
 func _on_child_entered_tree(child: Node):
@@ -21,9 +21,12 @@ func _on_child_entered_tree(child: Node):
 		child.sm = self
 
 
+func get_state(named: String) -> State:
+	return get_node(named) as State
+
+
 func enter_state(state: State, params := {}) -> bool:
 	if !can_enter_state(state as State): return false
-	print_debug("%s -> %s" % [current_state.name, state.name])
 	if current_state:
 		current_state.process_mode = Node.PROCESS_MODE_DISABLED
 		current_state.exit_to(state)
@@ -32,6 +35,11 @@ func enter_state(state: State, params := {}) -> bool:
 		current_state = state
 		return true
 	return false
+
+
+func enter_state_named(state_name: String, params := {}) -> bool:
+	var state = get_state(state_name)
+	return false if !state else enter_state(state, params)
 
 
 func can_enter_state(state: State) -> bool:
