@@ -79,8 +79,7 @@ fire={
 
 [physics]
 
-2d/run_on_separate_thread=true
-common/physics_ticks_per_second=50
+2d/physics_engine="GodotPhysics2D"
 
 [rendering]
 

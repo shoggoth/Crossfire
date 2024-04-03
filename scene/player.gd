@@ -5,4 +5,4 @@ class_name Player extends Mob
 
 
 func _ready():
-	fsm.enter_state(fsm.get_state("Explode"), {"player" : self })
+	pass

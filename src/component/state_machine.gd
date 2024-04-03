@@ -9,9 +9,10 @@ func _ready():
 	for child in get_children():
 		if child is State:
 			if child == current_state:
-				child.enter_from(null)
+				child.enter_from.call_deferred(null)
 			else:
 				child.process_mode = Node.PROCESS_MODE_DISABLED
+			child.set_meta("mob", get_parent())
 			child.sm = self
 
 
