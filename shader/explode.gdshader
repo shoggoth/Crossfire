@@ -23,7 +23,7 @@ void fragment() {
     // Calculate the texture offset d for the band.
     vec2 d = vec2(floor(tc.x / (tw.x + sw.x)) * (1.0 / (ns.x + 1.0)), floor(tc.y / (tw.y + sw.y)) * (1.0 / (ns.y + 1.0)));
     
-    COLOR = texture(TEXTURE, vec2(m.x + d.x, m.y + d.y));
+    COLOR *= texture(TEXTURE, vec2(m.x + d.x, m.y + d.y));
 }
 
 //void light() {
