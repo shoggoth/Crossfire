@@ -17,7 +17,7 @@ func change_state(state_name: String, params := {}):
 	(func(): sm.enter_state_named(state_name, params)).call_deferred()
 
 
-func enter_from(_from: State, _params := {}) -> bool:
+func enter_from(_from: State, _params: Dictionary) -> bool:
 	print_debug(name, " state entered")
 	return true
 

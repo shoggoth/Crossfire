@@ -29,6 +29,7 @@ func get_state(named: String) -> State:
 func enter_state(state: State, params := {}) -> bool:
 	if !can_enter_state(state as State): return false
 	if current_state:
+		print_debug(current_state.name, " -> ", state.name)
 		current_state.process_mode = Node.PROCESS_MODE_DISABLED
 		current_state.exit_to(state)
 	if state && state.enter_from(current_state, params):

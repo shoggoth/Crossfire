@@ -1,16 +1,15 @@
 class_name MobState extends State
 
 
-var input:
-	get: return mob.input
+@export var mob_path: NodePath = "../.."
 
-@onready var mob = get_node("../..") as Mob
+@onready var mob = get_node(mob_path) as Mob
 
 
 func play(animation):
-	print(mob, " play anim: ", animation)
+	print(mob, " play anim: ")
 
-func move(delta, flip = true, direction = input.d_pad):
+func move(delta, flip = true, direction = mob.input.d_pad):
 	# Accelerate
 	mob.velocity = mob.velocity.move_toward(mob.speed * direction, mob.accel * delta)
 	mob.velocity = direction * mob.speed
