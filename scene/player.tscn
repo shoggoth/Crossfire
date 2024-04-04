@@ -8,8 +8,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
 shader = ExtResource("2_vr2vu")
-shader_parameter/a_explodeAmount = Vector2(2, 2)
-shader_parameter/a_numberOfSplits = Vector2(4, 4)
+shader_parameter/explode_amount = null
+shader_parameter/number_of_splits = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
 size = Vector2(16, 16)
@@ -63,9 +63,10 @@ script = ExtResource("1_tjouh")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = SubResource("ShaderMaterial_fn5vs")
+position = Vector2(8, 8)
 texture = ExtResource("2_3346a")
-offset = Vector2(8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)

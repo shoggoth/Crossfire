@@ -1,15 +1,16 @@
 shader_type canvas_item;
 
+uniform vec2 explode_amount;
+
 void vertex() {
-	// Called for every vertex the material is visible on.
+	VERTEX *= explode_amount;
 }
 
-uniform vec2 a_explodeAmount;
-uniform vec2 a_numberOfSplits;
+uniform vec2 number_of_splits;
 
 void fragment() {
-	vec2 ef = a_explodeAmount;										// Explode scale factor.
-    vec2 ns = a_numberOfSplits;										// Number of splits.
+	vec2 ef = explode_amount;										// Explode scale factor.
+    vec2 ns = number_of_splits;										// Number of splits.
 
     vec2 tc = UV * ef;
     vec2 tw = vec2(1.0 / (ns.x + 1.0), 1.0 / (ns.y + 1.0));			// Textured band width.
