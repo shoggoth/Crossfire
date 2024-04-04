@@ -11,7 +11,6 @@ signal mob_changed_invincibility_state(Mob)
 @export_group("Movement")
 @export var speed: float = 90.0
 @export var accel: float = 900.0
-@export var input: Node = null
 
 var invincible := false: set = _set_invincible
 var _invincibility_timer := Timer.new()

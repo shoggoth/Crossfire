@@ -1,9 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7usp7o48ccjh"]
+[gd_scene load_steps=12 format=3 uid="uid://c7usp7o48ccjh"]
 
 [ext_resource type="Script" path="res://scene/player.gd" id="1_tjouh"]
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="2_3346a"]
+[ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_vr2vu"]
 [ext_resource type="Script" path="res://src/component/state_machine.gd" id="3_mq2sw"]
 [ext_resource type="Script" path="res://src/input_handler.gd" id="5_v6e1l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
+shader = ExtResource("2_vr2vu")
+shader_parameter/a_explodeAmount = Vector2(2, 2)
+shader_parameter/a_numberOfSplits = Vector2(4, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
 size = Vector2(16, 16)
@@ -51,15 +57,15 @@ resource_name = "Explode"
 script/source = "extends MobState
 "
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input")]
+[node name="Player" type="CharacterBody2D"]
 collision_mask = 8
 script = ExtResource("1_tjouh")
-speed = 60.0
-input = NodePath("InputHandler")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_fn5vs")
 texture = ExtResource("2_3346a")
-centered = false
+offset = Vector2(8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)
