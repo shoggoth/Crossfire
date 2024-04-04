@@ -8,8 +8,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
 shader = ExtResource("2_vr2vu")
-shader_parameter/explode_amount = null
-shader_parameter/number_of_splits = null
+shader_parameter/explode_amount = Vector2(1, 1)
+shader_parameter/number_of_splits = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
 size = Vector2(16, 16)
@@ -55,21 +55,25 @@ func _physics_process(delta):
 [sub_resource type="GDScript" id="GDScript_kmhv7"]
 resource_name = "Explode"
 script/source = "extends MobState
+
+
+func enter_from(state: State, params: Dictionary) -> bool:
+	print(\"Explode \", mob.sprite)
+	return true
 "
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 8
 script = ExtResource("1_tjouh")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_fn5vs")
-position = Vector2(8, 8)
+position = Vector2(17, 26)
 texture = ExtResource("2_3346a")
+offset = Vector2(-17, -26)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_tvqwh")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
