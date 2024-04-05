@@ -10,7 +10,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
 shader = ExtResource("2_vr2vu")
 shader_parameter/explode_amount = Vector2(1, 1)
-shader_parameter/number_of_splits = Vector2(16, 16)
+shader_parameter/number_of_splits = Vector2(15, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
 size = Vector2(16, 16)
@@ -59,13 +59,14 @@ script/source = "extends MobState
 
 
 func enter_from(state: State, params: Dictionary) -> bool:
+	$AnimationPlayer.connect(\"animation_finished\", func(_n): sm.enter_state(state), CONNECT_ONE_SHOT)
 	$AnimationPlayer.play(\"explode\")
 	return true
 "
 
 [sub_resource type="Animation" id="Animation_ityh2"]
 resource_name = "explode"
-length = 3.0
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -85,7 +86,7 @@ tracks/1/path = NodePath("../../Sprite2D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(10, -10),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
@@ -97,7 +98,7 @@ tracks/2/path = NodePath("../../Sprite2D:material:shader_parameter/explode_amoun
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, -10),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(8, 8)]
@@ -110,7 +111,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "clips": [{
-"end_offset": 0.0,
+"end_offset": 0.927674,
 "start_offset": 0.0,
 "stream": ExtResource("5_ji6is")
 }],
@@ -178,11 +179,14 @@ _data = {
 "explode": SubResource("Animation_ityh2")
 }
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_erd1j"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_y3smp"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 8
 script = ExtResource("1_tjouh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -216,7 +220,7 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
-stream = SubResource("AudioStreamPolyphonic_erd1j")
+stream = SubResource("AudioStreamPolyphonic_y3smp")
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("5_v6e1l")
