@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://c7usp7o48ccjh"]
+[gd_scene load_steps=19 format=3 uid="uid://c7usp7o48ccjh"]
 
 [ext_resource type="Script" path="res://scene/player.gd" id="1_tjouh"]
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="2_3346a"]
 [ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_vr2vu"]
 [ext_resource type="Script" path="res://src/component/state_machine.gd" id="3_mq2sw"]
+[ext_resource type="Script" path="res://src/component/hurtbox.gd" id="4_7xd63"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="5_ji6is"]
 [ext_resource type="Script" path="res://src/input_handler.gd" id="5_v6e1l"]
 
@@ -11,6 +12,9 @@
 shader = ExtResource("2_vr2vu")
 shader_parameter/explode_amount = Vector2(1, 1)
 shader_parameter/number_of_splits = Vector2(15, 15)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5xd3s"]
+radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvqwh"]
 size = Vector2(16, 16)
@@ -49,7 +53,7 @@ resource_name = "Fire"
 script/source = "extends MobState
 
 
-func _physics_process(_delta):
+func _process(_delta):
 	sm.enter_state_named(\"Explode\")
 "
 
@@ -179,14 +183,16 @@ _data = {
 "explode": SubResource("Animation_ityh2")
 }
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_ifdso"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lgpf6"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 8
 script = ExtResource("1_tjouh")
+metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
+limit_left = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -194,7 +200,17 @@ material = SubResource("ShaderMaterial_fn5vs")
 texture = ExtResource("2_3346a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_5xd3s")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="HurtBox" type="Area2D" parent="."]
+visible = false
+script = ExtResource("4_7xd63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_tvqwh")
+debug_color = Color(0, 0.517647, 0.0941176, 0.419608)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_mq2sw")
@@ -220,7 +236,7 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
-stream = SubResource("AudioStreamPolyphonic_ifdso")
+stream = SubResource("AudioStreamPolyphonic_lgpf6")
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("5_v6e1l")

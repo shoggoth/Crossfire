@@ -6,20 +6,7 @@ class_name StateMachine extends Node
 
 func _ready():
 	connect("child_entered_tree", _on_child_entered_tree)
-	for child in get_children():
-		if child is State:
-			if child == current_state:
-				child.enter_from.call_deferred(null, {})
-			else:
-				child.process_mode = Node.PROCESS_MODE_DISABLED
-			child.set_meta("parent_node", get_parent())
-			child.sm = self
-
-
-func _on_child_entered_tree(child: Node):
-	if child is State:
-		child.process_mode = Node.PROCESS_MODE_DISABLED
-		child.sm = self
+	for child in get_children(): _on_child_entered_tree(child)
 
 
 func get_state(named: String) -> State:
@@ -46,3 +33,11 @@ func enter_state_named(state_name: String, params := {}) -> bool:
 
 func can_enter_state(state: State) -> bool:
 	return !current_state || current_state.valid_transitions == null || current_state.valid_transitions.has(state.name)
+
+
+func _on_child_entered_tree(child: Node):
+	if child is State:
+		child.sm = self
+		child.set_meta("parent_node", get_parent())
+		child.process_mode = Node.PROCESS_MODE_DISABLED
+		if child == current_state: child.enter_from.call_deferred(null, {})
