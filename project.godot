@@ -16,6 +16,10 @@ boot_splash/image="res://gfx/logo.png"
 boot_splash/fullsize=false
 config/icon="res://gfx/logo.png"
 
+[autoload]
+
+Global="*res://src/global.gd"
+
 [display]
 
 window/size/viewport_width=1280

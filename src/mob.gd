@@ -1,8 +1,8 @@
 class_name Mob extends CharacterBody2D
 
 
-signal mob_destroyed(Mob)
-signal mob_changed_invincibility_state(Mob)
+signal mob_destroyed(mob: Mob)
+signal mob_changed_invincibility_state(mob: Mob)
 
 @export_group("Health")
 @export var health: float = 1.0
