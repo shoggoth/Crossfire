@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Game, world and level loading with persistent player and UI
 - Architect phases with state machine
 - Look at bbcode UI rich text component
 
