@@ -1,19 +1,21 @@
 extends Node
 
 
+var attract_node: Node = null
+
 func _ready():
-	$Attract.create_instance(true)
+	attract_node = $Attract.create_instance()
 
 
 func _on_game_start():
-	Global.disable_node($Attract)
+	remove_child(attract_node)
 	$World.show()
 	$Player.show()
 	$UI.mode = "HUD"
 
 
-func _on_game_over(mob):
-	Global.enable_node($Attract)
+func _on_game_over(_mob):
+	attract_node = $Attract.create_instance()
 	$World.hide()
 	$Player.hide()
 	$UI.mode = "StartMenu"
