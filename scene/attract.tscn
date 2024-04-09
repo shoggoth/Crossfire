@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb3bwwfrmos4v"]
+
+[ext_resource type="Texture2D" uid="uid://c644b0xb563gh" path="res://gfx/logo.png" id="1_awptr"]
+
+[sub_resource type="Animation" id="Animation_fsd5j"]
+resource_name = "temp"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1k464"]
+_data = {
+"temp": SubResource("Animation_fsd5j")
+}
+
+[node name="Attract" type="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(240, 206.2)
+texture = ExtResource("1_awptr")
+centered = false
+offset = Vector2(-145, -151.2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1k464")
+}
+autoplay = "temp"
