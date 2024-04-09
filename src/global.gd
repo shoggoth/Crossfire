@@ -1,10 +1,11 @@
 extends Node
 
 
-func disable_node(node: Node, disabled: bool):
-	if disabled:
+func enable_node(node: Node):
+	node.process_mode = Node.PROCESS_MODE_INHERIT
+	node.show()
+
+
+func disable_node(node: Node):
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 		node.hide()
-	else:
-		node.process_mode = Node.PROCESS_MODE_INHERIT
-		node.show()
