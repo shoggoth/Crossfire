@@ -5,6 +5,7 @@ var attract_node: Node = null
 
 func _ready():
 	attract_node = $Attract.create_instance()
+	$UI.mode = "StartMenu"
 
 
 func _on_game_start():
@@ -15,7 +16,8 @@ func _on_game_start():
 
 
 func _on_game_over(_mob):
-	attract_node = $Attract.create_instance()
+	if !attract_node.is_inside_tree():
+		attract_node = $Attract.create_instance()
 	$World.hide()
 	$Player.hide()
 	$UI.mode = "StartMenu"

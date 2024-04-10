@@ -5,27 +5,20 @@ extends Node
 
 @onready var phase_count = get_child_count()
 
+
 func _ready():
-	for child in get_children():
-		_disable_node(child)
-	_enable_node(get_child(current_phase))
+	var active_node = get_child(current_phase)
+	get_children().map(func(node): _show_node(node, node == active_node))
 
 
 func _on_phase_timer_timeout():
 	var last_phase = current_phase
 	current_phase = (current_phase + 1) % phase_count
 	if current_phase != last_phase:
-		_disable_node(get_child(last_phase))
-		_enable_node(get_child(current_phase))
+		_show_node(get_child(last_phase), false)
+		_show_node(get_child(current_phase), true)
 
 
-func _enable_node(node: Node):
-	node.process_mode = Node.PROCESS_MODE_INHERIT
-	node.show()
-
-
-func _disable_node(node: Node):
-	node.process_mode = Node.PROCESS_MODE_DISABLED
-	node.hide()
-
-
+func _show_node(node: Node, state: bool):
+	node.process_mode = Node.PROCESS_MODE_INHERIT if state else Node.PROCESS_MODE_DISABLED
+	node.visible = state
