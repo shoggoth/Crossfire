@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://dy58an47c21ue"
+path="res://.godot/imported/BlueFont.png-00d8c9ac3c39107add14feedbe544e76.fontdata"
+
+[deps]
+
+source_file="res://gfx/BlueFont.png"
+dest_files=["res://.godot/imported/BlueFont.png-00d8c9ac3c39107add14feedbe544e76.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\' \'", "\'!\'", "\'\"\'", "\'#\'", "\'$\'", "\'%\'", "\'&\'", "39", "\'(\'", "\')\'", "\'*\'", "\'+\'", "\',\'", "45", "\'.\'", "\'/\'", "\'0\'-\'9\'", "\':\'", "\';\'", "\'<\'", "\'=\'", "\'>\'", "\'?\'", "\'@\'", "\'A\'-\'Z\'", "\'[\'", "\'\\\'", "\']\'", "\'^\'", "\'_\'", "\'`\'", "\'a\'-\'z\'", "\'{\'", "\'|\'", "\'}\'", "\'~\'", "127")
+columns=96
+rows=1
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=1

@@ -12,9 +12,9 @@ config_version=5
 
 config/name="Crossfire"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-boot_splash/image="res://gfx/logo.png"
+boot_splash/image="res://gfx/Logo.png"
 boot_splash/fullsize=false
-config/icon="res://gfx/logo.png"
+config/icon="res://gfx/Logo.png"
 
 [autoload]
 
