@@ -6,7 +6,7 @@
 
 ### TODO
 - Game, world and level loading with persistent player and UI
-- Architect phases with state machine
+- Transition with 2 nodes swapping children amounts
 - Look at bbcode UI rich text component
 
 ### Done

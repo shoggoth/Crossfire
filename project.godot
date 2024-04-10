@@ -33,8 +33,10 @@ window/vsync/vsync_mode=0
 folder_colors={
 "res://gfx/": "yellow",
 "res://scene/": "green",
+"res://shader/": "yellow",
 "res://sound/": "yellow",
-"res://src/": "green"
+"res://src/": "green",
+"res://theme/": "yellow"
 }
 
 [input]
