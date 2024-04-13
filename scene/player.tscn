@@ -42,7 +42,7 @@ script/source = "extends State
 @export var velocity_component: VelocityComponent
 @export var mob_path: NodePath = \"../..\"
 
-@onready var mob = get_node(mob_path) as Player
+@onready var player = get_node(mob_path) as Player
 
 
 func enter_from(_state: State, params: Dictionary) -> bool:
@@ -51,8 +51,9 @@ func enter_from(_state: State, params: Dictionary) -> bool:
 
 
 func _physics_process(delta):
-	velocity_component.move(mob, mob.input.d_pad, delta)
-	if mob.input.fire:
+	player.velocity = velocity_component.accelerate(player.input.d_pad, delta)
+	player.move_and_slide()
+	if player.input.fire:
 		sm.enter_state_named(\"Fire\")
 "
 
@@ -194,7 +195,7 @@ _data = {
 "explode": SubResource("Animation_ityh2")
 }
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_ssxux"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_k7ndb"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 12
@@ -263,6 +264,6 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
-stream = SubResource("AudioStreamPolyphonic_ssxux")
+stream = SubResource("AudioStreamPolyphonic_k7ndb")
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]

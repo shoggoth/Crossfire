@@ -8,8 +8,11 @@ class_name VelocityComponent extends Node
 var velocity := Vector2.ZERO
 
 
-func move(body: CharacterBody2D, direction, delta):
+func accelerate(direction, delta) -> Vector2:
 	velocity = velocity.move_toward(speed * direction, accel * delta)
-	body.velocity = velocity
-	#body.velocity = speed * direction
-	body.move_and_slide()
+	return velocity
+
+
+func move(direction) -> Vector2:
+	velocity = speed * direction
+	return velocity
