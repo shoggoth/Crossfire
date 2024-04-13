@@ -13,7 +13,6 @@
 script = ExtResource("1_sobmk")
 
 [node name="World" type="Node2D" parent="."]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="World"]
 texture = ExtResource("4_3cp7m")
@@ -37,11 +36,11 @@ position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_al0wt")
 
 [node name="Player" parent="." instance=ExtResource("2_d2jgo")]
-visible = false
 
 [node name="Attract" parent="." instance_placeholder="res://scene/attract.tscn"]
+visible = false
 
 [node name="UI" parent="." instance=ExtResource("3_vmgrc")]
 
-[connection signal="mob_destroyed" from="Player" to="." method="_on_game_over"]
+[connection signal="destroyed" from="Player" to="." method="_on_game_over"]
 [connection signal="start_game" from="UI" to="." method="_on_game_start"]

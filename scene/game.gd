@@ -15,7 +15,8 @@ func _on_game_start():
 	$UI.mode = "HUD"
 
 
-func _on_game_over(_mob):
+#TODO: Remove the player param
+func _on_game_over(_player):
 	if !attract_node.is_inside_tree():
 		attract_node = $Attract.create_instance()
 	$World.hide()

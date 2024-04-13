@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Componentise health and movement, remove Mob subclass
 - Game, world and level loading with persistent player and UI
 - Transition with 2 nodes swapping children amounts
 - Look at bbcode UI rich text component

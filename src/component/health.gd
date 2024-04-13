@@ -1,16 +1,15 @@
-class_name Mob extends CharacterBody2D
+class_name HealthComponent extends Node
 
 
-signal mob_destroyed(mob: Mob)
-signal mob_changed_invincibility_state(mob: Mob)
+signal health_changed(health: float)
+signal invincibility_changed(state: bool)
 
 @export_group("Health")
+@export var max_health: float = 1.0
 @export var health: float = 1.0
 @export var damage_factor: float = 1.0
+@export_group("Invincibility")
 @export var invincibility_time: float = -1
-@export_group("Movement")
-@export var speed: float = 90.0
-@export var accel: float = 900.0
 
 var invincible := false: set = _set_invincible
 var _invincibility_timer := Timer.new()
@@ -23,19 +22,23 @@ func _ready():
 	add_child(_invincibility_timer)
 
 
-func take_damage(damage: float) -> float:
+func damage(dmg: float) -> float:
 	if !invincible:
-		damage *= damage_factor
-		health -= damage
-		if health <= 0:
-			mob_destroyed.emit(self)
-		else:
-			invincible = invincibility_time > 0
+		dmg *= damage_factor
+		health -= dmg
+		if health > 0: invincible = invincibility_time > 0
+		health_changed.emit(health)
+	return health
+
+
+func heal(amount: float) -> float:
+	health = clamp(health + amount, health, max_health)
+	health_changed.emit(health)
 	return health
 
 
 func _set_invincible(value: bool):
 	if value == invincible: return
 	invincible = value
-	mob_changed_invincibility_state.emit(self)
+	invincibility_changed.emit(invincible)
 	_invincibility_timer.start(invincibility_time) if value else _invincibility_timer.stop()

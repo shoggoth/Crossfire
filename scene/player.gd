@@ -1,5 +1,10 @@
-class_name Player extends Mob
+class_name Player extends CharacterBody2D
 
 
-@onready var input = $InputHandler
-@onready var sprite = $Sprite2D
+signal destroyed(player: Player)
+
+@onready var input = $InputComponent
+
+
+func _on_health_component_health_changed(health):
+	if health <= 0: destroyed.emit(self)
