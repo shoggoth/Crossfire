@@ -1,15 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7a2edblpsjf6"]
+[gd_scene load_steps=7 format=3 uid="uid://b7a2edblpsjf6"]
 
 [ext_resource type="Script" path="res://scene/ui.gd" id="1_whecv"]
 [ext_resource type="Theme" uid="uid://0xhp0sfe8p1j" path="res://theme/default.theme" id="2_opqr3"]
 [ext_resource type="Theme" uid="uid://chigyxovbmogo" path="res://theme/banner.theme" id="3_m22w0"]
 [ext_resource type="Theme" uid="uid://d01cqh4iwcwwy" path="res://theme/selection.theme" id="4_duwvf"]
 
-[sub_resource type="GDScript" id="GDScript_qfhh6"]
-resource_name = "StartSelection"
-script/source = "extends UI.SelectionMenu
+[sub_resource type="GDScript" id="GDScript_cww8t"]
+resource_name = "StartMenu"
+script/source = "extends Control
+
+func _ready():
+	if visible:
+		$Panel/VBox/Selection/VBox/Continue.grab_focus()
+"
+
+[sub_resource type="GDScript" id="GDScript_bwu3o"]
+resource_name = "PauseMenu"
+script/source = "extends Control
 
 
+func _ready():
+	if visible:
+		$Panel/VBox/Selection/VBox/Resume.grab_focus()
 "
 
 [node name="UI" type="CanvasLayer"]
@@ -36,6 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_opqr3")
+script = SubResource("GDScript_cww8t")
 
 [node name="Panel" type="PanelContainer" parent="StartMenu"]
 layout_mode = 1
@@ -67,30 +80,32 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_duwvf")
-script = SubResource("GDScript_qfhh6")
 
 [node name="VBox" type="VBoxContainer" parent="StartMenu/Panel/VBox/Selection"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="StartMenu/Panel/VBox/Selection/VBox"]
+[node name="Continue" type="Button" parent="StartMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+focus_next = NodePath("../NewGame")
+focus_previous = NodePath("../Exit")
 text = "Continue"
 
-[node name="Label3" type="Label" parent="StartMenu/Panel/VBox/Selection/VBox"]
+[node name="NewGame" type="Button" parent="StartMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "New Game
-"
+focus_next = NodePath("../Options")
+focus_previous = NodePath("../Continue")
+text = "New Game"
 
-[node name="Label4" type="Label" parent="StartMenu/Panel/VBox/Selection/VBox"]
+[node name="Options" type="Button" parent="StartMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../NewGame")
 text = "Options"
 
-[node name="Label5" type="Label" parent="StartMenu/Panel/VBox/Selection/VBox"]
+[node name="Exit" type="Button" parent="StartMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+focus_next = NodePath("../Continue")
+focus_previous = NodePath("../Options")
 text = "Exit"
 
 [node name="PauseMenu" type="Control" parent="."]
@@ -103,6 +118,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_opqr3")
+script = SubResource("GDScript_bwu3o")
 
 [node name="AlphaBG" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -143,18 +159,23 @@ theme = ExtResource("4_duwvf")
 [node name="VBox" type="VBoxContainer" parent="PauseMenu/Panel/VBox/Selection"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PauseMenu/Panel/VBox/Selection/VBox"]
+[node name="Resume" type="Button" parent="PauseMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+focus_next = NodePath("../Options")
+focus_previous = NodePath(".")
 text = "Resume"
 
-[node name="Label2" type="Label" parent="PauseMenu/Panel/VBox/Selection/VBox"]
+[node name="Options" type="Button" parent="PauseMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Options
-"
+focus_next = NodePath("../MainMenu")
+focus_previous = NodePath("../Resume")
+text = "Options"
 
-[node name="Label3" type="Label" parent="PauseMenu/Panel/VBox/Selection/VBox"]
+[node name="MainMenu" type="Button" parent="PauseMenu/Panel/VBox/Selection/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../Options")
 text = "Main Menu"
+
+[connection signal="pressed" from="StartMenu/Panel/VBox/Selection/VBox/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="StartMenu/Panel/VBox/Selection/VBox/Exit" to="." method="_on_exit_pressed"]
