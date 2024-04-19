@@ -3,6 +3,7 @@ extends Node
 
 var attract_node: Node = null
 
+
 func _ready():
 	attract_node = $Attract.create_instance()
 	$UI.mode = "StartMenu"
