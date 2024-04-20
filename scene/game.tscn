@@ -8,8 +8,6 @@ script = ExtResource("1_sobmk")
 
 [node name="World" parent="." instance_placeholder="res://scene/world.tscn"]
 
-[node name="Player" parent="." instance_placeholder="res://scene/player.tscn"]
-
 [node name="Attract" parent="." instance_placeholder="res://scene/attract.tscn"]
 visible = false
 

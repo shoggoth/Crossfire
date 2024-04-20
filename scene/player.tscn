@@ -195,7 +195,7 @@ _data = {
 "explode": SubResource("Animation_ityh2")
 }
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_07s6j"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_4pohp"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 12
@@ -264,6 +264,6 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
-stream = SubResource("AudioStreamPolyphonic_07s6j")
+stream = SubResource("AudioStreamPolyphonic_4pohp")
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
