@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://chi6nvk7qnlkh"]
+[gd_scene load_steps=3 format=3 uid="uid://chi6nvk7qnlkh"]
 
 [ext_resource type="Script" path="res://scene/game.gd" id="1_sobmk"]
-[ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="2_d2jgo"]
 [ext_resource type="PackedScene" uid="uid://b7a2edblpsjf6" path="res://scene/ui.tscn" id="3_vmgrc"]
 
 [node name="Game" type="Node"]
@@ -9,12 +8,11 @@ script = ExtResource("1_sobmk")
 
 [node name="World" parent="." instance_placeholder="res://scene/world.tscn"]
 
-[node name="Player" parent="." instance=ExtResource("2_d2jgo")]
+[node name="Player" parent="." instance_placeholder="res://scene/player.tscn"]
 
 [node name="Attract" parent="." instance_placeholder="res://scene/attract.tscn"]
 visible = false
 
 [node name="UI" parent="." instance=ExtResource("3_vmgrc")]
 
-[connection signal="destroyed" from="Player" to="." method="_on_game_over"]
 [connection signal="start_game" from="UI" to="." method="_on_game_start"]
