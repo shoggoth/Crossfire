@@ -1,25 +1,26 @@
 extends Node
 
 
-var attract_node: Node = null
+var world: Node = null
+var attract: Node = null
 
 
 func _ready():
-	attract_node = $Attract.create_instance()
+	attract = $Attract.create_instance()
 	$UI.mode = "StartMenu"
 
 
 func _on_game_start():
-	remove_child(attract_node)
-	$World.show()
+	remove_child(attract)
+	world = $World.create_instance()
 	$Player.show()
 	$UI.mode = "HUD"
 
 
 #TODO: Remove the player param
 func _on_game_over(_player):
-	if !attract_node.is_inside_tree():
-		attract_node = $Attract.create_instance()
-	$World.hide()
+	if !attract.is_inside_tree():
+		attract = $Attract.create_instance()
+	remove_child(world)
 	$Player.hide()
 	$UI.mode = "StartMenu"
