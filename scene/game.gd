@@ -9,6 +9,7 @@ var player: Node = null
 
 
 func _ready():
+	Global.game = self
 	attract = $Attract.create_instance()
 	$UI.mode = "StartMenu"
 	transition.play("fade_in", Callable())
