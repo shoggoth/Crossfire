@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Reroute game over signal on player death
 - Game, world and level loading with persistent player and UI
 - Look at bbcode UI rich text component
 - Transition with 2 nodes swapping children amounts
