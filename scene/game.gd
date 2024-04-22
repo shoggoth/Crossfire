@@ -11,17 +11,16 @@ var player: Node = null
 func _ready():
 	attract = $Attract.create_instance()
 	$UI.mode = "StartMenu"
-	transition.fade(false)
+	transition.play("fade_in", Callable())
 
 
 func _on_game_start():
-	transition.fade(true)
-	await transition.faded_out
-	remove_child(attract)
-	$UI.mode = "HUD"
-	transition.fade(false)
-	world = $World.create_instance()
-	await transition.faded_in
+	transition.play("fade_out", func():
+		remove_child(attract)
+		$UI.mode = "HUD"
+		world = $World.create_instance()
+		transition.play("fade_in", Callable())
+		)
 
 
 #TODO: Remove the player param
