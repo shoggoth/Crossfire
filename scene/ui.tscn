@@ -191,3 +191,5 @@ text = "Main Menu"
 [connection signal="pressed" from="StartMenu/Panel/VBox/Selection/VBox/Exit" to="." method="_on_exit_pressed"]
 [connection signal="visibility_changed" from="PauseMenu" to="PauseMenu" method="_on_visibility_changed"]
 [connection signal="pressed" from="PauseMenu/Panel/VBox/Selection/VBox/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/VBox/Selection/VBox/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/VBox/Selection/VBox/MainMenu" to="." method="_on_main_menu_pressed"]
