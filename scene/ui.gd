@@ -4,6 +4,19 @@ class_name UI extends CanvasLayer
 signal start_game
 
 var mode: String: set = _set_mode
+var _saved_mode: String
+
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		_saved_mode = mode
+		mode = "PauseMenu"
+		get_tree().paused = true
+
+
+func _set_mode(value: String):
+	mode = value
+	get_children().map(func(child): child.visible = child.name == mode)
 
 
 func _on_continue_pressed():
@@ -26,6 +39,6 @@ func _on_exit_pressed():
 	get_tree().quit()
 
 
-func _set_mode(value: String):
-	mode = value
-	get_children().map(func(child): if child.name == mode: child.show() else: child.hide())
+func _on_resume_pressed():
+	get_tree().paused = false
+	mode = _saved_mode

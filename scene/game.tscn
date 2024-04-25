@@ -14,7 +14,7 @@ script/source = "extends CanvasLayer
 func play(anim_name: String, completion: Callable):
 	animation.play(anim_name)
 	if completion.is_valid():
-		if anim_name != await animation.animation_finished: push_warning(\"Transition names don't match\")
+		if anim_name != await animation.animation_finished: push_warning(\"Transition animation names don't match\")
 		completion.call()
 "
 
@@ -118,6 +118,7 @@ script = ExtResource("1_sobmk")
 [node name="UI" parent="." instance=ExtResource("3_vmgrc")]
 
 [node name="Transition" type="CanvasLayer" parent="."]
+process_mode = 3
 script = SubResource("GDScript_aqj0k")
 
 [node name="ColorRect" type="ColorRect" parent="Transition"]

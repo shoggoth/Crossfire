@@ -5,12 +5,13 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Reroute game over signal on player death
 - Game, world and level loading with persistent player and UI
+- Reroute game over signal on player death
 - Look at bbcode UI rich text component
-- Transition with 2 nodes swapping children amounts
 
 ### Done
+- Implement pausing
+- Transition with 2 nodes swapping children amounts
 - Componentise health and movement, remove Mob subclass
 - Put a signal for enter and exit in the State
 - Experimenting with a state machine design:
