@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="4_7xd63"]
 [ext_resource type="Script" path="res://src/component/health.gd" id="5_7le23"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="5_ji6is"]
-[ext_resource type="Script" path="res://src/component/velocity.gd" id="6_6t54x"]
+[ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_uynyl"]
 [ext_resource type="Script" path="res://src/component/input.gd" id="9_y1i6h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
@@ -39,7 +39,7 @@ resource_name = "Move"
 script/source = "extends State
 
 
-@export var velocity_component: VelocityComponent
+@export var move_component: GridMoveComponent
 @export var mob_path: NodePath = \"../..\"
 
 @onready var player = get_node(mob_path) as Player
@@ -52,8 +52,7 @@ func enter_from(_state: State, params: Dictionary) -> bool:
 
 
 func _physics_process(delta):
-	player.velocity = velocity_component.accelerate(player.input.d_pad, delta)
-	player.move_and_slide()
+	player.move_and_collide(move_component.move(player.position, player.input.d_pad) * delta)
 	if player.input.fire:
 		sm.enter_state_named(\"Fire\")
 "
@@ -229,8 +228,8 @@ debug_color = Color(0, 0.517647, 0.0941176, 0.419608)
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_7le23")
 
-[node name="VelocityComponent" type="Node" parent="."]
-script = ExtResource("6_6t54x")
+[node name="GridMoveComponent" type="Node" parent="."]
+script = ExtResource("6_uynyl")
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("9_y1i6h")
@@ -244,9 +243,9 @@ script = SubResource("GDScript_euyn6")
 metadata/temp_meta = true
 metadata/player_path = NodePath("../..")
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("velocity_component")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_ag24y")
-velocity_component = NodePath("../../VelocityComponent")
+move_component = NodePath("../../GridMoveComponent")
 
 [node name="Fire" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_6it8t")
