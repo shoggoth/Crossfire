@@ -1,16 +1,15 @@
-class_name GridMoveComponent extends Node
+class_name MoveComponent extends Node
 
 
 @export_group("Movement")
-@export var speed: float = 16.0
-@export var grid_size := Vector2(16, 16)
+@export var speed: float = 0.7
+@export var grid_size := Vector2(32, 32)
 
-var _direction := Vector2.ZERO
-var _target := Vector2.ZERO
+var move_tween: Tween = null
 
 
-func move(position, direction) -> Vector2:
-	var target_direction = (_target - position).normalized()
-	if direction && (!_direction || direction.angle() != _direction.angle()):
-		_target = (position + grid_size * direction).snapped(grid_size)
-	return speed * target_direction
+func move(node: Node2D, direction: Vector2):
+	if direction && !move_tween:
+		move_tween = create_tween()
+		move_tween.tween_property(node, "position", node.position + direction * grid_size, speed)
+		move_tween.tween_callback(func(): move_tween = null)

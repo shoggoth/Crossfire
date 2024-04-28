@@ -39,7 +39,7 @@ resource_name = "Move"
 script/source = "extends State
 
 
-@export var move_component: GridMoveComponent
+@export var move_component: MoveComponent
 @export var mob_path: NodePath = \"../..\"
 
 @onready var player = get_node(mob_path) as Player
@@ -51,8 +51,8 @@ func enter_from(_state: State, params: Dictionary) -> bool:
 	return true
 
 
-func _physics_process(delta):
-	player.move_and_collide(move_component.move(player.position, player.input.d_pad) * delta)
+func _physics_process(_delta):
+	move_component.move(player, player.input.d_pad)
 	if player.input.fire:
 		sm.enter_state_named(\"Fire\")
 "
@@ -228,7 +228,7 @@ debug_color = Color(0, 0.517647, 0.0941176, 0.419608)
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_7le23")
 
-[node name="GridMoveComponent" type="Node" parent="."]
+[node name="MoveComponent" type="Node" parent="."]
 script = ExtResource("6_uynyl")
 
 [node name="InputComponent" type="Node" parent="."]
@@ -245,7 +245,7 @@ metadata/player_path = NodePath("../..")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_ag24y")
-move_component = NodePath("../../GridMoveComponent")
+move_component = NodePath("../../MoveComponent")
 
 [node name="Fire" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_6it8t")
