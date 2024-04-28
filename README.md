@@ -5,7 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Unify GridMove and Velocity components with possible subclassing
+- Quantise joystick to 4 directions
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 - Look at bbcode UI rich text component
