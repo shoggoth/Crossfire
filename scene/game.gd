@@ -24,7 +24,7 @@ func _on_game_start():
 		)
 
 
-#TODO: Remove the player param
+# TODO: Remove the player param
 func _on_game_over(_player):
 	remove_child(world)
 	if !attract.is_inside_tree(): attract = $Attract.create_instance()

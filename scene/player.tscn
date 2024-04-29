@@ -46,8 +46,8 @@ script/source = "extends State
 
 
 func enter_from(_state: State, params: Dictionary) -> bool:
+	# TODO: Remove this
 	print_debug(\"Move params = \", params)
-	print_debug(\"Global.game = \", Global.game)
 	return true
 
 
