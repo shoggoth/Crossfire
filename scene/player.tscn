@@ -54,7 +54,9 @@ func enter_from(_state: State, params: Dictionary) -> bool:
 func _physics_process(_delta):
 	move_component.move(player, player.input.d_pad)
 	if player.input.fire:
-		sm.enter_state_named(\"Fire\")
+		sm.enter_state_named(\"Fire\", { \"player\" : player })
+	if player.input.bomb:
+		sm.enter_state_named(\"Explode\")
 "
 
 [sub_resource type="GDScript" id="GDScript_6it8t"]
@@ -62,8 +64,18 @@ resource_name = "Fire"
 script/source = "extends State
 
 
+var player: Player
+
+
+func enter_from(_state: State, params: Dictionary) -> bool:
+	player = params[\"player\"] as Player
+	return player != null
+
 func _process(_delta):
-	sm.enter_state_named(\"Explode\")
+	if !player.input.fire:
+		sm.enter_state_named(\"Move\")
+	elif player.input.d_pad:
+		print(\"Shoot in direction \", player.input.d_pad)
 "
 
 [sub_resource type="GDScript" id="GDScript_kmhv7"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://hhid6teie814"]
+[gd_scene load_steps=8 format=3 uid="uid://hhid6teie814"]
 
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
+[ext_resource type="Texture2D" uid="uid://cn5hrit3ef6tg" path="res://gfx/White1px.png" id="3_0xjjn"]
+[ext_resource type="Script" path="res://src/component/hitbox.gd" id="3_7ivmx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pswc2"]
 texture = ExtResource("1_3qjg0")
@@ -13,6 +15,9 @@ texture = ExtResource("1_3qjg0")
 [sub_resource type="TileSet" id="TileSet_7pe2f"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_pswc2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ti02"]
+size = Vector2(8, 8)
 
 [node name="World" type="Node2D"]
 
@@ -41,3 +46,17 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "HUD:Temp"
+
+[node name="Bullet" type="Area2D" parent="."]
+position = Vector2(40, 40)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_7ivmx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+shape = SubResource("RectangleShape2D_2ti02")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bullet"]
+scale = Vector2(8, 8)
+texture = ExtResource("3_0xjjn")
