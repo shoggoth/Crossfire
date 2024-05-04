@@ -232,6 +232,7 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("4_7xd63")
 health_component = NodePath("../HealthComponent")
+free_hit_boxen = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_tvqwh")

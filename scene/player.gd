@@ -8,3 +8,6 @@ signal destroyed(player: Player)
 
 func _on_health_component_health_changed(health):
 	if health <= 0: destroyed.emit(self)
+	
+	# TODO: Remove this CREATES CYCLIC EXPLODE CONDITION!
+	$StateMachine.enter_state_named("Explode")
