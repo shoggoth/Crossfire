@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c7usp7o48ccjh"]
+[gd_scene load_steps=21 format=3 uid="uid://c7usp7o48ccjh"]
 
 [ext_resource type="Script" path="res://scene/player.gd" id="1_tjouh"]
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="2_3346a"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/component/health.gd" id="5_7le23"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="5_ji6is"]
 [ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_uynyl"]
+[ext_resource type="Script" path="res://src/component/weapon.gd" id="8_h7v4t"]
 [ext_resource type="Script" path="res://src/component/input.gd" id="9_y1i6h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
@@ -64,6 +65,8 @@ resource_name = "Fire"
 script/source = "extends State
 
 
+@export var weapon_component: WeaponComponent
+
 var player: Player
 
 
@@ -75,7 +78,7 @@ func _process(_delta):
 	if !player.input.fire:
 		sm.enter_state_named(\"Move\")
 	elif player.input.d_pad:
-		print(\"Shoot in direction \", player.input.d_pad)
+		weapon_component.fire(player, player.input.d_pad)
 "
 
 [sub_resource type="GDScript" id="GDScript_kmhv7"]
@@ -247,6 +250,9 @@ script = ExtResource("6_uynyl")
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("9_y1i6h")
 
+[node name="WeaponComponent" type="Node" parent="."]
+script = ExtResource("8_h7v4t")
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_mq2sw")
 current_state = NodePath("Idle")
@@ -260,8 +266,9 @@ metadata/player_path = NodePath("../..")
 script = SubResource("GDScript_ag24y")
 move_component = NodePath("../../MoveComponent")
 
-[node name="Fire" type="Node" parent="StateMachine"]
+[node name="Fire" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
 script = SubResource("GDScript_6it8t")
+weapon_component = NodePath("../../WeaponComponent")
 
 [node name="Explode" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
 script = SubResource("GDScript_kmhv7")
