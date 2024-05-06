@@ -6,6 +6,8 @@
 
 ### TODO
 - Quantise joystick to 4 directions
+- Can I make the weapon component a Node2D?
+- Remove cyclic explode state
 - Move player export to Idle state and pass it to Move state as a param
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death

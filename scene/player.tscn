@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c7usp7o48ccjh"]
+[gd_scene load_steps=22 format=3 uid="uid://c7usp7o48ccjh"]
 
 [ext_resource type="Script" path="res://scene/player.gd" id="1_tjouh"]
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="2_3346a"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="5_ji6is"]
 [ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_uynyl"]
 [ext_resource type="Script" path="res://src/component/weapon.gd" id="8_h7v4t"]
+[ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="9_etqh0"]
 [ext_resource type="Script" path="res://src/component/input.gd" id="9_y1i6h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
@@ -252,6 +253,7 @@ script = ExtResource("9_y1i6h")
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("8_h7v4t")
+bullet_scene = ExtResource("9_etqh0")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_mq2sw")
