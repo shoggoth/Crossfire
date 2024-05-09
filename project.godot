@@ -85,6 +85,7 @@ bomb={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Pickup"
 2d_physics/layer_4="Tiles"
+2d_physics/layer_5="Bullet"
 
 [physics]
 

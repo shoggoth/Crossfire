@@ -29,10 +29,9 @@ script/source = "extends State
 
 
 @onready var tm = get_meta(\"temp_meta\")
-@onready var player_path = get_meta(\"player_path\")
 
 func enter_from(state: State, _params: Dictionary) -> bool:
-	change_state(\"Move\", {\"es\" : state, \"tm\" : tm, \"pp\" : player_path })
+	change_state(\"Move\", {\"player\" : get_meta(\"parent_node\") })
 	return true
 "
 
@@ -42,14 +41,12 @@ script/source = "extends State
 
 
 @export var move_component: MoveComponent
-@export var mob_path: NodePath = \"../..\"
 
-@onready var player = get_node(mob_path) as Player
+var player: Player
 
 
 func enter_from(_state: State, params: Dictionary) -> bool:
-	# TODO: Remove this
-	print_debug(\"Move params = \", params)
+	player = params[\"player\"] as Player
 	return true
 
 
@@ -77,8 +74,8 @@ func enter_from(_state: State, params: Dictionary) -> bool:
 
 func _process(_delta):
 	if !player.input.fire:
-		sm.enter_state_named(\"Move\")
-	elif player.input.d_pad:
+		sm.enter_state_named(\"Move\", { \"player\" : player })
+	elif player.input.d_pad && weapon_component.can_fire:
 		weapon_component.fire(player, player.input.d_pad)
 "
 
@@ -254,6 +251,9 @@ script = ExtResource("9_y1i6h")
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("8_h7v4t")
 bullet_scene = ExtResource("9_etqh0")
+radius = 16.0
+
+[node name="Timer" type="Timer" parent="WeaponComponent"]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_mq2sw")
@@ -262,7 +262,6 @@ current_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_euyn6")
 metadata/temp_meta = true
-metadata/player_path = NodePath("../..")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_ag24y")
@@ -284,3 +283,4 @@ libraries = {
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]

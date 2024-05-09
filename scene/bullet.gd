@@ -3,7 +3,7 @@ extends HitBox
 
 @export var speed: float = 10.0
 
-var direction = Vector2.RIGHT * 100
+var direction: Vector2
 
 
 func _ready():

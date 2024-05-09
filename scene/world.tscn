@@ -44,3 +44,4 @@ offset_bottom = 23.0
 text = "HUD:Temp"
 
 [node name="Bullet" parent="." instance=ExtResource("3_6fsg2")]
+position = Vector2(40, 40)
