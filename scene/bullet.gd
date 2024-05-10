@@ -10,3 +10,4 @@ func _ready():
 	var move_tween = create_tween()
 	move_tween.tween_property(self, "position", self.position + direction, speed)
 	move_tween.tween_callback(func(): queue_free())
+	$Fire.play()
