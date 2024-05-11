@@ -45,9 +45,14 @@ script/source = "extends State
 var player: Player
 
 
-func enter_from(_state: State, params: Dictionary) -> bool:
+func enter_from(state: State, params: Dictionary) -> bool:
 	player = params[\"player\"] as Player
-	return true
+	return super.enter_from(state, params)
+
+
+func exit_to(to: State) -> bool:
+	if to.name == \"Explode\": move_component.stop()
+	return super.exit_to(to)
 
 
 func _physics_process(_delta):
@@ -254,6 +259,7 @@ bullet_scene = ExtResource("9_etqh0")
 radius = 16.0
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]
+wait_time = 0.5
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_mq2sw")

@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Smaple the bullet sound out of Rolling Thunder
 - Quantise joystick to 4 directions
 - Can I make the weapon component a Node2D?
 - Remove cyclic explode state
@@ -13,6 +14,7 @@
 - Look at bbcode UI rich text component
 
 ### Done
+- Stop player movement on explode
 - Move player export to Idle state and pass it to Move state as a param
 - Implement pausing
 - Transition with 2 nodes swapping children amounts

@@ -13,3 +13,7 @@ func move(node: Node2D, direction: Vector2):
 		move_tween = create_tween()
 		move_tween.tween_property(node, "position", node.position + direction * grid_size, speed)
 		move_tween.tween_callback(func(): move_tween = null)
+
+
+func stop():
+	move_tween.kill()
