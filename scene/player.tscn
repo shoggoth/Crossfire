@@ -30,7 +30,7 @@ script/source = "extends State
 
 @onready var tm = get_meta(\"temp_meta\")
 
-func enter_from(state: State, _params: Dictionary) -> bool:
+func enter_from(_state: State, _params: Dictionary) -> bool:
 	change_state(\"Move\", {\"player\" : get_meta(\"parent_node\") })
 	return true
 "
@@ -248,6 +248,7 @@ script = ExtResource("5_7le23")
 
 [node name="MoveComponent" type="Node" parent="."]
 script = ExtResource("6_uynyl")
+quantise_direction = true
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("9_y1i6h")
