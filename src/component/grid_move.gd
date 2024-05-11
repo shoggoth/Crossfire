@@ -12,8 +12,10 @@ func move(node: Node2D, direction: Vector2):
 	if direction && !move_tween:
 		move_tween = create_tween()
 		move_tween.tween_property(node, "position", node.position + direction * grid_size, speed)
-		move_tween.tween_callback(func(): move_tween = null)
+		move_tween.tween_callback(stop)
 
 
 func stop():
-	move_tween.kill()
+	if move_tween:
+		move_tween.kill()
+		move_tween = null
