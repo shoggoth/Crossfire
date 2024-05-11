@@ -12,7 +12,8 @@ texture = ExtResource("1_3qjg0")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_7pe2f"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 19
 sources/0 = SubResource("TileSetAtlasSource_pswc2")
 
 [sub_resource type="GDScript" id="GDScript_mj8sa"]
@@ -88,6 +89,7 @@ offset_bottom = 23.0
 text = "HUD:Temp"
 
 [node name="Bullet" parent="." instance=ExtResource("3_6fsg2")]
-position = Vector2(40, 40)
+position = Vector2(40, 24)
+collision_layer = 18
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]
