@@ -12,6 +12,5 @@ func _ready():
 
 func _on_area_entered(area: Area2D):
 	if health_component && area is HitBox:
-		print(area.collision_layer)
 		health_component.damage(area.damage_dealt)
 		if free_hit_boxen: area.queue_free()

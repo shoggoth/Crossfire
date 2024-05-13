@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://hhid6teie814"]
+[gd_scene load_steps=12 format=3 uid="uid://hhid6teie814"]
 
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
 [ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="3_6fsg2"]
+[ext_resource type="PackedScene" uid="uid://ee7kqycc6b4p" path="res://scene/enemy.tscn" id="4_oh0mt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pswc2"]
 texture = ExtResource("1_3qjg0")
@@ -90,5 +91,8 @@ text = "HUD:Temp"
 [node name="Bullet" parent="." instance=ExtResource("3_6fsg2")]
 position = Vector2(40, 24)
 collision_layer = 18
+
+[node name="Enemy" parent="." instance=ExtResource("4_oh0mt")]
+position = Vector2(72, 40)
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ee7kqycc6b4p"]
+
+[ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="1_f5i5j"]
+[ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
+[ext_resource type="Script" path="res://src/component/health.gd" id="3_1extx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6lxd4"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1y8x"]
+size = Vector2(16, 16)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_f5i5j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6lxd4")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
+monitorable = false
+script = ExtResource("2_1yxa3")
+health_component = NodePath("../HealthComponent")
+free_hit_boxen = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_b1y8x")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_1extx")
