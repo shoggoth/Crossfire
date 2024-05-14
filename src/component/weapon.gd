@@ -1,9 +1,12 @@
 class_name WeaponComponent extends Node
 
 
+@export_group("Properties")
 @export var bullet_scene: PackedScene
 @export var radius: float = 0
 @export var pool_size: int = 0
+@export_group("Control")
+@export var quantise_direction: bool = false
 
 var can_fire := true
 
@@ -19,10 +22,10 @@ func fire(source_node: Node2D, direction: Vector2):
 	can_fire = false
 	$Timer.start()
 	var b = bullet_scene.instantiate()
+	if quantise_direction: direction = Global.quantise(direction)
 	b.direction = direction * 120 # TODO: Move range
 	b.position = source_node.position + direction * radius
 	add_child(b)
-	print("Shoot", b, " from ", source_node.position, " in direction ", direction)
 
 
 func _on_timer_timeout():

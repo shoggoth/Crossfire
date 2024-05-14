@@ -6,13 +6,13 @@
 
 ### TODO
 - Smaple the bullet sound out of Rolling Thunder
-- Can I make the weapon component a Node2D?
 - Remove cyclic explode state
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 - Look at bbcode UI rich text component
 
 ### Done
+- Can I make the weapon component a Node2D?
 - Quantise joystick to 4 directions
 - Stop player movement on explode
 - Move player export to Idle state and pass it to Move state as a param
