@@ -39,5 +39,8 @@ func _on_child_entered_tree(child: Node):
 	if child is State:
 		child.sm = self
 		child.set_meta("parent_node", get_parent())
-		child.process_mode = Node.PROCESS_MODE_DISABLED
-		if child == current_state: child.enter_from.call_deferred(null, {})
+		if child == current_state:
+			child.enter_from.call_deferred(null, {})
+			child.process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			child.process_mode = Node.PROCESS_MODE_DISABLED

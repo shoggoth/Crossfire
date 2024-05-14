@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=19 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="1_f5i5j"]
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_jww0j"]
 [ext_resource type="Script" path="res://src/component/health.gd" id="3_1extx"]
 [ext_resource type="Script" path="res://src/state/state_machine.gd" id="6_6fphs"]
+[ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_cugao"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="7_ai7yh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
@@ -24,11 +25,8 @@ resource_name = "Idle"
 script/source = "extends State
 
 
-@onready var tm = get_meta(\"temp_meta\")
-
-func enter_from(_state: State, _params: Dictionary) -> bool:
-	change_state(\"Move\", {\"player\" : get_meta(\"parent_node\") })
-	return true
+func _on_timer_timeout():
+	change_state(\"Move\", {\"enemy\" : get_meta(\"parent_node\") })
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
@@ -47,7 +45,8 @@ func enter_from(state: State, params: Dictionary) -> bool:
 
 
 func _physics_process(_delta):
-	move_component.move(enemy, Vector2.DOWN)
+	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
+	move_component.move(enemy, random_vec)
 "
 
 [sub_resource type="GDScript" id="GDScript_6sp8q"]
@@ -57,18 +56,18 @@ script/source = "extends State
 
 @export var weapon_component: WeaponComponent
 
-var player: Player
+var enemy: Enemy
 
 
-func enter_from(_state: State, params: Dictionary) -> bool:
-	player = params[\"player\"] as Player
-	return player != null # TODO: Look at this and in the Player
+func enter_from(state: State, params: Dictionary) -> bool:
+	enemy = params[\"enemy\"] as Enemy
+	return super.enter_from(state, params)
 
 func _process(_delta):
-	if !player.input.fire:
-		sm.enter_state_named(\"Move\", { \"player\" : player })
-	elif player.input.d_pad && weapon_component.can_fire:
-		weapon_component.fire(player, player.input.d_pad)
+	if !weapon_component:
+		sm.enter_state_named(\"Move\", { \"enemy\" : enemy })
+	elif weapon_component.can_fire:
+		weapon_component.fire(enemy, Vector2.UP)
 "
 
 [sub_resource type="GDScript" id="GDScript_4j3dk"]
@@ -228,22 +227,34 @@ shape = SubResource("RectangleShape2D_b1y8x")
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_1extx")
 
+[node name="MoveComponent" type="Node" parent="."]
+script = ExtResource("6_cugao")
+speed = 1.5
+quantise_direction = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
-current_state = NodePath("")
+current_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_vpwwn")
 metadata/temp_meta = true
 
-[node name="Move" type="Node" parent="StateMachine"]
+[node name="Timer" type="Timer" parent="StateMachine/Idle"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_vfjmb")
+move_component = NodePath("../../MoveComponent")
 
 [node name="Fire" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_6sp8q")
 
-[node name="Explode" type="Node" parent="StateMachine"]
+[node name="Explode" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
 script = SubResource("GDScript_4j3dk")
+health_component = NodePath("../../HealthComponent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Explode"]
 libraries = {
@@ -253,3 +264,4 @@ libraries = {
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="_on_timer_timeout"]
