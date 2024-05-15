@@ -1,6 +1,5 @@
 [gd_scene load_steps=21 format=3 uid="uid://ee7kqycc6b4p"]
 
-[ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="1_f5i5j"]
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
 [ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_jww0j"]
@@ -15,6 +14,9 @@
 shader = ExtResource("2_jww0j")
 shader_parameter/explode_amount = Vector2(1, 1)
 shader_parameter/number_of_splits = Vector2(15, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uqqyw"]
+load_path = "res://.godot/imported/Fizzog.png-ab53504695bf84542a8d1a6350e9518f.ctex"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6lxd4"]
 radius = 8.0
@@ -212,7 +214,7 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_fn5vs")
-texture = ExtResource("1_f5i5j")
+texture = SubResource("CompressedTexture2D_uqqyw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

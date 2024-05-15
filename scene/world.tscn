@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
-[ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="3_6fsg2"]
 [ext_resource type="PackedScene" uid="uid://ee7kqycc6b4p" path="res://scene/enemy.tscn" id="4_oh0mt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pswc2"]
@@ -38,6 +37,27 @@ normal = Vector2(1, 2.08165e-12)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c8mpn"]
 normal = Vector2(-1, -1.631e-14)
 
+[sub_resource type="GDScript" id="GDScript_jpa4p"]
+resource_name = "Spawner"
+script/source = "extends Marker2D
+
+
+@export var enemy_scene: PackedScene
+@export var grid_size = Vector2i(15, 12)
+@export var grid_spacing = 16.0
+
+
+func _ready():
+	for x in grid_size.x: spawn(Vector2(x, 0))
+	for y in grid_size.y: spawn(Vector2(0, y))
+
+
+func spawn(pos: Vector2):
+	var e: Enemy = enemy_scene.instantiate()
+	e.position = Vector2(0, 0) + pos * grid_spacing
+	add_child(e)
+"
+
 [node name="World" type="Node2D"]
 
 [node name="Playfield" type="TileMap" parent="."]
@@ -72,6 +92,11 @@ shape = SubResource("WorldBoundaryShape2D_c8mpn")
 position = Vector2(8, 8)
 motion_mode = 1
 
+[node name="EnemySpawn" type="Marker2D" parent="."]
+position = Vector2(8, 8)
+script = SubResource("GDScript_jpa4p")
+enemy_scene = ExtResource("4_oh0mt")
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Temp" type="Control" parent="HUD"]
@@ -87,12 +112,5 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "HUD:Temp"
-
-[node name="Bullet" parent="." instance=ExtResource("3_6fsg2")]
-position = Vector2(40, 24)
-collision_layer = 18
-
-[node name="Enemy" parent="." instance=ExtResource("4_oh0mt")]
-position = Vector2(72, 40)
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]
