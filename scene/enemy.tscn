@@ -81,7 +81,7 @@ script/source = "extends State
 
 
 func enter_from(_state: State, _params: Dictionary) -> bool:
-	$AnimationPlayer.connect(\"animation_finished\", func(_n): health_component.damage(1.0), CONNECT_ONE_SHOT)
+	$AnimationPlayer.connect(\"animation_finished\", func(_n): queue_free(), CONNECT_ONE_SHOT)
 	$AnimationPlayer.play(\"explode\")
 	return true
 "
@@ -234,7 +234,7 @@ radius = 16.0
 quantise_direction = true
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]
-wait_time = 0.5
+wait_time = 2.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")

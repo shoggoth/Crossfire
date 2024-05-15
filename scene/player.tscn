@@ -60,7 +60,7 @@ func _physics_process(_delta):
 	if player.input.fire:
 		sm.enter_state_named(\"Fire\", { \"player\" : player })
 	if player.input.bomb:
-		sm.enter_state_named(\"Explode\")
+		sm.enter_state_named(\"Explode\", { \"completion\" : func(_name): player.queue_free() })
 "
 
 [sub_resource type="GDScript" id="GDScript_6it8t"]
@@ -92,8 +92,8 @@ script/source = "extends State
 @export var health_component: HealthComponent
 
 
-func enter_from(_state: State, _params: Dictionary) -> bool:
-	$AnimationPlayer.connect(\"animation_finished\", func(_n): health_component.damage(1.0), CONNECT_ONE_SHOT)
+func enter_from(_state: State, params: Dictionary) -> bool:
+	$AnimationPlayer.connect(\"animation_finished\", params[\"completion\"], CONNECT_ONE_SHOT)
 	$AnimationPlayer.play(\"explode\")
 	return true
 "
