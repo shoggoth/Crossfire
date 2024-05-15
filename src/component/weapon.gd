@@ -21,10 +21,11 @@ func _ready():
 func fire(source_node: Node2D, direction: Vector2):
 	can_fire = false
 	$Timer.start()
-	var b = bullet_scene.instantiate()
+	var b: HitBox = bullet_scene.instantiate()
 	if quantise_direction: direction = Global.quantise(direction)
 	b.direction = direction * 120 # TODO: Move range
 	b.position = source_node.position + direction * radius
+	b.collision_layer = (source_node.collision_layer & 3) | 16
 	add_child(b)
 
 

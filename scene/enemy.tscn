@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=21 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Texture2D" uid="uid://dwjb2qfr6w25h" path="res://gfx/Fizzog.png" id="1_f5i5j"]
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://src/state/state_machine.gd" id="6_6fphs"]
 [ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_cugao"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="7_ai7yh"]
+[ext_resource type="Script" path="res://src/component/weapon.gd" id="7_ldo4r"]
+[ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="8_1acoa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
 shader = ExtResource("2_jww0j")
@@ -46,7 +48,10 @@ func enter_from(state: State, params: Dictionary) -> bool:
 
 func _physics_process(_delta):
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
-	move_component.move(enemy, random_vec)
+	if random_vec.length_squared():
+		move_component.move(enemy, random_vec)
+	else:
+		sm.enter_state_named(\"Fire\", { \"enemy\" : enemy })
 "
 
 [sub_resource type="GDScript" id="GDScript_6sp8q"]
@@ -64,9 +69,9 @@ func enter_from(state: State, params: Dictionary) -> bool:
 	return super.enter_from(state, params)
 
 func _process(_delta):
-	if !weapon_component:
+	if !weapon_component || !weapon_component.can_fire:
 		sm.enter_state_named(\"Move\", { \"enemy\" : enemy })
-	elif weapon_component.can_fire:
+	else:
 		weapon_component.fire(enemy, Vector2.UP)
 "
 
@@ -232,6 +237,15 @@ script = ExtResource("6_cugao")
 speed = 1.5
 quantise_direction = true
 
+[node name="WeaponComponent" type="Node" parent="."]
+script = ExtResource("7_ldo4r")
+bullet_scene = ExtResource("8_1acoa")
+radius = 16.0
+quantise_direction = true
+
+[node name="Timer" type="Timer" parent="WeaponComponent"]
+wait_time = 0.5
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
 current_state = NodePath("Idle")
@@ -249,8 +263,9 @@ autostart = true
 script = SubResource("GDScript_vfjmb")
 move_component = NodePath("../../MoveComponent")
 
-[node name="Fire" type="Node" parent="StateMachine"]
+[node name="Fire" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
 script = SubResource("GDScript_6sp8q")
+weapon_component = NodePath("../../WeaponComponent")
 
 [node name="Explode" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
 script = SubResource("GDScript_4j3dk")
@@ -264,4 +279,5 @@ libraries = {
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="_on_timer_timeout"]
