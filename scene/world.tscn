@@ -48,8 +48,8 @@ script/source = "extends Marker2D
 
 
 func _ready():
-	for x in grid_size.x: spawn(Vector2(x, 0))
-	for y in grid_size.y: spawn(Vector2(0, y))
+	for x in range(0, grid_size.x, 2): spawn(Vector2(x, 0))
+	for y in range(2, grid_size.y, 2): spawn(Vector2(0, y))
 
 
 func spawn(pos: Vector2):

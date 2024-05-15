@@ -2,7 +2,7 @@ class_name StateMachine extends Node
 
 
 @export var current_state: State = null
-
+@export var debug := false
 
 func _ready():
 	connect("child_entered_tree", _on_child_entered_tree)
@@ -16,7 +16,7 @@ func get_state(named: String) -> State:
 func enter_state(state: State, params := {}) -> bool:
 	if !can_enter_state(state as State): return false
 	if current_state:
-		print_debug(current_state.name, " -> ", state.name)
+		if debug: print_debug(current_state.name, " -> ", state.name)
 		current_state.process_mode = Node.PROCESS_MODE_DISABLED
 		current_state.exit_to(state)
 	if state && state.enter_from(current_state, params):
