@@ -43,6 +43,8 @@ resource_name = "Spawner"
 script/source = "extends Marker2D
 
 
+signal destroyed(enemy: Enemy)
+
 @export var enemy_scene: PackedScene
 @export var grid_size = Vector2i(15, 12)
 @export var grid_spacing = 16.0
@@ -56,6 +58,7 @@ func _ready():
 func spawn(pos: Vector2):
 	var e: Enemy = enemy_scene.instantiate()
 	e.position = Vector2(0, 0) + pos * grid_spacing
+	e.destroyed = func(_name): destroyed.emit(e)
 	add_child(e)
 "
 
@@ -117,3 +120,4 @@ text = "HUD:Temp"
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]
 [connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]
+[connection signal="destroyed" from="EnemySpawn" to="." method="_on_enemy_destroyed"]

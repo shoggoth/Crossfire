@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Fix the multiple explosion problem: does the state need to be unique / local to the scene?
 - Smaple the bullet sound out of Rolling Thunder
 - Remove cyclic explode state
 - Game, world and level loading with persistent player and UI
