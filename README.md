@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Do more work on the state machine transitions allowed. Recent Timer state chages cause explode to lock
 - Fix the multiple explosion problem: does the state need to be unique / local to the scene?
 - Smaple the bullet sound out of Rolling Thunder
 - Remove cyclic explode state

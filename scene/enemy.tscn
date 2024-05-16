@@ -30,8 +30,12 @@ resource_name = "Idle"
 script/source = "extends State
 
 
+func enter_from(state, _params):
+	$Timer.start()
+
+
 func _on_timer_timeout():
-	change_state(\"Move\", {\"enemy\" : get_meta(\"parent_node\") })
+	change_state(\"Move\")
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
@@ -41,20 +45,16 @@ script/source = "extends State
 
 @export var move_component: MoveComponent
 
-var enemy: Enemy
-
-
-func enter_from(state: State, params: Dictionary) -> bool:
-	enemy = params[\"enemy\"] as Enemy
-	return super.enter_from(state, params)
-
 
 func _physics_process(_delta):
+	var enemy = get_meta(\"parent_node\")
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
 	if random_vec.length_squared():
 		move_component.move(enemy, random_vec)
+	elif randi_range(0, 999):
+		sm.enter_state_named(\"Fire\")
 	else:
-		sm.enter_state_named(\"Fire\", { \"enemy\" : enemy })
+		sm.enter_state_named(\"Idle\")
 "
 
 [sub_resource type="GDScript" id="GDScript_6sp8q"]
@@ -64,17 +64,12 @@ script/source = "extends State
 
 @export var weapon_component: WeaponComponent
 
-var enemy: Enemy
-
-
-func enter_from(state: State, params: Dictionary) -> bool:
-	enemy = params[\"enemy\"] as Enemy
-	return super.enter_from(state, params)
 
 func _process(_delta):
 	if !weapon_component || !weapon_component.can_fire:
-		sm.enter_state_named(\"Move\", { \"enemy\" : enemy })
+		sm.enter_state_named(\"Move\")
 	else:
+		var enemy = get_meta(\"parent_node\")
 		weapon_component.fire(enemy, Vector2.UP)
 "
 
@@ -210,9 +205,9 @@ script = SubResource("GDScript_vpwwn")
 metadata/temp_meta = true
 
 [node name="Timer" type="Timer" parent="StateMachine/Idle"]
+process_mode = 3
 wait_time = 5.0
 one_shot = true
-autostart = true
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_vfjmb")
