@@ -30,9 +30,9 @@ script/source = "extends State
 
 @onready var tm = get_meta(\"temp_meta\")
 
-func enter_from(_state: State, _params: Dictionary) -> bool:
-	change_state(\"Move\", {\"player\" : get_meta(\"parent_node\") })
-	return true
+func enter_from(state: State, params: Dictionary) -> bool:
+	change_state(\"Move\", {\"player\" : sm.get_meta(\"parent_node\") })
+	return super.enter_from(state, params)
 "
 
 [sub_resource type="GDScript" id="GDScript_ag24y"]
@@ -90,6 +90,10 @@ script/source = "extends State
 
 
 @export var health_component: HealthComponent
+
+
+func _ready():
+	valid_transitions = []
 
 
 func enter_from(_state: State, params: Dictionary) -> bool:

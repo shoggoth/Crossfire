@@ -30,8 +30,9 @@ resource_name = "Idle"
 script/source = "extends State
 
 
-func enter_from(state, _params):
+func enter_from(from: State, params: Dictionary) -> bool:
 	$Timer.start()
+	return super.enter_from(from, params)
 
 
 func _on_timer_timeout():
@@ -45,13 +46,19 @@ script/source = "extends State
 
 @export var move_component: MoveComponent
 
+var enemy: Enemy
+
+
+func enter_from(from: State, params: Dictionary) -> bool:
+	enemy = sm.get_meta(\"parent_node\")
+	return super.enter_from(from, params)
+
 
 func _physics_process(_delta):
-	var enemy = get_meta(\"parent_node\")
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
 	if random_vec.length_squared():
 		move_component.move(enemy, random_vec)
-	elif randi_range(0, 999):
+	elif randi_range(0, 99):
 		sm.enter_state_named(\"Fire\")
 	else:
 		sm.enter_state_named(\"Idle\")
@@ -69,7 +76,7 @@ func _process(_delta):
 	if !weapon_component || !weapon_component.can_fire:
 		sm.enter_state_named(\"Move\")
 	else:
-		var enemy = get_meta(\"parent_node\")
+		var enemy = sm.get_meta(\"parent_node\")
 		weapon_component.fire(enemy, Vector2.UP)
 "
 
@@ -81,13 +88,17 @@ script/source = "extends State
 @export var health_component: HealthComponent
 
 
-func enter_from(_state: State, params: Dictionary) -> bool:
+func _ready():
+	valid_transitions = []
+
+
+func enter_from(from: State, params: Dictionary) -> bool:
 	var ap = $AnimationPlayer
 	var pc = params[\"completion\"]
 	if !ap.is_connected(\"animation_finished\", pc):
 		ap.connect(\"animation_finished\", pc, CONNECT_ONE_SHOT)
 		ap.play(\"explode\")
-	return true
+	return super.enter_from(from, params)
 "
 
 [sub_resource type="Animation" id="Animation_tswnf"]

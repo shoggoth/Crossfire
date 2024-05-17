@@ -5,6 +5,7 @@ class_name StateMachine extends Node
 @export var debug := false
 
 func _ready():
+	set_meta("parent_node", get_parent())
 	connect("child_entered_tree", _on_child_entered_tree)
 	for child in get_children(): _on_child_entered_tree(child)
 
@@ -38,7 +39,6 @@ func can_enter_state(state: State) -> bool:
 func _on_child_entered_tree(child: Node):
 	if child is State:
 		child.sm = self
-		child.set_meta("parent_node", get_parent())
 		if child == current_state:
 			child.enter_from.call_deferred(null, {})
 			child.process_mode = Node.PROCESS_MODE_INHERIT
