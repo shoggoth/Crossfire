@@ -5,12 +5,12 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Sample the bullet sound out of Rolling Thunder
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 - Look at bbcode UI rich text component
 
 ### Done
+- Sample the bullet sound out of Rolling Thunder
 - Remove cyclic explode state
 - Fix the multiple explosion problem: does the state need to be unique / local to the scene?
 - Do more work on the state machine transitions allowed. Recent Timer state chages cause explode to lock
