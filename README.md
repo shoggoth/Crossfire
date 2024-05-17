@@ -5,15 +5,15 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Do more work on the state machine transitions allowed. Recent Timer state chages cause explode to lock
-- Fix the multiple explosion problem: does the state need to be unique / local to the scene?
-- Smaple the bullet sound out of Rolling Thunder
-- Remove cyclic explode state
+- Sample the bullet sound out of Rolling Thunder
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 - Look at bbcode UI rich text component
 
 ### Done
+- Remove cyclic explode state
+- Fix the multiple explosion problem: does the state need to be unique / local to the scene?
+- Do more work on the state machine transitions allowed. Recent Timer state chages cause explode to lock
 - Can I make the weapon component a Node2D?
 - Quantise joystick to 4 directions
 - Stop player movement on explode
