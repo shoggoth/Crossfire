@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=22 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
@@ -25,9 +25,13 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1y8x"]
 size = Vector2(16, 16)
 
-[sub_resource type="GDScript" id="GDScript_vpwwn"]
-resource_name = "Idle"
+[sub_resource type="GDScript" id="GDScript_n227r"]
+resource_name = "Hide"
 script/source = "extends State
+
+
+func _ready():
+	valid_transitions = [\"Lurk\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
@@ -36,17 +40,39 @@ func enter_from(from: State, params: Dictionary) -> bool:
 
 
 func _on_timer_timeout():
-	change_state(\"Move\")
+	change_state(\"Lurk\")
+"
+
+[sub_resource type="GDScript" id="GDScript_vpwwn"]
+resource_name = "Lurk"
+script/source = "extends State
+
+
+func _ready():
+	valid_transitions = [\"Hide\", \"Track\", \"Fire\", \"Explode\"]
+
+
+func enter_from(from: State, params: Dictionary) -> bool:
+	$Timer.start()
+	return super.enter_from(from, params)
+
+
+func _on_timer_timeout():
+	change_state(\"Hide\")
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
-resource_name = "Move"
+resource_name = "Track"
 script/source = "extends State
 
 
 @export var move_component: MoveComponent
 
 var enemy: Enemy
+
+
+func _ready():
+	valid_transitions = [\"Lurk\", \"Fire\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
@@ -61,7 +87,7 @@ func _physics_process(_delta):
 	elif randi_range(0, 99):
 		sm.enter_state_named(\"Fire\")
 	else:
-		sm.enter_state_named(\"Idle\")
+		sm.enter_state_named(\"Lurk\")
 "
 
 [sub_resource type="GDScript" id="GDScript_6sp8q"]
@@ -72,9 +98,13 @@ script/source = "extends State
 @export var weapon_component: WeaponComponent
 
 
+func _ready():
+	valid_transitions = [\"Lurk\", \"Track\", \"Explode\"]
+
+
 func _process(_delta):
 	if !weapon_component || !weapon_component.can_fire:
-		sm.enter_state_named(\"Move\")
+		sm.enter_state_named(\"Track\")
 	else:
 		var enemy = sm.get_meta(\"parent_node\")
 		weapon_component.fire(enemy, Vector2.UP)
@@ -209,18 +239,28 @@ wait_time = 2.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
-current_state = NodePath("Idle")
+current_state = NodePath("Hide")
+debug = true
 
-[node name="Idle" type="Node" parent="StateMachine"]
-script = SubResource("GDScript_vpwwn")
+[node name="Hide" type="Node" parent="StateMachine"]
+script = SubResource("GDScript_n227r")
 metadata/temp_meta = true
 
-[node name="Timer" type="Timer" parent="StateMachine/Idle"]
+[node name="Timer" type="Timer" parent="StateMachine/Hide"]
 process_mode = 3
 wait_time = 5.0
 one_shot = true
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
+[node name="Lurk" type="Node" parent="StateMachine"]
+script = SubResource("GDScript_vpwwn")
+metadata/temp_meta = true
+
+[node name="Timer" type="Timer" parent="StateMachine/Lurk"]
+process_mode = 3
+wait_time = 5.0
+one_shot = true
+
+[node name="Track" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
 script = SubResource("GDScript_vfjmb")
 move_component = NodePath("../../MoveComponent")
 
@@ -241,4 +281,5 @@ libraries = {
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
-[connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Hide/Timer" to="StateMachine/Hide" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Lurk/Timer" to="StateMachine/Lurk" method="_on_timer_timeout"]
