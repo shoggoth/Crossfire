@@ -51,8 +51,8 @@ signal destroyed(enemy: Enemy)
 
 
 func _ready():
-	for x in range(0, grid_size.x, 2): spawn(Vector2(x, 0))
-	for y in range(2, grid_size.y, 2): spawn(Vector2(0, y))
+	for x in range(1, grid_size.x, 2): spawn(Vector2(x, 0))
+	for y in range(1, grid_size.y, 2): spawn(Vector2(0, y))
 
 
 func spawn(pos: Vector2):
@@ -94,7 +94,7 @@ position = Vector2(240, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_c8mpn")
 
 [node name="Player" parent="." instance=ExtResource("1_3l35b")]
-position = Vector2(8, 8)
+position = Vector2(40, 40)
 motion_mode = 1
 
 [node name="EnemySpawn" type="Marker2D" parent="."]
