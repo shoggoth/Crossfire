@@ -60,6 +60,7 @@ func spawn(pos: Vector2):
 	var e: Enemy = enemy_scene.instantiate()
 	e.position = Vector2(0, 0) + pos * grid_spacing
 	e.destroyed = func(_name): destroyed.emit(e)
+	e.type = randi_range(0, 2)
 	add_child(e)
 "
 
