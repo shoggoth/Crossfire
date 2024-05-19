@@ -51,8 +51,9 @@ signal destroyed(enemy: Enemy)
 
 
 func _ready():
-	for x in range(1, grid_size.x, 2): spawn(Vector2(x, 0))
-	for y in range(1, grid_size.y, 2): spawn(Vector2(0, y))
+	for x in range(1, grid_size.x - 2, 2): spawn(Vector2(x, 0))
+	for y in range(1, grid_size.y - 1, 2): spawn(Vector2(0, y))
+	for y in range(1, grid_size.y - 2, 2): spawn(Vector2(grid_size.x - 1, y))
 
 
 func spawn(pos: Vector2):
