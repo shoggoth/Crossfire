@@ -5,6 +5,8 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Bullets can't pass tiles
+- Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 - Look at bbcode UI rich text component
