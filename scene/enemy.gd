@@ -3,6 +3,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var type = 0
 
+var spawn_pos: Vector2
 var destroyed: Callable
 
 
