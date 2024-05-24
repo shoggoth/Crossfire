@@ -18,7 +18,8 @@ func _ready():
 		_pool.append(bullet_scene.instantiate())
 
 
-func fire(source_node: Node2D, direction: Vector2):
+func fire(source_node: Node2D, direction: Vector2) -> bool:
+	if !can_fire: return false
 	can_fire = false
 	$Timer.start()
 	var b: HitBox = bullet_scene.instantiate()
@@ -27,6 +28,7 @@ func fire(source_node: Node2D, direction: Vector2):
 	b.position = source_node.position + direction * radius
 	b.collision_layer = (source_node.collision_layer & 3) | 16
 	add_child(b)
+	return true
 
 
 func _on_timer_timeout():

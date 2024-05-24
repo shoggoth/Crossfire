@@ -5,6 +5,7 @@
 [ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_jww0j"]
 [ext_resource type="Script" path="res://src/component/health.gd" id="3_1extx"]
 [ext_resource type="Texture2D" uid="uid://c2juryjym68gx" path="res://gfx/Enemies.png" id="3_ggwwy"]
+[ext_resource type="Script" path="res://src/component/ai.gd" id="5_dd2lp"]
 [ext_resource type="Script" path="res://src/state/state_machine.gd" id="6_6fphs"]
 [ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_cugao"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="7_ai7yh"]
@@ -65,12 +66,13 @@ script/source = "extends State
 
 
 @export var move_component: MoveComponent
+@export var weapon_component: WeaponComponent
 
 var enemy: Enemy
 
 
 func _ready():
-	valid_transitions = [\"Lurk\", \"Fire\", \"Explode\"]
+	valid_transitions = [\"Lurk\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
@@ -82,30 +84,14 @@ func _physics_process(_delta):
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
 	if random_vec.length_squared():
 		move_component.move(enemy, random_vec)
-	elif randi_range(0, 99):
-		sm.enter_state_named(\"Fire\")
+	elif randi_range(0, 14):
+		fire()
 	else:
 		sm.enter_state_named(\"Lurk\")
-"
-
-[sub_resource type="GDScript" id="GDScript_6sp8q"]
-resource_name = "Fire"
-script/source = "extends State
 
 
-@export var weapon_component: WeaponComponent
-
-
-func _ready():
-	valid_transitions = [\"Lurk\", \"Track\", \"Explode\"]
-
-
-func _process(_delta):
-	if !weapon_component || !weapon_component.can_fire:
-		sm.enter_state_named(\"Track\")
-	else:
-		var enemy = sm.get_meta(\"parent_node\")
-		weapon_component.fire(enemy, Vector2.UP)
+func fire() -> bool:
+	return weapon_component.fire(enemy, Vector2.RIGHT)
 "
 
 [sub_resource type="GDScript" id="GDScript_4j3dk"]
@@ -243,6 +229,10 @@ free_hit_boxen = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_b1y8x")
 
+[node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
+script = ExtResource("5_dd2lp")
+state_machine = NodePath("../StateMachine")
+
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_1extx")
 
@@ -270,7 +260,6 @@ metadata/temp_meta = true
 
 [node name="Timer" type="Timer" parent="StateMachine/Hide"]
 process_mode = 3
-wait_time = 5.0
 one_shot = true
 
 [node name="Lurk" type="Node" parent="StateMachine"]
@@ -279,15 +268,12 @@ metadata/temp_meta = true
 
 [node name="Timer" type="Timer" parent="StateMachine/Lurk"]
 process_mode = 3
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
-[node name="Track" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component")]
+[node name="Track" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "weapon_component")]
 script = SubResource("GDScript_vfjmb")
 move_component = NodePath("../../MoveComponent")
-
-[node name="Fire" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
-script = SubResource("GDScript_6sp8q")
 weapon_component = NodePath("../../WeaponComponent")
 
 [node name="Explode" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
@@ -303,5 +289,6 @@ libraries = {
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
+[connection signal="state_changed" from="StateMachine" to="AIComponent" method="_on_state_machine_state_changed"]
 [connection signal="timeout" from="StateMachine/Hide/Timer" to="StateMachine/Hide" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Lurk/Timer" to="StateMachine/Lurk" method="_on_timer_timeout"]

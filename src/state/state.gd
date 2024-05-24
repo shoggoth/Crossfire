@@ -1,8 +1,8 @@
 class_name State extends Node
 
 
-signal entered_state(state: State)
-signal exited_state(state: State)
+signal state_entered(state: State)
+signal state_exited(state: State)
 
 var sm: StateMachine = null
 var valid_transitions = null		# null => any || [] => none || check array content
@@ -14,10 +14,10 @@ func change_state(state_name: String, params := {}):
 
 
 func enter_from(_from: State, _params: Dictionary) -> bool:
-	entered_state.emit(self)
+	state_entered.emit(self)
 	return true
 
 
 func exit_to(_to: State) -> bool:
-	exited_state.emit(self)
+	state_exited.emit(self)
 	return true

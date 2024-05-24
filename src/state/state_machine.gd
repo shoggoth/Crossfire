@@ -1,6 +1,8 @@
 class_name StateMachine extends Node
 
 
+signal state_changed(from: State, to: State)
+
 @export var current_state: State = null
 @export var debug := false
 
@@ -22,6 +24,7 @@ func enter_state(state: State, params := {}) -> bool:
 		current_state.exit_to(state)
 	if state && state.enter_from(current_state, params):
 		state.process_mode = Node.PROCESS_MODE_INHERIT
+		state_changed.emit(current_state, state)
 		current_state = state
 		return true
 	return false
