@@ -253,6 +253,8 @@ script = ExtResource("5_7le23")
 [node name="MoveComponent" type="Node" parent="."]
 script = ExtResource("6_uynyl")
 quantise_direction = true
+minimum = Vector2(1, 1)
+maximum = Vector2(6, 5)
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("9_y1i6h")
