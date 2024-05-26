@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Implement hiding and Lurking in the enemies
 - Bullets can't pass tiles
 - Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI

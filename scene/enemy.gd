@@ -9,6 +9,7 @@ var destroyed: Callable
 
 func _ready():
 	$Sprite2D.frame = type
+	$StateMachine.set_meta("move_component", $MoveComponent)
 
 
 func _on_health_component_health_changed(health):
