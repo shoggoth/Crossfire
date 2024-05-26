@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bb3bwwfrmos4v"]
+[gd_scene load_steps=11 format=3 uid="uid://bb3bwwfrmos4v"]
 
 [ext_resource type="Texture2D" uid="uid://c644b0xb563gh" path="res://gfx/Logo.png" id="1_awptr"]
 [ext_resource type="Script" path="res://scene/attract.gd" id="1_r07k6"]
+[ext_resource type="Theme" uid="uid://0xhp0sfe8p1j" path="res://theme/default.theme" id="3_008xx"]
 
 [sub_resource type="Animation" id="Animation_fsd5j"]
 resource_name = "default"
@@ -71,6 +72,67 @@ _data = {
 "default": SubResource("Animation_cistl")
 }
 
+[sub_resource type="Animation" id="Animation_sdu2y"]
+resource_name = "reveal"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Typewriter:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 9.18958),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Typewriter:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2p5kd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Typewriter:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Typewriter:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wvfq"]
+_data = {
+"RESET": SubResource("Animation_2p5kd"),
+"reveal": SubResource("Animation_sdu2y")
+}
+
 [node name="Attract" type="CanvasLayer"]
 
 [node name="PhaseTimer" type="Timer" parent="."]
@@ -81,6 +143,7 @@ autostart = true
 script = ExtResource("1_r07k6")
 
 [node name="Title" type="Node2D" parent="Phases"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Phases/Title"]
 position = Vector2(200, 200)
@@ -96,6 +159,7 @@ libraries = {
 autoplay = "default"
 
 [node name="Demo" type="Node2D" parent="Phases"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Phases/Demo"]
 position = Vector2(300, 200)
@@ -104,6 +168,7 @@ centered = false
 offset = Vector2(-145, -151.2)
 
 [node name="HighScore" type="Node2D" parent="Phases"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Phases/HighScore"]
 position = Vector2(180, 320)
@@ -116,5 +181,82 @@ libraries = {
 "": SubResource("AnimationLibrary_6vrep")
 }
 autoplay = "default"
+
+[node name="Texts" type="VBoxContainer" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -26.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Typewriter" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+text = "Niggers gonna Nig!! And yes they gonna NIG!!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="BBColor" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+bbcode_enabled = true
+text = "Something [bgcolor=red]for those[/bgcolor] [color=green]Coloured People[/color] lol!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Centered" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+bbcode_enabled = true
+text = "[center]Something in the middle lolikers"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Pulse" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+bbcode_enabled = true
+text = "[pulse freq=1.0 color=#ffffff40 ease=-2.0]Something for the Eppies here, a pulse then.[/pulse]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Rainbow" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+bbcode_enabled = true
+text = "[rainbow freq=1.0 sat=0.8 val=0.8]Something else for the Eppies here, a rainbow then.[/rainbow]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Wave" type="RichTextLabel" parent="Texts"]
+layout_mode = 2
+theme = ExtResource("3_008xx")
+bbcode_enabled = true
+text = "[wave freq=5.0 amp = 30.0]Something for the Seasicks here, a wave then.[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Texts"]
+libraries = {
+"": SubResource("AnimationLibrary_8wvfq")
+}
+autoplay = "reveal"
 
 [connection signal="timeout" from="PhaseTimer" to="Phases" method="_on_phase_timer_timeout"]

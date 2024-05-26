@@ -9,9 +9,9 @@
 - Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
-- Look at bbcode UI rich text component
 
 ### Done
+- Look at bbcode UI rich text component 
 - Sample the bullet sound out of Rolling Thunder
 - Remove cyclic explode state
 - Fix the multiple explosion problem: does the state need to be unique / local to the scene?
@@ -31,5 +31,6 @@
 - Use vertex programme for scaling explode shader
 
 ### Reference
+https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html
 https://www.youtube.com/watch?v=KfdTJ1QuPvU Beginner platformer P10 GeMakesGames
 https://www.youtube.com/watch?v=tNqFLmbWW-Y Bacon and Games Godot template
