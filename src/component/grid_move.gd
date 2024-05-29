@@ -8,7 +8,7 @@ class_name MoveComponent extends Node
 @export var quantise_direction: bool = false
 @export_group("Grid Limits")
 @export var minimum := Vector2(0, 0)
-@export var maximum := Vector2(7, 6)
+@export var maximum := Vector2(8, 6)
 
 var move_tween: Tween = null
 
