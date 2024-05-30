@@ -86,6 +86,8 @@ class Snapshot:
 	var active_count: int
 	var destroyed_count: int
 	var mutation_count: int
+	
+	var player: Player
 "
 
 [node name="World" type="Node2D"]

@@ -1,11 +1,21 @@
 class_name AIComponent extends Node
 
 
+@export_group("Capabilities")
+@export var intelligence := 1.0
+
+@export_group("Control")
 @export var state_machine: StateMachine
+
+var _thinking = false
 
 
 func _process(_delta):
-	pass
+	if _thinking: return
+	_thinking = true
+	await get_tree().create_timer(intelligence).timeout
+	#print("Hmmm... ", state_machine.current_state.name)
+	_thinking = false
 
 
 func _on_state_machine_state_changed(_from, _to):
