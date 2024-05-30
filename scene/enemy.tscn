@@ -32,14 +32,6 @@ script/source = "extends State
 func _ready():
 	valid_transitions = [\"Lurk\"]
 
-
-func enter_from(from: State, params: Dictionary) -> bool:
-	$Timer.start()
-	return super.enter_from(from, params)
-
-
-func _on_timer_timeout():
-	change_state(\"Lurk\")
 "
 
 [sub_resource type="GDScript" id="GDScript_vpwwn"]
@@ -55,24 +47,19 @@ var _enemy: Enemy
 
 
 func _ready():
-	valid_transitions = [\"Hide\", \"Track\", \"Fire\", \"Explode\"]
+	valid_transitions = [\"Hide\", \"Track\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	_mc = sm.get_meta(\"move_component\")
 	_enemy = sm.get_meta(\"parent_node\")
 	_mc.move(_enemy, home_pos)
-	$Timer.start()
 	return super.enter_from(from, params)
 
 
 func exit_to(state) -> bool:
 	_mc.move(_enemy, -home_pos)
 	return super.exit_to(state)
-
-
-func _on_timer_timeout():
-	change_state(\"Hide\")
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
@@ -273,20 +260,10 @@ current_state = NodePath("Hide")
 script = SubResource("GDScript_n227r")
 metadata/temp_meta = true
 
-[node name="Timer" type="Timer" parent="StateMachine/Hide"]
-process_mode = 3
-wait_time = 3.0
-one_shot = true
-
 [node name="Lurk" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
 script = SubResource("GDScript_vpwwn")
 weapon_component = NodePath("../../WeaponComponent")
 metadata/temp_meta = true
-
-[node name="Timer" type="Timer" parent="StateMachine/Lurk"]
-process_mode = 3
-wait_time = 3.0
-one_shot = true
 
 [node name="Track" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
 script = SubResource("GDScript_vfjmb")
@@ -306,5 +283,3 @@ libraries = {
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
 [connection signal="state_changed" from="StateMachine" to="AIComponent" method="_on_state_machine_state_changed"]
-[connection signal="timeout" from="StateMachine/Hide/Timer" to="StateMachine/Hide" method="_on_timer_timeout"]
-[connection signal="timeout" from="StateMachine/Lurk/Timer" to="StateMachine/Lurk" method="_on_timer_timeout"]
