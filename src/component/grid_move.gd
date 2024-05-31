@@ -8,7 +8,7 @@ class_name MoveComponent extends Node
 @export var quantise_direction: bool = false
 @export_group("Grid Limits")
 @export var minimum := Vector2(0, 0)
-@export var maximum := Vector2(8, 6)
+@export var maximum := Vector2(7, 6)
 
 var move_tween: Tween = null
 
@@ -21,6 +21,9 @@ func move(node: Node2D, direction: Vector2):
 		move_tween = create_tween()
 		move_tween.tween_property(node, "position", m, speed)
 		move_tween.tween_callback(stop)
+
+
+func is_moving() -> bool: return move_tween != null
 
 
 func stop():

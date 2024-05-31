@@ -6,6 +6,7 @@
 
 ### TODO
 - Implement hiding and Lurking in the enemies
+- Investigate giving the move handler a completion func (for above) or perhaps a signal 'move completed'
 - Bullets can't pass tiles
 - Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI

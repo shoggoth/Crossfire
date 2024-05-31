@@ -58,7 +58,7 @@ func enter_from(from: State, params: Dictionary) -> bool:
 
 
 func exit_to(state) -> bool:
-	_mc.move(_enemy, -home_pos)
+	if state.name == \"Hide\": _mc.move(_enemy, -home_pos)
 	return super.exit_to(state)
 "
 
@@ -88,8 +88,6 @@ func _physics_process(_delta):
 		_mc.move(_enemy, random_vec)
 	elif randi_range(0, 14):
 		fire()
-	else:
-		sm.enter_state_named(\"Lurk\")
 
 
 func fire() -> bool:
@@ -207,6 +205,7 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 10
 motion_mode = 1
 script = ExtResource("1_yywqr")
 metadata/_edit_group_ = true
