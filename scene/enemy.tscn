@@ -248,6 +248,7 @@ script = ExtResource("3_1extx")
 script = ExtResource("6_cugao")
 speed = 1.5
 quantise_direction = true
+maximum = Vector2(8, 6)
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("7_ldo4r")
