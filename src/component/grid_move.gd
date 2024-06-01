@@ -1,6 +1,8 @@
 class_name MoveComponent extends Node
 
 
+signal finished_moving(move_component: MoveComponent)
+
 @export_group("Movement")
 @export var speed: float = 0.7
 @export var grid_size := Vector2(32, 32)
@@ -30,6 +32,7 @@ func stop():
 	if move_tween:
 		move_tween.kill()
 		move_tween = null
+		finished_moving.emit(self)
 
 
 func is_in_grid_limits(pos: Vector2) -> bool:

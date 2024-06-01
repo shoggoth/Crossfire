@@ -19,12 +19,12 @@ func get_state(named: String) -> State:
 func enter_state(state: State, params := {}) -> bool:
 	if !can_enter_state(state as State): return false
 	if current_state:
-		if debug: print_debug(current_state.name, " -> ", state.name)
 		current_state.process_mode = Node.PROCESS_MODE_DISABLED
-		current_state.exit_to(state)
+		if !current_state.exit_to(state): return false
 	if state && state.enter_from(current_state, params):
 		state.process_mode = Node.PROCESS_MODE_INHERIT
 		state_changed.emit(current_state, state)
+		if debug: print_debug(current_state.name, " -> ", state.name)
 		current_state = state
 		return true
 	return false

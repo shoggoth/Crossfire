@@ -29,8 +29,19 @@ resource_name = "Hide"
 script/source = "extends State
 
 
+var home_pos: Vector2
+
+
 func _ready():
 	valid_transitions = [\"Lurk\"]
+
+
+func enter_from(from: State, params: Dictionary) -> bool:
+	var _mc = sm.get_meta(\"move_component\")
+	if _mc.is_moving(): return false
+	var _enemy = sm.get_meta(\"parent_node\")
+	_mc.move(_enemy, home_pos)
+	return super.enter_from(from, params)
 
 "
 
@@ -52,14 +63,10 @@ func _ready():
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	_mc = sm.get_meta(\"move_component\")
+	if _mc.is_moving(): return false
 	_enemy = sm.get_meta(\"parent_node\")
 	_mc.move(_enemy, home_pos)
 	return super.enter_from(from, params)
-
-
-func exit_to(state) -> bool:
-	if state.name == \"Hide\": _mc.move(_enemy, -home_pos)
-	return super.exit_to(state)
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
@@ -254,6 +261,7 @@ wait_time = 2.0
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
 current_state = NodePath("Hide")
+debug = true
 
 [node name="Hide" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_n227r")

@@ -2,7 +2,7 @@ class_name AIComponent extends Node
 
 
 @export_group("Capabilities")
-@export var intelligence := 1.0
+@export var intelligence := 0.5
 
 @export_group("Control")
 @export var state_machine: StateMachine
@@ -16,7 +16,7 @@ func _process(_delta):
 	await get_tree().create_timer(intelligence).timeout
 	match state_machine.current_state.name:
 		"Hide": state_machine.enter_state_named("Lurk")
-		"Lurk": state_machine.enter_state_named("Track")
+		"Lurk": state_machine.enter_state_named("Hide")
 	_thinking = false
 
 
