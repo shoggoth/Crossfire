@@ -1,6 +1,9 @@
 extends Node2D
 
 
+@onready var player = $Player
+
+
 func _ready():
 	$EnemySpawn.snapshot.player = $Player		# TODO: Handle player respawn
 

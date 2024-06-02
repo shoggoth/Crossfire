@@ -5,14 +5,15 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Implement hiding and Lurking in the enemies
-- Investigate giving the move handler a completion func (for above) or perhaps a signal 'move completed'
+- Track to position in enemy state
 - Bullets can't pass tiles
 - Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 
 ### Done
+- Implement hiding and Lurking in the enemies
+- Investigate giving the move handler a completion func (for above) or perhaps a signal 'move completed'
 - Look at bbcode UI rich text component 
 - Sample the bullet sound out of Rolling Thunder
 - Remove cyclic explode state
