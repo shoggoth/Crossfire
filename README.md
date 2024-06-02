@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Sort out state movements
 - Track to position in enemy state
 - Bullets can't pass tiles
 - Spawner handles destruction of enemies

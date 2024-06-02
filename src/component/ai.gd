@@ -16,7 +16,7 @@ func _process(_delta):
 	await get_tree().create_timer(intelligence).timeout
 	match state_machine.current_state.name:
 		"Hide": state_machine.enter_state_named("Lurk")
-		"Lurk": state_machine.enter_state_named("Wander")
+		"Lurk": state_machine.enter_state_named("Track")
 		"Wander": state_machine.enter_state_named("Track")
 	_thinking = false
 

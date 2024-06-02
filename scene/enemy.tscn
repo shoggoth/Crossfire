@@ -84,8 +84,9 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	_enemy = sm.get_meta(\"parent_node\")
 	_mc = sm.get_meta(\"move_component\")
+	if _mc.moving: return false
+	_enemy = sm.get_meta(\"parent_node\")
 	return super.enter_from(from, params)
 
 
