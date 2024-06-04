@@ -127,7 +127,7 @@ func enter_from(from: State, params: Dictionary) -> bool:
 func _physics_process(_delta):
 	var vec = _track_pos * _mc.grid_size - _enemy.position
 	if !_mc.moving && vec.length_squared():
-		if vec.x > vec.y: vec.y = 0
+		if abs(vec.x) > abs(vec.y): vec.y = 0
 		else: vec.x = 0
 		_mc.move(_enemy, vec.normalized())
 
