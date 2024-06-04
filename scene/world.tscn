@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
 [ext_resource type="Script" path="res://scene/world.gd" id="1_emclg"]
+[ext_resource type="Script" path="res://src/spawner.gd" id="4_i7bxp"]
 [ext_resource type="PackedScene" uid="uid://ee7kqycc6b4p" path="res://scene/enemy.tscn" id="4_oh0mt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pswc2"]
@@ -37,58 +38,6 @@ normal = Vector2(1, 2.08165e-12)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c8mpn"]
 normal = Vector2(-1, -1.631e-14)
-
-[sub_resource type="GDScript" id="GDScript_jpa4p"]
-resource_name = "Spawner"
-script/source = "extends Marker2D
-
-
-signal destroyed(enemy: Enemy)
-signal snapshot_changed(snapshot: Snapshot)
-
-@export var enemy_scene: PackedScene
-@export var grid_size = Vector2i(15, 12)
-@export var grid_spacing = 16.0
-
-var snapshot := Snapshot.new()
-
-
-func _ready():
-	for x in range(1, grid_size.x - 2, 2): spawn(Vector2(x, 0))
-	for y in range(1, grid_size.y - 1, 2): spawn(Vector2(0, y))
-	for y in range(1, grid_size.y - 2, 2): spawn(Vector2(grid_size.x - 1, y))
-	
-	snapshot.active_count = get_child_count()
-	snapshot_changed.emit(snapshot)
-
-
-func spawn(pos: Vector2, type: int = 0):
-	var e: Enemy = enemy_scene.instantiate()
-	e.position = pos * grid_spacing
-	e.spawn_pos = pos
-	e.destroyed = func(_name): respawn(e)
-	e.type = type
-	add_child(e)
-
-
-func respawn(e: Enemy):
-	destroyed.emit(e)
-	if e.type < 3:
-		spawn(e.spawn_pos, e.type + 1)
-		snapshot.mutation_count += 1
-	else:
-		snapshot.active_count -= 1
-	snapshot.destroyed_count += 1
-	snapshot_changed.emit(snapshot)
-
-
-class Snapshot:
-	var active_count: int
-	var destroyed_count: int
-	var mutation_count: int
-	
-	var player: Player
-"
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_emclg")
@@ -127,7 +76,7 @@ motion_mode = 1
 
 [node name="EnemySpawn" type="Marker2D" parent="."]
 position = Vector2(8, 8)
-script = SubResource("GDScript_jpa4p")
+script = ExtResource("4_i7bxp")
 enemy_scene = ExtResource("4_oh0mt")
 
 [node name="HUD" type="CanvasLayer" parent="."]

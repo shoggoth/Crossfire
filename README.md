@@ -5,14 +5,15 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Sort out state movements
-- Track to position in enemy state
+- Only destroy one enemy per bullet
 - Bullets can't pass tiles
 - Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 
 ### Done
+- Track to position in enemy state
+- Sort out state movements
 - Implement hiding and Lurking in the enemies
 - Investigate giving the move handler a completion func (for above) or perhaps a signal 'move completed'
 - Look at bbcode UI rich text component 

@@ -119,8 +119,10 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	_enemy = sm.get_meta(\"parent_node\")
 	_mc = sm.get_meta(\"move_component\")
+	if _mc.moving: return false
+	_enemy = sm.get_meta(\"parent_node\")
+	print(Global.game.player)
 	return super.enter_from(from, params)
 
 
@@ -297,7 +299,6 @@ wait_time = 2.0
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
 current_state = NodePath("Hide")
-debug = true
 
 [node name="Hide" type="Node" parent="StateMachine"]
 script = SubResource("GDScript_n227r")

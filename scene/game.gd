@@ -3,7 +3,6 @@ extends Node
 
 var world: Node = null
 var attract: Node = null
-var player: Node = null
 
 @onready var transition = $Transition
 

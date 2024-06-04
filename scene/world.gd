@@ -1,11 +1,4 @@
-extends Node2D
-
-
-@onready var player = $Player
-
-
-func _ready():
-	$EnemySpawn.snapshot.player = $Player		# TODO: Handle player respawn
+class_name World extends Node2D
 
 
 func _on_player_destroyed(p: Player):
@@ -17,5 +10,6 @@ func _on_enemy_destroyed(e: Enemy):
 
 
 func _on_enemy_spawn_snapshot_changed(snapshot):
+	print(snapshot.active_count, " active")
 	print(snapshot.destroyed_count, " destroyed")
-	print(snapshot.player, " player")
+	print(snapshot.mutation_count, " mutated")
