@@ -18,14 +18,15 @@ var moving: bool:
 var _move_tween: Tween = null
 
 
-func move(node: Node2D, direction: Vector2):
-	if direction && !_move_tween:
-		if quantise_direction: direction = Global.quantise(direction)
-		var m = node.position + direction * grid_size
-		if !is_in_grid_limits(m): return
-		_move_tween = create_tween()
-		_move_tween.tween_property(node, "position", m, speed)
-		_move_tween.tween_callback(stop)
+func move(node: Node2D, direction: Vector2) -> bool:
+	if _move_tween: return false
+	if quantise_direction: direction = Global.quantise(direction)
+	var m = node.position + direction * grid_size
+	if !is_in_grid_limits(m): return false
+	_move_tween = create_tween()
+	_move_tween.tween_property(node, "position", m, speed)
+	_move_tween.tween_callback(stop)
+	return true
 
 
 func stop():

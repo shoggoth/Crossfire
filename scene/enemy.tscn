@@ -39,7 +39,6 @@ func _ready():
 func enter_from(from: State, params: Dictionary) -> bool:
 	if !from: return true
 	var _mc = sm.get_meta(\"move_component\")
-	if _mc.moving: return false
 	var _enemy = sm.get_meta(\"parent_node\")
 	_mc.move(_enemy, home_pos)
 	return super.enter_from(from, params)
@@ -54,8 +53,6 @@ script/source = "extends State
 @export var weapon_component: WeaponComponent
 
 var home_pos: Vector2
-var _mc: MoveComponent
-var _enemy: Enemy
 
 
 func _ready():
@@ -63,9 +60,8 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	_mc = sm.get_meta(\"move_component\")
-	if _mc.moving: return false
-	_enemy = sm.get_meta(\"parent_node\")
+	var _mc = sm.get_meta(\"move_component\")
+	var _enemy = sm.get_meta(\"parent_node\")
 	_mc.move(_enemy, home_pos)
 	return super.enter_from(from, params)
 "
@@ -77,30 +73,22 @@ script/source = "extends State
 
 @export var weapon_component: WeaponComponent
 
-var _enemy: Enemy
-var _mc: MoveComponent
 
 func _ready():
 	valid_transitions = [\"Lurk\", \"Track\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	_mc = sm.get_meta(\"move_component\")
-	if _mc.moving: return false
-	_enemy = sm.get_meta(\"parent_node\")
+	var _mc = sm.get_meta(\"move_component\")
+	var _enemy = sm.get_meta(\"parent_node\")
+	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
+	if !_mc.move(_enemy, random_vec): _mc.move(_enemy, -random_vec)
+	fire(_enemy, random_vec)
 	return super.enter_from(from, params)
 
 
-func _physics_process(_delta):
-	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
-	if !_mc.moving && random_vec.length_squared():
-		_mc.move(_enemy, random_vec)
-	else:
-		fire(random_vec)
-
-
-func fire(direction: Vector2) -> bool:
-	return weapon_component.fire(_enemy, direction)
+func fire(e: Enemy, direction: Vector2) -> bool:
+	return weapon_component.fire(e, direction)
 "
 
 [sub_resource type="GDScript" id="GDScript_vfjmb"]
@@ -111,31 +99,22 @@ script/source = "extends State
 @export var weapon_component: WeaponComponent
 
 var _track_pos: Vector2 = Vector2(3, 5)
-var _enemy: Enemy
-var _mc: MoveComponent
+
 
 func _ready():
 	valid_transitions = [\"Lurk\", \"Wander\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	_mc = sm.get_meta(\"move_component\")
-	if _mc.moving: return false
-	_enemy = sm.get_meta(\"parent_node\")
-	print(Global.game.player)
-	return super.enter_from(from, params)
-
-
-func _physics_process(_delta):
+	var _mc = sm.get_meta(\"move_component\")
+	var _enemy = sm.get_meta(\"parent_node\")
 	var vec = _track_pos * _mc.grid_size - _enemy.position
+	if _mc.moving: print_debug(\"Niggin\")
 	if !_mc.moving && vec.length_squared():
 		if abs(vec.x) > abs(vec.y): vec.y = 0
 		else: vec.x = 0
 		_mc.move(_enemy, vec.normalized())
-
-
-func fire() -> bool:
-	return weapon_component.fire(_enemy, Vector2.RIGHT)
+	return super.enter_from(from, params)
 "
 
 [sub_resource type="GDScript" id="GDScript_4j3dk"]
@@ -329,5 +308,6 @@ libraries = {
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
 [connection signal="state_changed" from="StateMachine" to="AIComponent" method="_on_state_machine_state_changed"]

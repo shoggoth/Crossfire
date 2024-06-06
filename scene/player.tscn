@@ -56,7 +56,8 @@ func exit_to(to: State) -> bool:
 
 
 func _physics_process(_delta):
-	move_component.move(player, player.input.d_pad)
+	var direction = player.input.d_pad
+	if direction: move_component.move(player, direction)
 	if player.input.fire:
 		sm.enter_state_named(\"Fire\", { \"player\" : player })
 	if player.input.bomb:
