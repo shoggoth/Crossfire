@@ -1,9 +1,14 @@
 class_name Player extends CharacterBody2D
 
 
+signal spawned(player: Player)
 signal destroyed(player: Player)
 
 @onready var input = $InputComponent
+
+
+func _ready():
+	spawned.emit(self)
 
 
 func _on_health_component_health_changed(health):

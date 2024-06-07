@@ -1,6 +1,8 @@
 class_name WeaponComponent extends Node
 
 
+signal weapon_fired(source_node: Node2D, direction: Vector2)
+
 @export_group("Properties")
 @export var bullet_scene: PackedScene
 @export var radius: float = 0
@@ -28,6 +30,7 @@ func fire(source_node: Node2D, direction: Vector2) -> bool:
 	b.position = source_node.position + direction * radius
 	b.collision_layer = (source_node.collision_layer & 3) | 16
 	add_child(b)
+	weapon_fired.emit(source_node, direction)
 	return true
 
 
