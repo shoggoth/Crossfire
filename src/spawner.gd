@@ -1,6 +1,7 @@
 class_name Spawner extends Marker2D
 
 
+signal spawned(enemy: Enemy)
 signal destroyed(enemy: Enemy)
 signal snapshot_changed(snapshot: Spawner.Snapshot)
 
@@ -29,6 +30,7 @@ func spawn(pos: Vector2, type: int = 0):
 	e.destroyed = func(_name): respawn(e)
 	e.type = type
 	add_child(e)
+	spawned.emit(e)
 
 
 func respawn(e: Enemy):
