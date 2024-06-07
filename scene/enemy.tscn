@@ -83,7 +83,7 @@ func enter_from(from: State, params: Dictionary) -> bool:
 	var _enemy = sm.get_meta(\"parent_node\")
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
 	if !_mc.move(_enemy, random_vec): _mc.move(_enemy, -random_vec)
-	fire(_enemy, random_vec)
+	if !randi_range(0, 3): fire(_enemy, random_vec * 2)
 	return super.enter_from(from, params)
 
 

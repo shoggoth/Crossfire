@@ -18,12 +18,11 @@ func _process(delta):
 		_thinking_time -= intelligence
 
 
-func _on_state_machine_state_changed(from, to):
-	print(from.name, " - ", to.name)
+func _on_state_machine_state_changed(_from, _to):
+	pass
 
 
-func _on_move_component_finished_moving(mc: MoveComponent):
-	print("Finished moving ", state_machine.current_state.name)
+func _on_move_component_finished_moving(_mc):
 	match state_machine.current_state.name:
 		"Lurk": state_machine.enter_state_named("Wander")
 		"Wander": state_machine.enter_state_named("Track")
