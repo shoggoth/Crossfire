@@ -4,6 +4,8 @@ class_name Spawner extends Marker2D
 signal destroyed(enemy: Enemy)
 signal snapshot_changed(snapshot: Spawner.Snapshot)
 
+const TYPE_COUNT = 3
+
 @export var enemy_scene: PackedScene
 @export var grid_size = Vector2i(15, 12)
 @export var grid_spacing = 16.0
@@ -31,7 +33,7 @@ func spawn(pos: Vector2, type: int = 0):
 
 func respawn(e: Enemy):
 	destroyed.emit(e)
-	if e.type < 3:
+	if e.type < TYPE_COUNT:
 		spawn(e.spawn_pos, e.type + 1)
 		snapshot.mutation_count += 1
 	else:
