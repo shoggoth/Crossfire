@@ -12,11 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="9_etqh0"]
 [ext_resource type="Script" path="res://src/component/input.gd" id="9_y1i6h"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
-shader = ExtResource("2_vr2vu")
-shader_parameter/explode_amount = Vector2(1, 1)
-shader_parameter/number_of_splits = Vector2(15, 15)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_5xd3s"]
 radius = 8.0
 
@@ -61,7 +56,8 @@ func _physics_process(_delta):
 	if player.input.fire:
 		sm.enter_state_named(\"Fire\", { \"player\" : player })
 	if player.input.bomb:
-		sm.enter_state_named(\"Explode\", { \"completion\" : func(_name): player.queue_free() })
+		# TODO: Remove this
+		$\"../../HealthComponent\".damage(1.0)
 "
 
 [sub_resource type="GDScript" id="GDScript_6it8t"]
@@ -94,13 +90,18 @@ script/source = "extends State
 
 
 func _ready():
-	valid_transitions = []
+	valid_transitions = [\"Idle\"]
 
 
-func enter_from(_state: State, params: Dictionary) -> bool:
+func enter_from(state: State, params: Dictionary) -> bool:
 	$AnimationPlayer.connect(\"animation_finished\", params[\"completion\"], CONNECT_ONE_SHOT)
 	$AnimationPlayer.play(\"explode\")
-	return true
+	return super.enter_from(state, params)
+
+
+func exit_to(to: State) -> bool:
+	$AnimationPlayer.play(\"RESET\")
+	return super.exit_to(to)
 "
 
 [sub_resource type="Animation" id="Animation_tswnf"]
@@ -115,7 +116,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("ShaderMaterial_fn5vs")]
+"values": [null]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -133,7 +134,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("../../Sprite2D:material:shader_parameter/explode_amount")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
@@ -156,6 +157,11 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/3/use_blend = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
+shader = ExtResource("2_vr2vu")
+shader_parameter/explode_amount = Vector2(1, 1)
+shader_parameter/number_of_splits = Vector2(15, 15)
 
 [sub_resource type="Animation" id="Animation_ityh2"]
 resource_name = "explode"
@@ -230,7 +236,6 @@ limit_top = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_fn5vs")
 texture = ExtResource("3_6gc45")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -288,10 +293,12 @@ script = SubResource("GDScript_6it8t")
 weapon_component = NodePath("../../WeaponComponent")
 
 [node name="Explode" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_component")]
+process_mode = 3
 script = SubResource("GDScript_kmhv7")
 health_component = NodePath("../../HealthComponent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Explode"]
+process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_w1eau")
 }

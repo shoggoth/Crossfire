@@ -7,11 +7,11 @@
 ### TODO
 - Only destroy one enemy per bullet
 - Bullets can't pass tiles
-- Spawner handles destruction of enemies
 - Game, world and level loading with persistent player and UI
 - Reroute game over signal on player death
 
 ### Done
+- Spawner handles destruction of enemies
 - Track to position in enemy state
 - Sort out state movements
 - Implement hiding and Lurking in the enemies

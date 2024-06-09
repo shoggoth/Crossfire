@@ -7,7 +7,7 @@ func _on_player_spawned(p: Player):
 
 
 func _on_player_destroyed(p: Player):
-	p.queue_free()
+	p.reset()
 
 
 func _on_enemy_spawned(e: Enemy):
