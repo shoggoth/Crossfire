@@ -4,10 +4,13 @@ class_name Player extends CharacterBody2D
 signal spawned(player: Player)
 signal destroyed(player: Player)
 
+var _respawn_pos: Vector2
+
 @onready var input = $InputComponent
 
 
 func _ready():
+	_respawn_pos = position
 	spawned.emit(self)
 
 
@@ -19,5 +22,5 @@ func _on_health_component_health_changed(health):
 func reset():
 	#TODO: state machine reset instead of being specific
 	$StateMachine.enter_state_named("Idle")
-	position = Vector2(40, 40)
+	position = _respawn_pos
 	spawned.emit(self)

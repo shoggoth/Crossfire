@@ -1,6 +1,9 @@
 class_name World extends Node2D
 
 
+signal score_changed(by: int)
+
+
 func _on_player_spawned(p: Player):
 	var mc := p.get_node("MoveComponent") as MoveComponent
 	print(mc)
@@ -16,6 +19,7 @@ func _on_enemy_spawned(e: Enemy):
 
 
 func _on_enemy_destroyed(e: Enemy):
+	score_changed.emit(100)
 	e.queue_free()
 
 

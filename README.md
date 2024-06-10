@@ -39,3 +39,7 @@
 https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html
 https://www.youtube.com/watch?v=KfdTJ1QuPvU Beginner platformer P10 GeMakesGames
 https://www.youtube.com/watch?v=tNqFLmbWW-Y Bacon and Games Godot template
+
+### Notes
+Enemy scores: 10, 20, 40, 80
+Lanterns: 100, 200, 400, 800

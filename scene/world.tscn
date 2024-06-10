@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hhid6teie814"]
+[gd_scene load_steps=14 format=3 uid="uid://hhid6teie814"]
 
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
@@ -38,6 +38,20 @@ normal = Vector2(1, 2.08165e-12)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c8mpn"]
 normal = Vector2(-1, -1.631e-14)
+
+[sub_resource type="GDScript" id="GDScript_vw7uf"]
+resource_name = "Pickups"
+script/source = "extends Marker2D
+
+
+signal picked_up(enemy: Enemy)
+
+@export var lantern_scene: PackedScene
+
+
+func _ready():
+	print(\"Spawing lanterns\")
+"
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_emclg")
@@ -79,6 +93,9 @@ motion_mode = 1
 position = Vector2(8, 8)
 script = ExtResource("4_i7bxp")
 enemy_scene = ExtResource("4_oh0mt")
+
+[node name="Pickups" type="Marker2D" parent="."]
+script = SubResource("GDScript_vw7uf")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
