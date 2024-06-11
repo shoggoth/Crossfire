@@ -3,6 +3,8 @@ class_name World extends Node2D
 
 signal score_changed(by: int)
 
+var total_score: int = 0
+
 
 func _on_player_spawned(p: Player):
 	var mc := p.get_node("MoveComponent") as MoveComponent
@@ -19,8 +21,10 @@ func _on_enemy_spawned(e: Enemy):
 
 
 func _on_enemy_destroyed(e: Enemy):
-	score_changed.emit(100)
 	e.queue_free()
+	total_score += 2 ** e.type * 10
+	score_changed.emit(total_score)
+	%Score.text = str(total_score)
 
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
