@@ -18,15 +18,15 @@ func _ready():
 func _on_game_start():
 	transition.play("fade_out", func():
 		remove_child(attract)
-		$UI.mode = "HUD"
+		$UI.mode = "Hidden"
 		world = $World.create_instance()
 		world.score_changed.connect(_on_world_score_changed)
+		world.game_over.connect(_on_game_over)
 		transition.play("fade_in", Callable())
 		)
 
 
-# TODO: Remove the player param
-func _on_game_over(_player):
+func _on_game_over(_score: int):
 	remove_child(world)
 	if !attract.is_inside_tree(): attract = $Attract.create_instance()
 	$UI.mode = "StartMenu"

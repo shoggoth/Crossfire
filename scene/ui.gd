@@ -26,7 +26,7 @@ func _set_mode(value: String):
 
 func _on_continue_pressed():
 	# StartMenu - Continue button
-	print_debug("NYA - Continue")
+	start_game.emit()
 
 
 func _on_new_game_pressed():

@@ -2,7 +2,9 @@ class_name World extends Node2D
 
 
 signal score_changed(by: int)
+signal game_over(score: int)
 
+var men_left: int = 3
 var total_score: int = 0
 
 
@@ -12,7 +14,13 @@ func _on_player_spawned(p: Player):
 
 
 func _on_player_destroyed(p: Player):
-	p.reset()
+	men_left -= 1
+	if men_left:
+		p.reset()
+		%Men.text = str(men_left)
+	else:
+		p.queue_free()
+		game_over.emit(total_score)
 
 
 func _on_enemy_spawned(e: Enemy):

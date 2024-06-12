@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://hhid6teie814"]
+[gd_scene load_steps=15 format=3 uid="uid://hhid6teie814"]
 
 [ext_resource type="PackedScene" uid="uid://c7usp7o48ccjh" path="res://scene/player.tscn" id="1_3l35b"]
 [ext_resource type="Texture2D" uid="uid://dgmji227b3ioe" path="res://gfx/Tilemap.png" id="1_3qjg0"]
 [ext_resource type="Script" path="res://scene/world.gd" id="1_emclg"]
 [ext_resource type="Script" path="res://src/spawner.gd" id="4_i7bxp"]
 [ext_resource type="PackedScene" uid="uid://ee7kqycc6b4p" path="res://scene/enemy.tscn" id="4_oh0mt"]
+[ext_resource type="PackedScene" uid="uid://j0tn1hj0ork4" path="res://scene/lantern.tscn" id="6_2apvy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pswc2"]
 texture = ExtResource("1_3qjg0")
@@ -44,13 +45,23 @@ resource_name = "Pickups"
 script/source = "extends Marker2D
 
 
-signal picked_up(enemy: Enemy)
+signal picked_up_lantern(lantern: Pickup)
 
 @export var lantern_scene: PackedScene
-
+@export var grid_spacing = 32.0
 
 func _ready():
-	print(\"Spawing lanterns\")
+	spawn_lanterns()
+
+
+func spawn_lanterns():
+	var positions = [Vector2(0, 0), Vector2(0, 1), Vector2(1, 0), Vector2(1, 1)]
+	var gs = Vector2(grid_spacing, grid_spacing)
+	for pos in positions:
+		var p: Pickup = lantern_scene.instantiate()
+		p.position = pos * gs
+		p.type = Pickup.PickupType.LANTERN
+		add_child(p)
 "
 
 [node name="World" type="Node2D"]
@@ -95,7 +106,9 @@ script = ExtResource("4_i7bxp")
 enemy_scene = ExtResource("4_oh0mt")
 
 [node name="Pickups" type="Marker2D" parent="."]
+position = Vector2(24, 24)
 script = SubResource("GDScript_vw7uf")
+lantern_scene = ExtResource("6_2apvy")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -107,12 +120,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Score" type="Label" parent="HUD/Temp"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Temp"]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
-text = "HUD:Temp"
+offset_bottom = 40.0
+
+[node name="Men" type="Label" parent="HUD/Temp/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+
+[node name="Score" type="Label" parent="HUD/Temp/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]
 [connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]
