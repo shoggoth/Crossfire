@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=24 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
@@ -56,13 +56,30 @@ var home_pos: Vector2
 
 
 func _ready():
-	valid_transitions = [\"Hide\", \"Wander\", \"Track\", \"Explode\"]
+	valid_transitions = [\"Hide\", \"Track\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	var _mc = sm.get_meta(\"move_component\")
 	var _enemy = sm.get_meta(\"parent_node\")
 	_mc.move(_enemy, home_pos)
+	return super.enter_from(from, params)
+
+
+func fire(e: Enemy, direction: Vector2) -> bool:
+	return weapon_component.fire(e, direction)
+"
+
+[sub_resource type="GDScript" id="GDScript_8m1bf"]
+resource_name = "Move"
+script/source = "extends State
+
+
+func enter_from(from: State, params: Dictionary) -> bool:
+	var _mc = sm.get_meta(\"move_component\")
+	var _enemy = sm.get_meta(\"parent_node\")
+	var mv = params[\"move_vector\"] as Vector2
+	if !mv || !_mc.move(_enemy, mv): return false
 	return super.enter_from(from, params)
 "
 
@@ -98,22 +115,17 @@ script/source = "extends State
 
 @export var weapon_component: WeaponComponent
 
-var _track_pos: Vector2 = Vector2(3, 5)
+var _track_pos: Vector2 = Vector2(3, 3)
 
 
 func _ready():
-	valid_transitions = [\"Lurk\", \"Wander\", \"Explode\"]
+	valid_transitions = [\"Lurk\", \"Track\", \"Wander\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var _mc = sm.get_meta(\"move_component\")
+	var _mc: MoveComponent = sm.get_meta(\"move_component\")
 	var _enemy = sm.get_meta(\"parent_node\")
-	var vec = _track_pos * _mc.grid_size - _enemy.position
-	if _mc.moving: print_debug(\"Niggin\")
-	if !_mc.moving && vec.length_squared():
-		if abs(vec.x) > abs(vec.y): vec.y = 0
-		else: vec.x = 0
-		_mc.move(_enemy, vec.normalized())
+	_mc.track(_enemy, _track_pos)
 	return super.enter_from(from, params)
 "
 
@@ -286,6 +298,10 @@ metadata/temp_meta = true
 [node name="Lurk" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]
 script = SubResource("GDScript_vpwwn")
 weapon_component = NodePath("../../WeaponComponent")
+metadata/temp_meta = true
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = SubResource("GDScript_8m1bf")
 metadata/temp_meta = true
 
 [node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("weapon_component")]

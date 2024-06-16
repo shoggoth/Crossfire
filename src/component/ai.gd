@@ -2,7 +2,7 @@ class_name AIComponent extends Node
 
 
 @export_group("Capabilities")
-@export var intelligence := 1.5
+@export var intelligence := 4
 
 @export_group("Control")
 @export var state_machine: StateMachine
@@ -24,6 +24,7 @@ func _on_state_machine_state_changed(_from, _to):
 
 func _on_move_component_finished_moving(_mc):
 	match state_machine.current_state.name:
-		"Lurk": state_machine.enter_state_named("Wander")
-		"Wander": state_machine.enter_state_named("Track")
-		"Track": state_machine.enter_state_named("Wander")
+		"Lurk": state_machine.enter_state_named("Track")
+		#"Move": state_machine.enter_state_named("Wander")
+		#"Wander": state_machine.enter_state_named("Track")
+		#"Track": state_machine.enter_state_named("Wander")

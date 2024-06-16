@@ -5,12 +5,15 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Optimise tracking with sequential vectors
+- Decide if we need enemt Move state
 - Only destroy one enemy per bullet
 - Bullets can't pass tiles
 - Game, world and level loading with persistent player and UI
-- Reroute game over signal on player death
 
 ### Done
+- Enemies initially move towards centre (can use Track?)
+- Reroute game over signal on player death
 - Spawner handles destruction of enemies
 - Track to position in enemy state
 - Sort out state movements
