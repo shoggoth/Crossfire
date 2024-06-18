@@ -24,7 +24,8 @@ func _on_state_machine_state_changed(_from, _to):
 
 func _on_move_component_finished_moving(_mc):
 	match state_machine.current_state.name:
-		"Lurk": state_machine.enter_state_named("Track")
+		"Lurk": state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3) })
+		"Track": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Wander": state_machine.enter_state_named("Track")
 		#"Track": state_machine.enter_state_named("Wander")

@@ -263,7 +263,7 @@ script = ExtResource("6_uynyl")
 quantise_direction = true
 normalise_direction = true
 minimum = Vector2(1, 1)
-maximum = Vector2(6, 5)
+maximum = Vector2(6.125, 5.125)
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("9_y1i6h")

@@ -31,17 +31,11 @@ func move(node: Node2D, direction: Vector2) -> bool:
 
 
 func track(node: Node2D, destination: Vector2) -> bool:
-	if _move_tween: return false
-	if !is_in_grid_limits(destination): return false
+	if _move_tween || !is_in_grid_limits(destination): return false
 	var m = destination - grid_position(node.position)
-	if !m.length_squared(): return false
-
 	_move_tween = create_tween()
 	while m:
-		var vec = m
-		if prioritise_x && abs(vec.x) > 0: vec.y = 0
-		elif abs(vec.y) > 0: vec.x = 0
-		vec = vec.normalized()
+		var vec = _prioritise(m)
 		_move_tween.tween_property(node, "position", vec * grid_size, speed).as_relative()
 		m -= vec
 	_move_tween.tween_callback(stop)
@@ -61,3 +55,9 @@ func grid_position(pos: Vector2) -> Vector2:
 
 func is_in_grid_limits(pos: Vector2) -> bool:
 	return Rect2(minimum, maximum).has_point(pos)
+
+
+func _prioritise(vec: Vector2) -> Vector2:
+	if prioritise_x && abs(vec.x) > 0: vec.y = 0
+	elif abs(vec.y) > 0: vec.x = 0
+	return vec.normalized()

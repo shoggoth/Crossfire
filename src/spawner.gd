@@ -8,16 +8,16 @@ signal snapshot_changed(snapshot: Spawner.Snapshot)
 const TYPE_COUNT = 3
 
 @export var enemy_scene: PackedScene
-@export var grid_size = Vector2i(15, 12)
-@export var grid_spacing = 16.0
+@export var grid_size = Vector2(7, 6)
+@export var grid_spacing = 32.0
 
 var snapshot := Snapshot.new()
 
 
 func _ready():
-	for x in range(1, grid_size.x - 2, 2): spawn(Vector2(x, 0))
-	for y in range(1, grid_size.y - 1, 2): spawn(Vector2(0, y))
-	for y in range(1, grid_size.y - 2, 2): spawn(Vector2(grid_size.x - 1, y))
+	for x in grid_size.x - 1: spawn(Vector2(x + 0.5, 0))
+	for y in grid_size.y - 1: spawn(Vector2(0, y + 0.5))
+	for y in grid_size.y - 1: spawn(Vector2(grid_size.x, y + 0.5))
 	
 	snapshot.active_count = get_child_count()
 	snapshot_changed.emit(snapshot)

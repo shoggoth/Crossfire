@@ -38,9 +38,9 @@ func _ready():
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	if !from: return true
-	var _mc = sm.get_meta(\"move_component\")
-	var _enemy = sm.get_meta(\"parent_node\")
-	_mc.move(_enemy, home_pos)
+	var mc = sm.get_meta(\"move_component\")
+	var enemy = sm.get_meta(\"parent_node\")
+	mc.move(enemy, home_pos)
 	return super.enter_from(from, params)
 
 "
@@ -60,9 +60,9 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var _mc = sm.get_meta(\"move_component\")
-	var _enemy = sm.get_meta(\"parent_node\")
-	_mc.move(_enemy, home_pos)
+	var mc = sm.get_meta(\"move_component\")
+	var enemy = sm.get_meta(\"parent_node\")
+	mc.move(enemy, home_pos)
 	return super.enter_from(from, params)
 
 
@@ -76,10 +76,10 @@ script/source = "extends State
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var _mc = sm.get_meta(\"move_component\")
-	var _enemy = sm.get_meta(\"parent_node\")
+	var mc = sm.get_meta(\"move_component\")
+	var enemy = sm.get_meta(\"parent_node\")
 	var mv = params[\"move_vector\"] as Vector2
-	if !mv || !_mc.move(_enemy, mv): return false
+	if !mv || !mc.move(enemy, mv): return false
 	return super.enter_from(from, params)
 "
 
@@ -96,11 +96,11 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var _mc = sm.get_meta(\"move_component\")
-	var _enemy = sm.get_meta(\"parent_node\")
+	var mc = sm.get_meta(\"move_component\")
+	var enemy = sm.get_meta(\"parent_node\")
 	var random_vec = Vector2([-1, 0, 1].pick_random(), [-1, 0, 1, 0].pick_random())
-	if !_mc.move(_enemy, random_vec): _mc.move(_enemy, -random_vec)
-	if !randi_range(0, 3): fire(_enemy, random_vec * 2)
+	if !mc.move(enemy, random_vec): mc.move(enemy, -random_vec)
+	if !randi_range(0, 3): fire(enemy, random_vec * 2)
 	return super.enter_from(from, params)
 
 
@@ -115,17 +115,17 @@ script/source = "extends State
 
 @export var weapon_component: WeaponComponent
 
-var _track_pos: Vector2 = Vector2(3, 3)
-
 
 func _ready():
 	valid_transitions = [\"Lurk\", \"Track\", \"Wander\", \"Explode\"]
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var _mc: MoveComponent = sm.get_meta(\"move_component\")
-	var _enemy = sm.get_meta(\"parent_node\")
-	_mc.track(_enemy, _track_pos)
+	var track_pos = params[\"destination\"] as Vector2
+	if !track_pos: return false
+	var mc: MoveComponent = sm.get_meta(\"move_component\")
+	var enemy = sm.get_meta(\"parent_node\")
+	mc.track(enemy, track_pos)
 	return super.enter_from(from, params)
 "
 
@@ -276,7 +276,7 @@ script = ExtResource("3_1extx")
 script = ExtResource("6_cugao")
 speed = 1.5
 quantise_direction = true
-maximum = Vector2(8, 6)
+maximum = Vector2(7.125, 6)
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("7_ldo4r")
