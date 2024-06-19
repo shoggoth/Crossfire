@@ -7,6 +7,8 @@
 radius = 3.0
 
 [node name="Lantern" type="Area2D"]
+collision_layer = 4
+monitoring = false
 monitorable = false
 script = ExtResource("1_el5mp")
 

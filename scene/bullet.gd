@@ -11,3 +11,9 @@ func _ready():
 	move_tween.tween_property(self, "position", self.position + direction, speed)
 	move_tween.tween_callback(func(): queue_free())
 	$Fire.play()
+
+
+
+func _on_body_entered(body):
+	if !(body is TileMap): push_error("Bullet detected spurious body collision")
+	queue_free()

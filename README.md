@@ -8,10 +8,11 @@
 - Optimise tracking with sequential vectors
 - Decide if we need enemy Move state
 - Only destroy one enemy per bullet
-- Bullets can't pass tiles
 - Game, world and level loading with persistent player and UI
 
 ### Done
+- Lanterns movement
+- Bullets can't pass tiles
 - Fix disparity in MC and spawn grid sizes
 - Enemies initially move towards centre (can use Track?)
 - Reroute game over signal on player death
