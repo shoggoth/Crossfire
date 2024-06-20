@@ -5,7 +5,11 @@ signal score_changed(by: int)
 signal game_over(score: int)
 
 var men_left: int = 1
-var total_score: int = 0
+var total_score: int = 0:
+	set(value):
+		total_score = value
+		score_changed.emit(total_score)
+		%Score.text = str(total_score)
 
 
 func _on_player_spawned(p: Player):
@@ -31,11 +35,15 @@ func _on_enemy_spawned(e: Enemy):
 func _on_enemy_destroyed(e: Enemy):
 	e.queue_free()
 	total_score += 2 ** e.type * 10
-	score_changed.emit(total_score)
-	%Score.text = str(total_score)
 
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
 	print(snap.active_count, " active")
 	print(snap.destroyed_count, " destroyed")
 	print(snap.mutation_count, " mutated")
+
+
+func _on_picked_up_lantern(lantern: Pickup):
+	print("Picked up lantern")
+	total_score += lantern.score_value
+	lantern.queue_free()

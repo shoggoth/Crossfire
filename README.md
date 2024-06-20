@@ -9,8 +9,10 @@
 - Decide if we need enemy Move state
 - Only destroy one enemy per bullet
 - Game, world and level loading with persistent player and UI
+- Pickup sounds
 
 ### Done
+- Lantern scoring on pickup
 - Lanterns movement
 - Bullets can't pass tiles
 - Fix disparity in MC and spawn grid sizes

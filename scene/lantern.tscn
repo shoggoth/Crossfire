@@ -8,7 +8,6 @@ radius = 3.0
 
 [node name="Lantern" type="Area2D"]
 collision_layer = 4
-monitoring = false
 monitorable = false
 script = ExtResource("1_el5mp")
 
@@ -17,3 +16,5 @@ texture = ExtResource("1_kma78")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xiuwp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
