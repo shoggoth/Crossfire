@@ -137,6 +137,7 @@ script = SubResource("GDScript_vw7uf")
 lantern_scene = ExtResource("6_2apvy")
 
 [node name="Timer" type="Timer" parent="Pickups"]
+wait_time = 2.0
 autostart = true
 
 [node name="HUD" type="CanvasLayer" parent="."]

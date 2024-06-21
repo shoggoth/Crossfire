@@ -5,11 +5,16 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Optimise tracking with sequential vectors
+- Expand bullet in travel direction
+- Track can prioritise shortest vector as well as x and y
+- Reset world to next level
+- Configure behaviours and difficulty
+- Reskin menus and add Options menu
 - Decide if we need enemy Move state
 - Only destroy one enemy per bullet
 - Game, world and level loading with persistent player and UI
 - Pickup sounds
+- Optimise tracking with sequential vectors
 
 ### Done
 - Lantern scoring on pickup
