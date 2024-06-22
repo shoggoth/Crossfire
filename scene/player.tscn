@@ -271,7 +271,7 @@ script = ExtResource("9_y1i6h")
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("8_h7v4t")
 bullet_scene = ExtResource("9_etqh0")
-radius = 16.0
+radius = 8.0
 quantise_direction = true
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]

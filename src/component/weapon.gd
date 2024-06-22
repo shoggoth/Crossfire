@@ -5,6 +5,7 @@ signal weapon_fired(source_node: Node2D, direction: Vector2)
 
 @export_group("Properties")
 @export var bullet_scene: PackedScene
+@export var bullet_range: float = 200
 @export var radius: float = 0
 @export var pool_size: int = 0
 @export_group("Control")
@@ -26,7 +27,7 @@ func fire(source_node: Node2D, direction: Vector2) -> bool:
 	$Timer.start()
 	var b: HitBox = bullet_scene.instantiate()
 	if quantise_direction: direction = Global.quantise(direction)
-	b.direction = direction * 120 # TODO: Move range
+	b.direction = direction * bullet_range
 	b.position = source_node.position + direction * radius
 	b.collision_layer = (source_node.collision_layer & 3) | 16
 	add_child(b)
