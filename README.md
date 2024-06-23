@@ -5,7 +5,6 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Expand bullet in travel direction
 - Track can prioritise shortest vector as well as x and y
 - Reset world to next level
 - Configure behaviours and difficulty
@@ -17,6 +16,7 @@
 - Optimise tracking with sequential vectors
 
 ### Done
+- Rotate bullet in travel direction
 - Lantern scoring on pickup
 - Lanterns movement
 - Bullets can't pass tiles
