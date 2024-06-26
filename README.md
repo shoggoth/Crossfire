@@ -5,6 +5,10 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Fix crash in enemy AI if enemy outlives player
+- Standardise grid position for player and enemy
+- Enemies to track and fire at player
+- Different enemy behaviours
 - Level intro and Game Over screens
 - Track can prioritise shortest vector as well as x and y
 - Reset world to next level
@@ -17,6 +21,7 @@
 - Optimise tracking with sequential vectors
 
 ### Done
+- Remove extraneous globals
 - Rotate bullet in travel direction
 - Lantern scoring on pickup
 - Lanterns movement

@@ -5,7 +5,7 @@ signal finished_moving(move_component: MoveComponent)
 
 @export_group("Movement")
 @export var speed: float = 0.7
-@export var grid_size := Vector2(32, 32)
+@export var grid_size := Global.GRID_SIZE
 @export_group("Control")
 @export var quantise_direction: bool = false
 @export var normalise_direction: bool = false

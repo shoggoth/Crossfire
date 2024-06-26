@@ -9,7 +9,7 @@ const TYPE_COUNT = 3
 
 @export var enemy_scene: PackedScene
 @export var grid_size = Vector2(7, 6)
-@export var grid_spacing = 32.0
+@export var grid_spacing = Global.GRID_SIZE
 
 var snapshot := Snapshot.new()
 
