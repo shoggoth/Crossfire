@@ -4,7 +4,7 @@ class_name World extends Node2D
 signal score_changed(by: int)
 signal game_over(score: int)
 
-var men_left: int = 1
+var men_left: int = 3
 var total_score: int = 0:
 	set(value):
 		total_score = value

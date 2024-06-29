@@ -5,8 +5,6 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Fix crash in enemy AI if enemy outlives player
-- Standardise grid position for player and enemy
 - Enemies to track and fire at player
 - Different enemy behaviours
 - Level intro and Game Over screens
@@ -21,6 +19,8 @@
 - Optimise tracking with sequential vectors
 
 ### Done
+- Standardise grid position for player and enemy
+- Fix crash in enemy AI if enemy outlives player
 - Remove extraneous globals
 - Rotate bullet in travel direction
 - Lantern scoring on pickup
