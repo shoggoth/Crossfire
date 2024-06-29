@@ -14,8 +14,7 @@ var player: Player
 func _process(delta):
 	_thinking_time += delta
 	if _thinking_time > intelligence:
-		#TODO Standardise grid position for player and enemy
-		print("Player = ", Global.grid_position(player))
+		if is_instance_valid(player): print("Player = ", Global.grid_position(player))
 		match state_machine.current_state.name:
 			"Hide": state_machine.enter_state_named("Lurk")
 		_thinking_time -= intelligence

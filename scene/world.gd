@@ -29,7 +29,6 @@ func _on_player_destroyed(p: Player):
 
 func _on_enemy_spawned(e: Enemy):
 	var aic := e.get_node("AIComponent") as AIComponent
-	#TODO: Fix crash in enemy AI if enemy outlives player
 	aic.player = $Player
 
 
