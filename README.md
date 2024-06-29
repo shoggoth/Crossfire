@@ -6,6 +6,7 @@
 
 ### TODO
 - Enemies to track and fire at player
+- Score label fly out from lantern on pickup
 - Different enemy behaviours
 - Level intro and Game Over screens
 - Track can prioritise shortest vector as well as x and y

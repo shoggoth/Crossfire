@@ -32,6 +32,12 @@ func _on_enemy_spawned(e: Enemy):
 	aic.player = $Player
 
 
+func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
+	print(snap.active_count, " active")
+	print(snap.destroyed_count, " destroyed")
+	print(snap.mutation_count, " mutated")
+
+
 func _on_enemy_destroyed(e: Enemy):
 	e.queue_free()
 	total_score += 2 ** e.type * 10
@@ -40,9 +46,3 @@ func _on_enemy_destroyed(e: Enemy):
 func _on_picked_up_lantern(lantern: Pickup):
 	total_score += lantern.score_value
 	lantern.queue_free()
-
-
-func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
-	print(snap.active_count, " active")
-	print(snap.destroyed_count, " destroyed")
-	print(snap.mutation_count, " mutated")

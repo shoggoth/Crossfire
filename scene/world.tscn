@@ -50,7 +50,7 @@ signal picked_up_lantern(lantern: Pickup)
 @export var lantern_scene: PackedScene
 @export var grid_spacing = 32.0
 
-var lantern_positions = [Vector2(1, 1), Vector2(2, 1), Vector2(1, 0), Vector2(2, 0)]
+var lantern_positions = [Vector2(2, 3), Vector2(4, 3), Vector2(2, 2), Vector2(4, 2)]
 
 
 func _ready():
