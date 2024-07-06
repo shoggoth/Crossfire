@@ -57,6 +57,13 @@ func _ready():
 	spawn_lanterns()
 
 
+func reset():
+	for i in get_children(): if i is Pickup:
+		remove_child(i)
+		i.queue_free()
+	spawn_lanterns()
+
+
 func spawn_lanterns():
 	var gs = Vector2(grid_spacing, grid_spacing)
 	for i in lantern_positions.size():
@@ -164,6 +171,11 @@ text = "3"
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
+
+[node name="Level" type="Label" parent="HUD/Temp/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
 
 [connection signal="area_entered" from="Boundary" to="Boundary" method="_on_area_entered"]
 [connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]

@@ -5,6 +5,10 @@ signal score_changed(by: int)
 signal game_over(score: int)
 
 var men_left: int = 3
+var level_number: int = 1:
+	set(value):
+		level_number = value
+		%Level.text = str(value)
 var total_score: int = 0:
 	set(value):
 		total_score = value
@@ -33,6 +37,7 @@ func _on_enemy_spawned(e: Enemy):
 
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
+	if snap.destroyed_count == 4: spawn_new_level()
 	print(snap.active_count, " active")
 	print(snap.destroyed_count, " destroyed")
 	print(snap.mutation_count, " mutated")
@@ -46,3 +51,12 @@ func _on_enemy_destroyed(e: Enemy):
 func _on_picked_up_lantern(lantern: Pickup):
 	total_score += lantern.score_value
 	lantern.queue_free()
+
+
+func spawn_new_level():
+	level_number += 1
+	$Player.reset()
+	$Pickups.reset()
+	var es = $EnemySpawn
+	es.clear_current_level()
+	es.spawn_level(level_number)
