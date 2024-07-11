@@ -305,6 +305,9 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
+pitch_scale = 0.78
+mix_target = 2
+bus = &"FX"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]

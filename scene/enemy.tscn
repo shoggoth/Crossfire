@@ -322,6 +322,7 @@ libraries = {
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
+bus = &"FX"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]

@@ -23,5 +23,8 @@ texture = ExtResource("2_goa1s")
 
 [node name="Fire" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_okyjp")
+volume_db = -8.0
+mix_target = 2
+bus = &"FX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
