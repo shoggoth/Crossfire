@@ -4,8 +4,6 @@ extends Node
 const GRID_SIZE = Vector2(32, 32)
 const GRID_OFFSET = Vector2(0.25, 0.25)
 
-var small_font: Font = load("res://gfx/SmallFont.png")
-
 
 func grid_position(node: Node2D) -> Vector2:
 	return node.global_position / GRID_SIZE - GRID_OFFSET
