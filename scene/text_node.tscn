@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://suj2puvh3n6i"]
+
+[ext_resource type="Shader" path="res://shader/small_font.gdshader" id="1_0ymlo"]
+[ext_resource type="Script" path="res://src/util/text_node.gd" id="1_72bmg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4jgx"]
+shader = ExtResource("1_0ymlo")
+shader_parameter/text_length = null
+shader_parameter/time = 1811.35
+
+[node name="TextNode" type="Node2D"]
+material = SubResource("ShaderMaterial_p4jgx")
+scale = Vector2(16, 16)
+script = ExtResource("1_72bmg")
+text = "100"

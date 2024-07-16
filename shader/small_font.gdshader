@@ -10,4 +10,5 @@ uniform float time;
 void fragment() {
 	// Called for every pixel the material is visible on.
 	COLOR = texture(TEXTURE, UV) * abs(sin(time));
+	//COLOR = vec4(1.0);
 }
