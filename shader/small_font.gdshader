@@ -1,19 +1,24 @@
 shader_type canvas_item;
 
-varying flat float pos;
 uniform vec2 offset;
+varying flat float pos;
 
 void vertex() {
-	pos = VERTEX.x / (offset.x * -2.0);
+	pos = VERTEX.x / -3.0;
 	VERTEX += offset;
 }
 
-uniform float time;
+uniform int time;
 
 void fragment() {
-	vec4 red = vec4(1.0, 0.0, 0.0, 1.0);
-	// Called for every pixel the material is visible on.
-	COLOR = texture(TEXTURE, UV) * abs(sin(time));
-	//COLOR = red;
-	COLOR *= vec4(vec3(pos), 1.0) * red;
+	vec4 colours[3] = {
+		vec4(0.7, 0.1, 0.1, 1.0),
+		vec4(0.1, 0.6, 0.1, 1.0),
+		vec4(0.1, 0.1, 1.0, 1.0)
+	};
+	vec4 c = texture(TEXTURE, UV);
+	float p = mod(pos, 1.0);
+	COLOR = c * ((colours[time % 3] * (step(0, p) - step(0.25, p)))
+	+ (colours[(time + 1) % 3] * (step(0.25, p) - step(0.5, p)))
+	+ (colours[(time + 2) % 3] * (step(0.5, p) - step(0.75, p))));
 }

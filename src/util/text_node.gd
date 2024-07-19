@@ -6,6 +6,7 @@ const DEFAULT_FONT: Font = preload("res://gfx/SmallFont.png")
 const DEFAULT_SHADER = preload("res://shader/small_font.gdshader")
 
 @export var text: String
+@export var cycle_speed := 1.0
 
 var _time: float
 
@@ -17,8 +18,8 @@ func _ready():
 
 
 func _process(delta):
-	_time += delta
-	material.set_shader_parameter("time", _time * 0.5 * PI)
+	_time += delta * cycle_speed
+	material.set_shader_parameter("time", int(_time))
 
 
 func _draw(font = DEFAULT_FONT, font_size = DEFAULT_SIZE):
