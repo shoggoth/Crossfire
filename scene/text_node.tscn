@@ -3,13 +3,13 @@
 [ext_resource type="Shader" path="res://shader/small_font.gdshader" id="1_0ymlo"]
 [ext_resource type="Script" path="res://src/util/text_node.gd" id="1_72bmg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4jgx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t6g07"]
 shader = ExtResource("1_0ymlo")
-shader_parameter/text_length = null
-shader_parameter/time = 1811.35
+shader_parameter/offset = Vector2(-17.5, 0)
+shader_parameter/time = 7322.91
 
 [node name="TextNode" type="Node2D"]
-material = SubResource("ShaderMaterial_p4jgx")
+material = SubResource("ShaderMaterial_t6g07")
 scale = Vector2(16, 16)
 script = ExtResource("1_72bmg")
-text = "100"
+text = "12AZ567"
