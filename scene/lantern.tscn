@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://j0tn1hj0ork4"]
+[gd_scene load_steps=7 format=3 uid="uid://j0tn1hj0ork4"]
 
 [ext_resource type="Script" path="res://src/pickup.gd" id="1_el5mp"]
 [ext_resource type="Texture2D" uid="uid://e520v7tihr1p" path="res://gfx/Pickups.png" id="1_kma78"]
+[ext_resource type="Shader" path="res://shader/small_font.gdshader" id="3_nipu8"]
+[ext_resource type="Script" path="res://src/util/text_node.gd" id="4_welxe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiuwp"]
 radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85dt8"]
+shader = ExtResource("3_nipu8")
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/time = 137
 
 [node name="Lantern" type="Area2D"]
 collision_layer = 4
@@ -16,5 +23,10 @@ texture = ExtResource("1_kma78")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xiuwp")
+
+[node name="Score" type="Node2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_85dt8")
+script = ExtResource("4_welxe")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

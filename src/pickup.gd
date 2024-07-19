@@ -9,13 +9,15 @@ var type: PickupType
 var score_value: int
 
 
+func _ready():
+	$Score.text = str(score_value)
+
+
 func display_score_label():
 	$Sprite2D.hide()
-	var tn = TextNode.new()
-	tn.text = str(score_value)
-	add_child(tn)
+	$Score.show()
 
 
 func _on_body_entered(_body):
 	display_score_label()
-	#picked_up.emit(self)
+	picked_up.emit(self)
