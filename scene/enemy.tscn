@@ -265,9 +265,16 @@ free_hit_boxen = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_b1y8x")
 
+[node name="RayCastTransform" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../AIComponent/RayCast2D")
+update_rotation = false
+
 [node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_dd2lp")
 state_machine = NodePath("../StateMachine")
+
+[node name="RayCast2D" type="RayCast2D" parent="AIComponent"]
+target_position = Vector2(2.08165e-12, 64)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_1extx")

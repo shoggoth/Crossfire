@@ -7,8 +7,15 @@ class_name AIComponent extends Node
 @export_group("Control")
 @export var state_machine: StateMachine
 
+@onready var ray_cast = $RayCast2D
+
 var _thinking_time = 0.0
 var player: Player
+
+
+func _physics_process(delta):
+	if ray_cast.is_colliding():
+		print("Colliding")
 
 
 func _process(delta):
@@ -32,3 +39,4 @@ func _on_move_component_finished_moving(_mc):
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Wander": state_machine.enter_state_named("Track")
 		#"Track": state_machine.enter_state_named("Wander")
+	ray_cast.rotation += PI * 0.5
