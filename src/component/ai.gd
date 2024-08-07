@@ -7,13 +7,13 @@ class_name AIComponent extends Node
 @export_group("Control")
 @export var state_machine: StateMachine
 
-@onready var ray_cast = $RayCast2D
+@onready var ray_cast = %RayCast2D
 
 var _thinking_time = 0.0
 var player: Player
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if ray_cast.is_colliding():
 		print("Colliding")
 
