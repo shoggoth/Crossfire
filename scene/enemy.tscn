@@ -144,6 +144,7 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
+	%RayCast2D.enabled = false
 	var ap = $AnimationPlayer
 	var pc = params[\"completion\"]
 	if !ap.is_connected(\"animation_finished\", pc):
@@ -269,6 +270,7 @@ shape = SubResource("RectangleShape2D_b1y8x")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 unique_name_in_owner = true
+enabled = false
 target_position = Vector2(2.08165e-12, 64)
 
 [node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
@@ -291,7 +293,7 @@ radius = 16.0
 quantise_direction = true
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]
-wait_time = 2.0
+wait_time = 4.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")

@@ -36,7 +36,7 @@
 - Sort out state movements
 - Implement hiding and Lurking in the enemies
 - Investigate giving the move handler a completion func (for above) or perhaps a signal 'move completed'
-- Look at bbcode UI rich text component 
+- Look at bbcode UI rich text component
 - Sample the bullet sound out of Rolling Thunder
 - Remove cyclic explode state
 - Fix the multiple explosion problem: does the state need to be unique / local to the scene?

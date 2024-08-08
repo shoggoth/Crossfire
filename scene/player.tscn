@@ -230,7 +230,7 @@ script = ExtResource("1_y4yyr")
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(8, 8)
+zoom = Vector2(4, 4)
 limit_left = 0
 limit_top = 0
 

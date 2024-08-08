@@ -27,7 +27,7 @@ func spawn_level(_level_number = 1):
 	for x in grid_size.x - 1: spawn(Vector2(x + 0.5, 0))
 	for y in grid_size.y - 1: spawn(Vector2(0, y + 0.5))
 	for y in grid_size.y - 1: spawn(Vector2(grid_size.x, y + 0.5))
-	
+
 	snapshot.active_count = get_child_count()
 	snapshot_changed.emit(snapshot)
 
