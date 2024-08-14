@@ -37,7 +37,7 @@ func _on_enemy_spawned(e: Enemy):
 
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
-	if snap.destroyed_count == 4: spawn_new_level()
+	if snap.destroyed_count == 8: spawn_new_level()
 	print(snap.active_count, " active")
 	print(snap.destroyed_count, " destroyed")
 	print(snap.mutation_count, " mutated")
