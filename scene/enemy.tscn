@@ -272,6 +272,7 @@ maximum = Vector2(7.125, 6)
 script = ExtResource("7_ldo4r")
 bullet_scene = ExtResource("8_1acoa")
 radius = 16.0
+bullet_offset = Vector2(8, 8)
 quantise_direction = true
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]
