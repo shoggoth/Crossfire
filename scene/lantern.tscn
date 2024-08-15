@@ -11,7 +11,7 @@ radius = 3.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v3ijx"]
 shader = ExtResource("3_nipu8")
 shader_parameter/offset = null
-shader_parameter/time = null
+shader_parameter/time = 99
 
 [node name="Lantern" type="Area2D"]
 collision_layer = 4

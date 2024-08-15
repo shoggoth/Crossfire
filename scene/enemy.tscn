@@ -104,8 +104,7 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	var enemy = sm.get_meta(\"parent_node\")
-	fire(enemy, Vector2.UP)
+	fire(sm.get_meta(\"parent_node\"), params[\"direction\"])
 	return super.enter_from(from, params)
 
 
@@ -276,7 +275,7 @@ bullet_offset = Vector2(8, 8)
 quantise_direction = true
 
 [node name="Timer" type="Timer" parent="WeaponComponent"]
-wait_time = 4.0
+wait_time = 2.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("6_6fphs")
@@ -313,5 +312,7 @@ bus = &"FX"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
+[connection signal="weapon_fired" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_fired"]
+[connection signal="weapon_ready" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_ready"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
 [connection signal="state_changed" from="StateMachine" to="AIComponent" method="_on_state_machine_state_changed"]

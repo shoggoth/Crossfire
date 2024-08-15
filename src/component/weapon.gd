@@ -2,6 +2,7 @@ class_name WeaponComponent extends Node
 
 
 signal weapon_fired(source_node: Node2D, direction: Vector2)
+signal weapon_ready
 
 @export_group("Properties")
 @export var bullet_scene: PackedScene
@@ -38,3 +39,4 @@ func fire(source_node: Node2D, direction: Vector2) -> bool:
 
 func _on_timer_timeout():
 	can_fire = true
+	weapon_ready.emit()

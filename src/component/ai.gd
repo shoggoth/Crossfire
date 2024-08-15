@@ -11,15 +11,14 @@ class_name AIComponent extends Node
 @onready var enemy: Enemy = get_parent()
 @onready var weapon = enemy.get_node("WeaponComponent")
 
-var _thinking_time = 0.0
 var player: Player
+var player_direction: Vector2
+var _thinking_time = 0.0
 
 
 func _physics_process(_delta):
 	if ray_cast.is_colliding():
-		var direction = enemy.position.direction_to(ray_cast.get_collision_point())
-		if weapon.fire(enemy, direction):
-			print("Firing ", ray_cast.get_collision_normal(), " - ", ray_cast.get_collision_point())
+		player_direction = enemy.position.direction_to(ray_cast.get_collision_point())
 
 
 func _process(delta):
@@ -42,7 +41,20 @@ func _on_move_component_finished_moving(_mc):
 		#"Lurk": state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3) })
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Track": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
-		"Track": state_machine.enter_state_named("Fire", { "direction" : Vector2.UP })
+		"Track":
+			if player_direction:
+				state_machine.enter_state_named("Fire", { "direction" : player_direction })
+			else:
+				ray_cast.rotation += PI * 0.5
+				state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		#"Wander": state_machine.enter_state_named("Track")
 		#"Track": state_machine.enter_state_named("Wander")
 	#ray_cast.rotation += PI * 0.5
+
+
+func _on_weapon_component_weapon_fired(_source_node, _direction):
+	state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
+
+
+func _on_weapon_component_weapon_ready():
+	state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
