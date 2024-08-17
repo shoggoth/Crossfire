@@ -50,7 +50,6 @@ func _on_enemy_destroyed(e: Enemy):
 
 func _on_picked_up_lantern(lantern: Pickup):
 	total_score += lantern.score_value
-	lantern.queue_free()
 
 
 func spawn_new_level():

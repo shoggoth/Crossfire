@@ -80,7 +80,7 @@ func spawn_lanterns():
 func update_lanterns():
 	for i in lantern_positions.size():
 		var lantern = get_node_or_null(\"Lantern %d\" % i)
-		if lantern && lantern is Pickup && lantern.type == Pickup.PickupType.LANTERN:
+		if lantern && lantern is Pickup && lantern.type == Pickup.PickupType.LANTERN && !lantern.score_showing:
 			var tween = create_tween()
 			if Global.toggle_meta(lantern, \"pushed_out\"):
 				tween.tween_property(lantern, \"position\", Vector2(0, grid_spacing * 0.5), 0.5).as_relative()

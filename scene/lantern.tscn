@@ -8,10 +8,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiuwp"]
 radius = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3ijx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_27j24"]
 shader = ExtResource("3_nipu8")
 shader_parameter/offset = null
-shader_parameter/time = 99
+shader_parameter/time = 848
 
 [node name="Lantern" type="Area2D"]
 collision_layer = 4
@@ -26,7 +26,12 @@ shape = SubResource("CircleShape2D_xiuwp")
 
 [node name="Score" type="Node2D" parent="."]
 visible = false
-material = SubResource("ShaderMaterial_v3ijx")
+material = SubResource("ShaderMaterial_27j24")
 script = ExtResource("4_welxe")
 
+[node name="Timer" type="Timer" parent="Score"]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Score/Timer" to="." method="_on_timer_timeout"]
