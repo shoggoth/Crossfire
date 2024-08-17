@@ -252,7 +252,7 @@ shape = SubResource("RectangleShape2D_b1y8x")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 enabled = false
-target_position = Vector2(2.08165e-12, 64)
+target_position = Vector2(2.08165e-12, 128)
 
 [node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_dd2lp")
