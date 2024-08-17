@@ -10,8 +10,8 @@ radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_27j24"]
 shader = ExtResource("3_nipu8")
-shader_parameter/offset = null
-shader_parameter/time = 848
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/time = 1498
 
 [node name="Lantern" type="Area2D"]
 collision_layer = 4
@@ -28,6 +28,7 @@ shape = SubResource("CircleShape2D_xiuwp")
 visible = false
 material = SubResource("ShaderMaterial_27j24")
 script = ExtResource("4_welxe")
+cycle_speed = 5.0
 
 [node name="Timer" type="Timer" parent="Score"]
 wait_time = 3.0
