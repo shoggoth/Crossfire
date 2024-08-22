@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiuwp"]
 radius = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7i5nl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftm1y"]
 shader = ExtResource("3_nipu8")
 shader_parameter/offset = null
 shader_parameter/time = null
@@ -26,7 +26,7 @@ shape = SubResource("CircleShape2D_xiuwp")
 
 [node name="Score" type="Node2D" parent="."]
 visible = false
-material = SubResource("ShaderMaterial_7i5nl")
+material = SubResource("ShaderMaterial_ftm1y")
 script = ExtResource("4_welxe")
 cycle_speed = 5.0
 

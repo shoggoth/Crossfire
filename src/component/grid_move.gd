@@ -34,7 +34,7 @@ func track(node: Node2D, destination: Vector2) -> bool:
 	if _move_tween || !is_in_grid_limits(destination): return false
 	var m = destination - grid_position(node.position)
 	_move_tween = create_tween()
-	while m:
+	while m.length() >= 1:
 		var vec = _prioritise(m)
 		_move_tween.tween_property(node, "position", vec * grid_size, speed).as_relative()
 		m -= vec
