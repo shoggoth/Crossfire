@@ -10,7 +10,9 @@ func grid_position(node: Node2D) -> Vector2:
 
 
 func quantise(vec: Vector2) -> Vector2:
-	if vec.x && vec.y: vec.x = 0
+	if abs(vec.x) > abs(vec.y): vec.y = 0
+	else: vec.x = 0
+	#if vec.x && vec.y: vec.x = 0
 	return vec
 
 

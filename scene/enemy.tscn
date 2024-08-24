@@ -104,12 +104,9 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	fire(sm.get_meta(\"parent_node\"), params[\"direction\"])
+	print(\"Fire : \", params[\"direction\"])
+	weapon_component.fire(sm.get_meta(\"parent_node\"), params[\"direction\"])
 	return super.enter_from(from, params)
-
-
-func fire(e: Enemy, direction: Vector2) -> bool:
-	return weapon_component.fire(e, direction)
 "
 
 [sub_resource type="GDScript" id="GDScript_4j3dk"]
@@ -252,7 +249,7 @@ shape = SubResource("RectangleShape2D_b1y8x")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 enabled = false
-target_position = Vector2(2.08165e-12, 128)
+target_position = Vector2(128, 0)
 
 [node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_dd2lp")
