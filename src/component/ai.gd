@@ -36,8 +36,8 @@ func _on_state_machine_state_changed(_from, _to):
 func _on_move_component_finished_moving(_mc):
 	#print("Self = ", Global.grid_position(state_machine.get_meta("parent_node")))
 	match state_machine.current_state.name:
-		"Lurk": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
-		#"Lurk": state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3) })
+		"Lurk":
+			state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3), "prioritise_x" : enemy.spawn_pos.y != 0 })
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Track": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		"Track":

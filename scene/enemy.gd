@@ -13,7 +13,6 @@ func _ready():
 	var hp = 0.5 * (Vector2.RIGHT if spawn_pos.y == 0 else Vector2.DOWN)
 	$StateMachine/Lurk.home_pos = hp
 	$StateMachine/Hide.home_pos = -hp
-	$MoveComponent.prioritise_x = spawn_pos.y != 0
 
 func _on_health_component_health_changed(health):
 	if health <= 0:

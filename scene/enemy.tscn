@@ -85,7 +85,7 @@ func enter_from(from: State, params: Dictionary) -> bool:
 	if !track_pos: return false
 	var mc: MoveComponent = sm.get_meta(\"move_component\")
 	var enemy = sm.get_meta(\"parent_node\")
-	mc.track(enemy, track_pos)
+	mc.track(enemy, track_pos, params.get(\"prioritise_x\", false))
 	return super.enter_from(from, params)
 "
 
