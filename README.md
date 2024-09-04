@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Recycle bullets
 - Track can prioritise shortest vector as well as x and y
 - Enemies to track and fire at player
 - Different enemy behaviours
