@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c644b0xb563gh" path="res://gfx/logo.png" id="1_awptr"]
 [ext_resource type="Script" path="res://scene/attract.gd" id="1_r07k6"]
-[ext_resource type="Theme" uid="uid://0xhp0sfe8p1j" path="res://theme/default.theme" id="3_008xx"]
+[ext_resource type="Theme" uid="uid://juf8lrlq75n8" path="res://theme/panel.theme" id="3_hrt2f"]
 [ext_resource type="Texture2D" uid="uid://cn5hrit3ef6tg" path="res://gfx/White1px.png" id="4_kypo5"]
 
 [sub_resource type="Animation" id="Animation_fsd5j"]
@@ -200,7 +200,7 @@ grow_vertical = 2
 
 [node name="Typewriter" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 text = "Niggers gonna Nig!! And yes they gonna NIG!!"
 fit_content = true
 scroll_active = false
@@ -211,7 +211,7 @@ visible_ratio = 0.0
 
 [node name="BBColor" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 bbcode_enabled = true
 text = "Something [bgcolor=red]for those[/bgcolor] [color=green]Coloured People[/color] lol!"
 fit_content = true
@@ -221,7 +221,7 @@ shortcut_keys_enabled = false
 
 [node name="Centered" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 bbcode_enabled = true
 text = "[center]Something in the middle lolikers"
 fit_content = true
@@ -231,7 +231,7 @@ shortcut_keys_enabled = false
 
 [node name="Pulse" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 bbcode_enabled = true
 text = "[pulse freq=1.0 color=#ffffff40 ease=-2.0]Something for the Eppies here, a pulse then.[/pulse]"
 fit_content = true
@@ -241,7 +241,7 @@ shortcut_keys_enabled = false
 
 [node name="Rainbow" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 bbcode_enabled = true
 text = "[rainbow freq=1.0 sat=0.8 val=0.8]Something else for the Eppies here, a rainbow then.[/rainbow]"
 fit_content = true
@@ -251,7 +251,7 @@ shortcut_keys_enabled = false
 
 [node name="Wave" type="RichTextLabel" parent="Texts"]
 layout_mode = 2
-theme = ExtResource("3_008xx")
+theme = ExtResource("3_hrt2f")
 bbcode_enabled = true
 text = "[wave freq=5.0 amp = 30.0]Something for the Seasicks here, a wave then.[/wave]"
 fit_content = true
