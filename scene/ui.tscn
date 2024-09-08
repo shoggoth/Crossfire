@@ -56,7 +56,7 @@ theme = ExtResource("2_aq2ac")
 
 [node name="VBox" type="VBoxContainer" parent="StartMenu/Panel"]
 layout_mode = 2
-theme_override_constants/separation = -14
+theme_override_constants/separation = 3
 
 [node name="Banner" type="PanelContainer" parent="StartMenu/Panel/VBox"]
 layout_mode = 2
