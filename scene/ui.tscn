@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b7a2edblpsjf6"]
 
 [ext_resource type="Script" path="res://scene/ui.gd" id="1_whecv"]
-[ext_resource type="Theme" uid="uid://0xhp0sfe8p1j" path="res://theme/default.theme" id="2_opqr3"]
+[ext_resource type="Theme" uid="uid://juf8lrlq75n8" path="res://theme/panel.theme" id="2_aq2ac"]
 [ext_resource type="Theme" uid="uid://chigyxovbmogo" path="res://theme/banner.theme" id="3_m22w0"]
 [ext_resource type="Theme" uid="uid://d01cqh4iwcwwy" path="res://theme/selection.theme" id="4_duwvf"]
 
@@ -41,7 +41,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_opqr3")
 script = SubResource("GDScript_cww8t")
 
 [node name="Panel" type="PanelContainer" parent="StartMenu"]
@@ -53,10 +52,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_aq2ac")
 
 [node name="VBox" type="VBoxContainer" parent="StartMenu/Panel"]
 layout_mode = 2
-theme_override_constants/separation = -14
+theme_override_constants/separation = 3
 
 [node name="Banner" type="PanelContainer" parent="StartMenu/Panel/VBox"]
 layout_mode = 2
@@ -111,7 +111,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_opqr3")
+theme = ExtResource("2_aq2ac")
 script = SubResource("GDScript_bwu3o")
 
 [node name="AlphaBG" type="ColorRect" parent="PauseMenu"]
