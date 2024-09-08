@@ -5,7 +5,6 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
-- Recycle bullets
 - Track can prioritise shortest vector as well as x and y
 - Enemies to track and fire at player
 - Different enemy behaviours
@@ -17,6 +16,9 @@
 - Game, world and level loading with persistent player and UI
 - Pickup sounds
 - Optimise tracking with sequential vectors
+
+### Oubliette
+- Recycle bullets
 
 ### Done
 - Shader to score label a la Defender
