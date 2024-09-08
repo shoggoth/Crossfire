@@ -16,5 +16,5 @@ func _ready():
 
 
 func _on_body_entered(body):
-	if !(body is TileMap): push_error("Bullet detected spurious body collision")
+	if !(body is TileMapLayer): push_error("Bullet detected spurious body collision")
 	queue_free()
