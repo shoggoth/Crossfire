@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=24 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="7_ai7yh"]
 [ext_resource type="Script" path="res://src/component/weapon.gd" id="7_ldo4r"]
 [ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="8_1acoa"]
+[ext_resource type="Script" path="res://src/component/scan.gd" id="8_f14g0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5vs"]
 resource_local_to_scene = true
@@ -37,13 +38,12 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	%RayCast2D.enabled = false
+	#%RayCast2D.enabled = false
 	if !from: return true
 	var mc = sm.get_meta(\"move_component\")
 	var enemy = sm.get_meta(\"parent_node\")
 	mc.move(enemy, home_pos)
 	return super.enter_from(from, params)
-
 "
 
 [sub_resource type="GDScript" id="GDScript_vpwwn"]
@@ -61,7 +61,7 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	%RayCast2D.enabled = true
+	#%RayCast2D.enabled = true
 	var mc = sm.get_meta(\"move_component\")
 	var enemy = sm.get_meta(\"parent_node\")
 	mc.move(enemy, home_pos)
@@ -247,7 +247,6 @@ free_hit_boxen = true
 shape = SubResource("RectangleShape2D_b1y8x")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-unique_name_in_owner = true
 enabled = false
 target_position = Vector2(128, 0)
 
@@ -263,6 +262,14 @@ script = ExtResource("6_cugao")
 speed = 1.5
 quantise_direction = true
 maximum = Vector2(7.125, 6)
+
+[node name="ScanComponent" type="Node" parent="." node_paths=PackedStringArray("player_detect")]
+script = ExtResource("8_f14g0")
+scanning = true
+player_detect = NodePath("../RayCast2D")
+
+[node name="Timer" type="Timer" parent="ScanComponent"]
+autostart = true
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("7_ldo4r")
@@ -309,6 +316,7 @@ bus = &"FX"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
+[connection signal="timeout" from="ScanComponent/Timer" to="ScanComponent" method="_on_timer_timeout"]
 [connection signal="weapon_fired" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_fired"]
 [connection signal="weapon_ready" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_ready"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]

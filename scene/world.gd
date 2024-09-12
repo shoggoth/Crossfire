@@ -32,8 +32,8 @@ func _on_player_destroyed(p: Player):
 
 
 func _on_enemy_spawned(e: Enemy):
-	var aic := e.get_node("AIComponent") as AIComponent
-	aic.player = $Player
+	var sc := e.get_node("ScanComponent") as ScanComponent
+	sc.player = $Player
 
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):

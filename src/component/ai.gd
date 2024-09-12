@@ -7,17 +7,10 @@ class_name AIComponent extends Node
 @export_group("Control")
 @export var state_machine: StateMachine
 
-@onready var ray_cast = %RayCast2D
 @onready var enemy: Enemy = get_parent()
 @onready var weapon = enemy.get_node("WeaponComponent")
 
-var player: Player
-var player_direction: Vector2
 var _thinking_time = 0.0
-
-
-func _physics_process(_delta):
-	player_direction = Vector2.RIGHT.rotated(ray_cast.rotation) if ray_cast.is_colliding() else Vector2.ZERO
 
 
 func _process(delta):
@@ -41,11 +34,10 @@ func _on_move_component_finished_moving(_mc):
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Track": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		"Track":
-			if player_direction:
-				state_machine.enter_state_named("Fire", { "direction" : player_direction })
-			else:
-				ray_cast.rotation += PI * 0.5
-				state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
+			#if player_direction:
+				#state_machine.enter_state_named("Fire", { "direction" : player_direction })
+			#else:
+			state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		#"Wander": state_machine.enter_state_named("Track")
 		#"Track": state_machine.enter_state_named("Wander")
 	#ray_cast.rotation += PI * 0.5
