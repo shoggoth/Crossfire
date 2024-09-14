@@ -5,6 +5,7 @@
 ### Further experiments with the Godot game engine
 
 ### TODO
+- Raycast line of sight (vision) as adjunct to Area2D (sound)
 - Track can prioritise shortest vector as well as x and y
 - Enemies to track and fire at player
 - Different enemy behaviours
@@ -15,12 +16,9 @@
 - Only destroy one enemy per bullet
 - Game, world and level loading with persistent player and UI
 - Pickup sounds
-- Optimise tracking with sequential vectors
-
-### Oubliette
-- Recycle bullets
 
 ### Done
+- Optimise tracking with sequential vectors
 - Shader to score label a la Defender
 - Score label fly out from lantern on pickup
 - Decide if we need enemy Move state
@@ -57,6 +55,9 @@
 - StateMachine: Handle enter and exit tree signals for child nodes
 - Port the explode shader from EF3
 - Use vertex programme for scaling explode shader
+
+### Oubliette
+- Recycle bullets
 
 ### Reference
 https://docs.godotengine.org/en/stable/tutorials/ui/bbcode_in_richtextlabel.html

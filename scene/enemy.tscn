@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ee7kqycc6b4p"]
+[gd_scene load_steps=25 format=3 uid="uid://ee7kqycc6b4p"]
 
 [ext_resource type="Script" path="res://scene/enemy.gd" id="1_yywqr"]
 [ext_resource type="Script" path="res://src/component/hurtbox.gd" id="2_1yxa3"]
@@ -24,6 +24,9 @@ radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1y8x"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecnjw"]
+size = Vector2(128, 128)
 
 [sub_resource type="GDScript" id="GDScript_n227r"]
 resource_name = "Hide"
@@ -268,6 +271,13 @@ script = ExtResource("8_f14g0")
 enabled = false
 target_position = Vector2(128, 0)
 
+[node name="Area2D" type="Area2D" parent="ScanComponent"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScanComponent/Area2D"]
+shape = SubResource("RectangleShape2D_ecnjw")
+
 [node name="Timer" type="Timer" parent="ScanComponent"]
 autostart = true
 
@@ -316,6 +326,7 @@ bus = &"FX"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
+[connection signal="body_entered" from="ScanComponent/Area2D" to="ScanComponent" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="ScanComponent/Timer" to="ScanComponent" method="_on_timer_timeout"]
 [connection signal="weapon_fired" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_fired"]
 [connection signal="weapon_ready" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_ready"]
