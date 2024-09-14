@@ -1,14 +1,19 @@
-class_name ScanComponent extends Node
+class_name ScanComponent extends Node2D
 
 
-@export var scanning := false
-@export var player_detect: RayCast2D
+@export var scanning := false:
+	set(value):
+		scanning = value
+		player_detect.enabled = scanning
+@export var scan_increment := PI * 0.5
+
+@onready var player_detect: RayCast2D = $RayCast2D
 
 var player: Player
 
 
 func _ready() -> void:
-	player_detect.enabled = scanning
+	scanning = false
 
 
 func _physics_process(_delta):
@@ -16,4 +21,4 @@ func _physics_process(_delta):
 
 
 func _on_timer_timeout() -> void:
-	player_detect.rotation += PI * 0.5
+	if scanning: player_detect.rotation += scan_increment

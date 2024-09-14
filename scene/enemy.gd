@@ -10,6 +10,7 @@ var destroyed: Callable
 func _ready():
 	$Sprite2D.frame = type
 	$StateMachine.set_meta("move_component", $MoveComponent)
+	$StateMachine.set_meta("scan_component", $ScanComponent)
 	var hp = 0.5 * (Vector2.RIGHT if spawn_pos.y == 0 else Vector2.DOWN)
 	$StateMachine/Lurk.home_pos = hp
 	$StateMachine/Hide.home_pos = -hp

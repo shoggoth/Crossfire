@@ -38,10 +38,11 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	#%RayCast2D.enabled = false
 	if !from: return true
-	var mc = sm.get_meta(\"move_component\")
+	var mc: MoveComponent = sm.get_meta(\"move_component\")
+	var sc: ScanComponent = sm.get_meta(\"scan_component\")
 	var enemy = sm.get_meta(\"parent_node\")
+	sc.scanning = false
 	mc.move(enemy, home_pos)
 	return super.enter_from(from, params)
 "
@@ -61,9 +62,10 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	#%RayCast2D.enabled = true
 	var mc = sm.get_meta(\"move_component\")
+	var sc: ScanComponent = sm.get_meta(\"scan_component\")
 	var enemy = sm.get_meta(\"parent_node\")
+	sc.scanning = true
 	mc.move(enemy, home_pos)
 	return super.enter_from(from, params)
 "
@@ -246,10 +248,6 @@ free_hit_boxen = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_b1y8x")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-enabled = false
-target_position = Vector2(128, 0)
-
 [node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_dd2lp")
 state_machine = NodePath("../StateMachine")
@@ -263,10 +261,12 @@ speed = 1.5
 quantise_direction = true
 maximum = Vector2(7.125, 6)
 
-[node name="ScanComponent" type="Node" parent="." node_paths=PackedStringArray("player_detect")]
+[node name="ScanComponent" type="Node2D" parent="."]
 script = ExtResource("8_f14g0")
-scanning = true
-player_detect = NodePath("../RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="ScanComponent"]
+enabled = false
+target_position = Vector2(128, 0)
 
 [node name="Timer" type="Timer" parent="ScanComponent"]
 autostart = true
