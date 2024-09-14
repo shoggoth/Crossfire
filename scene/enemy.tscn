@@ -251,19 +251,6 @@ free_hit_boxen = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_b1y8x")
 
-[node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
-script = ExtResource("5_dd2lp")
-state_machine = NodePath("../StateMachine")
-
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_1extx")
-
-[node name="MoveComponent" type="Node" parent="."]
-script = ExtResource("6_cugao")
-speed = 1.5
-quantise_direction = true
-maximum = Vector2(7.125, 6)
-
 [node name="ScanComponent" type="Node2D" parent="."]
 script = ExtResource("8_f14g0")
 
@@ -280,6 +267,19 @@ shape = SubResource("RectangleShape2D_ecnjw")
 
 [node name="Timer" type="Timer" parent="ScanComponent"]
 autostart = true
+
+[node name="AIComponent" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
+script = ExtResource("5_dd2lp")
+state_machine = NodePath("../StateMachine")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_1extx")
+
+[node name="MoveComponent" type="Node" parent="."]
+script = ExtResource("6_cugao")
+speed = 1.5
+quantise_direction = true
+maximum = Vector2(7.125, 6)
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("7_ldo4r")
@@ -324,10 +324,10 @@ libraries = {
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
 bus = &"FX"
 
-[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
-[connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
 [connection signal="body_entered" from="ScanComponent/Area2D" to="ScanComponent" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="ScanComponent/Timer" to="ScanComponent" method="_on_timer_timeout"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="finished_moving" from="MoveComponent" to="AIComponent" method="_on_move_component_finished_moving"]
 [connection signal="weapon_fired" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_fired"]
 [connection signal="weapon_ready" from="WeaponComponent" to="AIComponent" method="_on_weapon_component_weapon_ready"]
 [connection signal="timeout" from="WeaponComponent/Timer" to="WeaponComponent" method="_on_timer_timeout"]
