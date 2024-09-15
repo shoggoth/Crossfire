@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bb3bwwfrmos4v"]
+[gd_scene load_steps=11 format=3 uid="uid://bb3bwwfrmos4v"]
 
 [ext_resource type="Texture2D" uid="uid://c644b0xb563gh" path="res://gfx/logo.png" id="1_awptr"]
 [ext_resource type="Script" path="res://scene/attract.gd" id="1_r07k6"]
 [ext_resource type="Theme" uid="uid://juf8lrlq75n8" path="res://theme/panel.theme" id="3_hrt2f"]
-[ext_resource type="Texture2D" uid="uid://cn5hrit3ef6tg" path="res://gfx/White1px.png" id="4_kypo5"]
 
 [sub_resource type="Animation" id="Animation_fsd5j"]
 resource_name = "default"
@@ -135,10 +134,6 @@ _data = {
 "reveal": SubResource("Animation_sdu2y")
 }
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m5i83"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 98, 0)
-
 [node name="Attract" type="CanvasLayer"]
 
 [node name="PhaseTimer" type="Timer" parent="."]
@@ -264,10 +259,5 @@ libraries = {
 "": SubResource("AnimationLibrary_8wvfq")
 }
 autoplay = "reveal"
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(441, 195)
-process_material = SubResource("ParticleProcessMaterial_m5i83")
-texture = ExtResource("4_kypo5")
 
 [connection signal="timeout" from="PhaseTimer" to="Phases" method="_on_phase_timer_timeout"]

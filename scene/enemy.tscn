@@ -127,7 +127,8 @@ func _ready():
 
 
 func enter_from(from: State, params: Dictionary) -> bool:
-	%RayCast2D.enabled = false
+	var sc: ScanComponent = sm.get_meta(\"scan_component\")
+	sc.scanning = false
 	var ap = $AnimationPlayer
 	var pc = params[\"completion\"]
 	if !ap.is_connected(\"animation_finished\", pc):
