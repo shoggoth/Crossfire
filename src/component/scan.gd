@@ -27,4 +27,4 @@ func _on_timer_timeout() -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print(body, " - ", player)
+	if scanning && player == body: threat_detected.emit(Vector2.ZERO)

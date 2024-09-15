@@ -49,3 +49,8 @@ func _on_weapon_component_weapon_fired(_source_node, _direction):
 
 func _on_weapon_component_weapon_ready():
 	state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
+
+
+func _on_scan_component_threat_detected(direction: Vector2) -> void:
+	if direction:
+		state_machine.enter_state_named("Fire", { "direction" : direction })
