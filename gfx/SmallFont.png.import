@@ -13,10 +13,13 @@ dest_files=["res://.godot/imported/SmallFont.png-7c3c19cf0f99987fe289c3fafadf1f7
 [params]
 
 character_ranges=PackedStringArray("\' \'", "\'A\'-\'Z\'", "\'0\'-\'9\'", "\'.\'", "\',\'", "39", "\'?\'", "\'!\'", "\'/\'", "45", "\'a\'-\'e\'")
+kerning_pairs=PackedStringArray()
 columns=49
 rows=1
 image_margin=Rect2i(0, 0, 0, 0)
 character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
 fallbacks=[]
 compress=true
 scaling_mode=0

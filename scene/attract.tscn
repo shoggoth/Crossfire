@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bb3bwwfrmos4v"]
 
 [ext_resource type="Texture2D" uid="uid://c644b0xb563gh" path="res://gfx/logo.png" id="1_awptr"]
-[ext_resource type="Script" path="res://scene/attract.gd" id="1_r07k6"]
+[ext_resource type="Script" uid="uid://c2e4by0mef4qx" path="res://scene/attract.gd" id="1_r07k6"]
 [ext_resource type="Theme" uid="uid://juf8lrlq75n8" path="res://theme/panel.theme" id="3_hrt2f"]
 
 [sub_resource type="Animation" id="Animation_fsd5j"]
@@ -35,7 +35,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1k464"]
 _data = {
-"default": SubResource("Animation_fsd5j")
+&"default": SubResource("Animation_fsd5j")
 }
 
 [sub_resource type="Animation" id="Animation_cistl"]
@@ -70,7 +70,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6vrep"]
 _data = {
-"default": SubResource("Animation_cistl")
+&"default": SubResource("Animation_cistl")
 }
 
 [sub_resource type="Animation" id="Animation_2p5kd"]
@@ -130,8 +130,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8wvfq"]
 _data = {
-"RESET": SubResource("Animation_2p5kd"),
-"reveal": SubResource("Animation_sdu2y")
+&"RESET": SubResource("Animation_2p5kd"),
+&"reveal": SubResource("Animation_sdu2y")
 }
 
 [node name="Attract" type="CanvasLayer"]
@@ -155,7 +155,7 @@ offset = Vector2(-145, -151.2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Phases/Title"]
 libraries = {
-"": SubResource("AnimationLibrary_1k464")
+&"": SubResource("AnimationLibrary_1k464")
 }
 autoplay = "default"
 
@@ -179,7 +179,7 @@ offset = Vector2(-145, -151.2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Phases/HighScore"]
 libraries = {
-"": SubResource("AnimationLibrary_6vrep")
+&"": SubResource("AnimationLibrary_6vrep")
 }
 autoplay = "default"
 
@@ -256,7 +256,7 @@ shortcut_keys_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Texts"]
 libraries = {
-"": SubResource("AnimationLibrary_8wvfq")
+&"": SubResource("AnimationLibrary_8wvfq")
 }
 autoplay = "reveal"
 

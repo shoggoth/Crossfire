@@ -1,16 +1,16 @@
 [gd_scene load_steps=22 format=3 uid="uid://c7usp7o48ccjh"]
 
-[ext_resource type="Script" path="res://scene/player.gd" id="1_y4yyr"]
-[ext_resource type="Shader" path="res://shader/explode.gdshader" id="2_vr2vu"]
+[ext_resource type="Script" uid="uid://b3g7rer431x05" path="res://scene/player.gd" id="1_y4yyr"]
+[ext_resource type="Shader" uid="uid://bupbxhwce2row" path="res://shader/explode.gdshader" id="2_vr2vu"]
 [ext_resource type="Texture2D" uid="uid://bxh0sliiqp7yw" path="res://gfx/Player.png" id="3_6gc45"]
-[ext_resource type="Script" path="res://src/state/state_machine.gd" id="3_mq2sw"]
-[ext_resource type="Script" path="res://src/component/hurtbox.gd" id="4_7xd63"]
-[ext_resource type="Script" path="res://src/component/health.gd" id="5_7le23"]
+[ext_resource type="Script" uid="uid://d0f445aggbcbd" path="res://src/state/state_machine.gd" id="3_mq2sw"]
+[ext_resource type="Script" uid="uid://mpnqoygu2cvg" path="res://src/component/hurtbox.gd" id="4_7xd63"]
+[ext_resource type="Script" uid="uid://crt8m8dilxm45" path="res://src/component/health.gd" id="5_7le23"]
 [ext_resource type="AudioStream" uid="uid://bdssfhu5dlqm5" path="res://sound/Explode.wav" id="5_ji6is"]
-[ext_resource type="Script" path="res://src/component/grid_move.gd" id="6_uynyl"]
-[ext_resource type="Script" path="res://src/component/weapon.gd" id="8_h7v4t"]
+[ext_resource type="Script" uid="uid://dqyyxyy7yc6up" path="res://src/component/grid_move.gd" id="6_uynyl"]
+[ext_resource type="Script" uid="uid://p37towmalkg0" path="res://src/component/weapon.gd" id="8_h7v4t"]
 [ext_resource type="PackedScene" uid="uid://dn74gcwqk5qge" path="res://scene/bullet.tscn" id="9_etqh0"]
-[ext_resource type="Script" path="res://src/component/input.gd" id="9_y1i6h"]
+[ext_resource type="Script" uid="uid://dk1v770ee6idh" path="res://src/component/input.gd" id="9_y1i6h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5xd3s"]
 radius = 8.0
@@ -220,8 +220,8 @@ tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w1eau"]
 _data = {
-"RESET": SubResource("Animation_tswnf"),
-"explode": SubResource("Animation_ityh2")
+&"RESET": SubResource("Animation_tswnf"),
+&"explode": SubResource("Animation_ityh2")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -301,7 +301,7 @@ health_component = NodePath("../../HealthComponent")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine/Explode"]
 process_mode = 3
 libraries = {
-"": SubResource("AnimationLibrary_w1eau")
+&"": SubResource("AnimationLibrary_w1eau")
 }
 
 [node name="Explode" type="AudioStreamPlayer" parent="StateMachine/Explode"]
