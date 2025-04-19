@@ -30,7 +30,10 @@ func _on_move_component_finished_moving(_mc):
 	#print("Self = ", Global.grid_position(state_machine.get_meta("parent_node")))
 	match state_machine.current_state.name:
 		"Lurk":
-			state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3), "prioritise_x" : enemy.spawn_pos.y != 0 })
+			if randf() < 0.05: # Make this dependent on the nuber already tracking maybe?
+				state_machine.enter_state_named("Track", { "destination" : Vector2(3, 3), "prioritise_x" : enemy.spawn_pos.y != 0 })
+			else:
+				state_machine.enter_state_named("Hide")
 		#"Move": state_machine.enter_state_named("Wander")
 		#"Track": state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 		"Track":
