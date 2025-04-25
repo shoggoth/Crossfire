@@ -14,8 +14,8 @@ config/name="Crossfire"
 run/main_scene="res://scene/game.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/fullsize=false
-boot_splash/image="res://gfx/Logo.png"
-config/icon="res://gfx/Logo.png"
+boot_splash/image="uid://c644b0xb563gh"
+config/icon="uid://c644b0xb563gh"
 
 [audio]
 
@@ -24,6 +24,10 @@ buses/default_bus_layout="res://sound/default_bus.tres"
 [autoload]
 
 Global="*res://src/global.gd"
+
+[debug]
+
+gdscript/warnings/standalone_ternary=0
 
 [display]
 

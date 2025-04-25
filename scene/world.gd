@@ -1,6 +1,5 @@
 class_name World extends Node2D
 
-
 signal score_changed(by: int)
 signal game_over(score: int)
 
@@ -15,10 +14,8 @@ var total_score: int = 0:
 		score_changed.emit(total_score)
 		%Score.text = str(total_score)
 
-
 func _on_player_spawned(p: Player):
-	var mc := p.get_node("MoveComponent") as MoveComponent
-
+	var _mc := p.get_node("MoveComponent") as MoveComponent
 
 func _on_player_destroyed(p: Player):
 	men_left -= 1
@@ -29,11 +26,9 @@ func _on_player_destroyed(p: Player):
 		p.queue_free()
 		game_over.emit(total_score)
 
-
 func _on_enemy_spawned(e: Enemy):
 	var sc := e.get_node("ScanComponent") as ScanComponent
 	sc.player = $Player
-
 
 func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
 	if snap.destroyed_count == 64: spawn_new_level()
@@ -41,15 +36,12 @@ func _on_enemy_spawn_snapshot_changed(snap: Spawner.Snapshot):
 	print(snap.destroyed_count, " destroyed")
 	print(snap.mutation_count, " mutated")
 
-
 func _on_enemy_destroyed(e: Enemy):
 	e.queue_free()
 	total_score += 2 ** e.type * 10
 
-
 func _on_picked_up_lantern(lantern: Pickup):
 	total_score += lantern.score_value
-
 
 func spawn_new_level():
 	level_number += 1

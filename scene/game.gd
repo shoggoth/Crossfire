@@ -1,11 +1,9 @@
 extends Node
 
+@onready var transition = $Transition
 
 var _world: World
 var _attract: Node
-
-@onready var transition = $Transition
-
 
 func _ready():
 	_attract = $Attract.create_instance()

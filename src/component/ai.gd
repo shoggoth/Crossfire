@@ -1,9 +1,7 @@
 class_name AIComponent extends Node
 
-
 @export_group("Capabilities")
 @export var intelligence := 4
-
 @export_group("Control")
 @export var state_machine: StateMachine
 
@@ -11,7 +9,6 @@ class_name AIComponent extends Node
 @onready var weapon = enemy.get_node("WeaponComponent")
 
 var _thinking_time = 0.0
-
 
 func _process(delta):
 	_thinking_time += delta
@@ -24,7 +21,6 @@ func _process(delta):
 
 func _on_state_machine_state_changed(_from, _to):
 	pass
-
 
 func _on_move_component_finished_moving(_mc):
 	#print("Self = ", Global.grid_position(state_machine.get_meta("parent_node")))
@@ -45,14 +41,11 @@ func _on_move_component_finished_moving(_mc):
 		#"Track": state_machine.enter_state_named("Wander")
 	#ray_cast.rotation += PI * 0.5
 
-
 func _on_weapon_component_weapon_fired(_source_node, _direction):
 	state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
 
-
 func _on_weapon_component_weapon_ready():
 	state_machine.enter_state_named("Track", { "destination" : Vector2(randi_range(1, 6), randi_range(1, 5)) })
-
 
 func _on_scan_component_threat_detected(direction: Vector2) -> void:
 	if direction:

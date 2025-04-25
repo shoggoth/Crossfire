@@ -1,6 +1,5 @@
 class_name HealthComponent extends Node
 
-
 signal health_changed(health: float)
 signal invincibility_changed(state: bool)
 
@@ -14,13 +13,11 @@ signal invincibility_changed(state: bool)
 var invincible := false: set = _set_invincible
 var _invincibility_timer := Timer.new()
 
-
 func _ready():
 	_invincibility_timer.one_shot = true
 	_invincibility_timer.name = "Invincibility Timer"
 	_invincibility_timer.timeout.connect(func(): invincible = false)
 	add_child(_invincibility_timer)
-
 
 func damage(dmg: float) -> float:
 	if !invincible:
@@ -30,12 +27,10 @@ func damage(dmg: float) -> float:
 		health_changed.emit(health)
 	return health
 
-
 func heal(amount: float) -> float:
 	health = clamp(health + amount, health, max_health)
 	health_changed.emit(health)
 	return health
-
 
 func _set_invincible(value: bool):
 	if value == invincible: return

@@ -1,6 +1,5 @@
 class_name WeaponComponent extends Node
 
-
 signal weapon_fired(source_node: Node2D, direction: Vector2)
 signal weapon_ready
 
@@ -14,14 +13,11 @@ signal weapon_ready
 @export var quantise_direction: bool = false
 
 var can_fire := true
-
 var _pool: Array[Node2D]
-
 
 func _ready():
 	for _t in pool_size:
 		_pool.append(bullet_scene.instantiate())
-
 
 func fire(source_node: Node2D, direction: Vector2) -> bool:
 	if !can_fire: return false
@@ -35,7 +31,6 @@ func fire(source_node: Node2D, direction: Vector2) -> bool:
 	add_child(b)
 	weapon_fired.emit(source_node, direction)
 	return true
-
 
 func _on_timer_timeout():
 	can_fire = true

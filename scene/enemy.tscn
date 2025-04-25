@@ -32,13 +32,10 @@ size = Vector2(128, 128)
 resource_name = "Hide"
 script/source = "extends State
 
-
 var home_pos: Vector2
-
 
 func _ready():
 	valid_transitions = [\"Lurk\"]
-
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	if !from: return true
@@ -54,15 +51,12 @@ func enter_from(from: State, params: Dictionary) -> bool:
 resource_name = "Lurk"
 script/source = "extends State
 
-
 @export var weapon_component: WeaponComponent
 
 var home_pos: Vector2
 
-
 func _ready():
 	valid_transitions = [\"Hide\", \"Track\", \"Fire\", \"Explode\"]
-
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	var mc = sm.get_meta(\"move_component\")
@@ -77,13 +71,10 @@ func enter_from(from: State, params: Dictionary) -> bool:
 resource_name = "Track"
 script/source = "extends State
 
-
 @export var weapon_component: WeaponComponent
-
 
 func _ready():
 	valid_transitions = [\"Lurk\", \"Track\", \"Fire\", \"Explode\"]
-
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	var track_pos = params[\"destination\"] as Vector2
@@ -98,15 +89,12 @@ func enter_from(from: State, params: Dictionary) -> bool:
 resource_name = "Fire"
 script/source = "extends State
 
-
 @export var weapon_component: WeaponComponent
 
 var home_pos: Vector2
 
-
 func _ready():
 	valid_transitions = [\"Hide\", \"Track\", \"Explode\"]
-
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	print(\"Fire : \", params[\"direction\"])
@@ -118,13 +106,10 @@ func enter_from(from: State, params: Dictionary) -> bool:
 resource_name = "Explode"
 script/source = "extends State
 
-
 @export var health_component: HealthComponent
-
 
 func _ready():
 	valid_transitions = []
-
 
 func enter_from(from: State, params: Dictionary) -> bool:
 	var sc: ScanComponent = sm.get_meta(\"scan_component\")
