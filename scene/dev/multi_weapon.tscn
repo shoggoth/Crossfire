@@ -8,5 +8,4 @@
 position = Vector2(100, 100)
 gizmo_extents = 100.0
 script = ExtResource("1_ala50")
-darken = 1.0
 metadata/_custom_type_script = "uid://b7b2w8r0mwbyd"
