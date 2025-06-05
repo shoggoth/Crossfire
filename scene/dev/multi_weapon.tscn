@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo412h7kxmmdm"]
+
+[ext_resource type="Script" uid="uid://b7b2w8r0mwbyd" path="res://src/util/debug_marker_2d.gd" id="1_ala50"]
+
+[node name="SceneRoot" type="Node"]
+
+[node name="Gun" type="Marker2D" parent="."]
+position = Vector2(100, 100)
+gizmo_extents = 100.0
+script = ExtResource("1_ala50")
+darken = 1.0
+metadata/_custom_type_script = "uid://b7b2w8r0mwbyd"
